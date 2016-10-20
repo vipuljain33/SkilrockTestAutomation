@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -39,6 +40,11 @@ public class AttachHooks {
 			options.addArguments("ignore-certificate-errors");
 			options.addArguments("--allow-running-insecure-content");
 			driver = new ChromeDriver(options);
+		}
+		if(ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox"))
+		{
+			driver = new FirefoxDriver();
+			
 		}
 		System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
 		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
