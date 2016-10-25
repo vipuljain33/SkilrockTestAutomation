@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -20,6 +22,7 @@ public class AttachHooks {
 	
 	private Scenario scenario;
 	public static WebDriver driver;
+	private static Logger LOGGER = LoggerFactory.getLogger(AttachHooks.class);
 	
 	CommonFunctionLibrary functionLibrary;
 	
@@ -27,6 +30,7 @@ public class AttachHooks {
 	@Before
 	public void setUp(Scenario scenario)
 	{
+		LOGGER.info("Inside set up method of before hook");
 		ConfigManager.loadConfig();
 		this.scenario = scenario;
 		System.out.println(scenario.getName());
@@ -36,9 +40,9 @@ public class AttachHooks {
 			
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--disable-extensions");
-			options.addArguments("ignore-certificate-errors");
-			options.addArguments("--allow-running-insecure-content");
+			//options.addArguments("--disable-extensions");
+			//options.addArguments("ignore-certificate-errors");
+			//options.addArguments("--allow-running-insecure-content");
 			driver = new ChromeDriver(options);
 		}
 		if(ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox"))
@@ -46,7 +50,7 @@ public class AttachHooks {
 			driver = new FirefoxDriver();
 			
 		}
-		System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
+		//System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
 		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
 		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
 		//driver = new ChromeDriver();
