@@ -40,7 +40,7 @@ public class LoginFeatureStepDef {
 		loginPage.enterPassword("12345678");
 	    }
 
-	@Then("^HomePage should (?:be|not be) visible$")
+	@Then("^HomePage should be visible$")
 	public void validateHomePage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    //click Login and verify
@@ -48,6 +48,17 @@ public class LoginFeatureStepDef {
 		if(homePage == null)
 		{
 			Assert.fail();
+		}
+	}
+	
+	@Then("^HomePage should not be visible$")
+	public void validateHomePageNotVisible() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    //click Login and verify
+		homePage = loginPage.clickLogin();
+		if(homePage == null)
+		{
+			System.out.println("Home page is not visible when invalid credentials entered");
 		}
 	}
 	
@@ -64,5 +75,48 @@ public class LoginFeatureStepDef {
 		loginPage.enterPassword(pwd);
 	    
 	}
+	
+	
+	@When("^blank credentials are entered$")
+	public void blank_credentials_are_entered() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		loginPage.enterUsername(" ");
+		loginPage.enterPassword(" ");
+		loginPage.clickLogin();
+	}
+
+	@Then("^verify error msg$")
+	public void verify_error_msg() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		//System.out.println("this is error Message");
+		loginPage.verifyerror();
+		
+		
+		
+	}
+
+	@When("^only username credentials are entered$")
+	public void only_username_credentials_are_entered() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		loginPage.enterUsername("bomaster");
+		loginPage.enterPassword(" ");
+		loginPage.clickLogin();
+	}
+
+	@When("^only password credentials are entered$")
+	public void only_password_credentials_are_entered() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		loginPage.enterUsername(" ");
+		loginPage.enterPassword("12345678");
+		loginPage.clickLogin();
+	}
+
+	@When("^wrong username and password credentials are entered$")
+	public void wrong_username_and_password_credentials_are_entered() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		loginPage.enterUsername("fduifhduighlsiedu");
+		loginPage.enterPassword("4567834899045");
+	}
+
 
 }
