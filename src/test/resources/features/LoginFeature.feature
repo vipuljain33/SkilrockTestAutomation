@@ -36,6 +36,8 @@ Feature: This is login feature
     Given Login page is opened
     When only password credentials are entered
     Then verify error msg
+    
+    Scenario: Invalid scenario
 
   
 
