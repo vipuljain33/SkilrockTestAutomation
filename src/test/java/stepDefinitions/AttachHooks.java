@@ -46,11 +46,11 @@ public class AttachHooks {
 			driver = new FirefoxDriver();
 			
 		}
-		System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
+		//System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
 		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
 		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
 		//driver = new ChromeDriver();
-		driver.get("http://192.168.124.201:8180/LMSLagos");
+		driver.get("http://192.168.124.73:8180/LMSLinuxNew");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		System.out.println(driver.getTitle());
