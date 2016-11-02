@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
+import pages.BasePage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -19,6 +19,7 @@ public class LoginFeatureStepDef {
 	LoginPage loginPage;
 	WebDriver Driver;
 	HomePage homePage;
+	BasePage basePage;
 	
 	
 	@Given("^Login page is opened$")
@@ -44,7 +45,8 @@ public class LoginFeatureStepDef {
 	public void validateHomePage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    //click Login and verify
-		homePage = loginPage.clickLogin();
+		basePage = loginPage.clickLogin();
+		homePage = (HomePage) basePage;
 		if(homePage == null)
 		{
 			Assert.fail();
@@ -55,7 +57,8 @@ public class LoginFeatureStepDef {
 	public void validateHomePageNotVisible() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    //click Login and verify
-		homePage = loginPage.clickLogin();
+		basePage = loginPage.clickLogin();
+		homePage = (HomePage)basePage;
 		if(homePage == null)
 		{
 			System.out.println("Home page is not visible when invalid credentials entered");

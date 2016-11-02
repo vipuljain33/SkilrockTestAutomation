@@ -25,7 +25,9 @@ public class CommonFunctionLibrary {
 	{
 		try
 		{
+			driver.switchTo().defaultContent();
 			wait = new WebDriverWait(driver, 5);
+			
 			wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameId));
 		//driver.switchTo().frame(frameId);
 			System.out.println(driver.getWindowHandle());
