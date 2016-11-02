@@ -40,7 +40,7 @@ public class AttachHooks {
 			
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
-			//options.addArguments("--disable-extensions");
+			options.addArguments("--disable-extensions");
 			//options.addArguments("ignore-certificate-errors");
 			//options.addArguments("--allow-running-insecure-content");
 			driver = new ChromeDriver(options);
