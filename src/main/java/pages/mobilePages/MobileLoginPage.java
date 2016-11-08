@@ -1,6 +1,5 @@
 package pages.mobilePages;
 
-import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import io.appium.java_client.android.AndroidKeyCode;
 import objectRepository.LoginPageLocators;
 import pages.BasePage;
-import pages.HomePage;
 import pages.LoginPage;
 
 public class MobileLoginPage extends BasePage {
