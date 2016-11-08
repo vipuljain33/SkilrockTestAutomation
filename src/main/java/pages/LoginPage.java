@@ -10,9 +10,8 @@ import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import objectRepository.LoginPageLocators;
-import stepDefinitions.AttachHooks;
-import utils.CommonFunctionLibrary;
+
+
 
 public class LoginPage extends BasePage {
 	CommonFunctionLibrary functionLibrary;
