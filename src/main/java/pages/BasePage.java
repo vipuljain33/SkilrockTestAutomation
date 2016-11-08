@@ -7,6 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.CommonFunctionLibrary;
 
+import objectRepository.HomePageLocator;
+import objectRepository.LuckeyNumberPageLocator;
+
 public class BasePage {
 
 	protected WebDriver driver;
@@ -16,6 +19,7 @@ public class BasePage {
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
 		functionLibrary = new CommonFunctionLibrary(this.driver);
+
 	}
 
 	public boolean isElementPresent(By locator, int timeoutInSeconds) {

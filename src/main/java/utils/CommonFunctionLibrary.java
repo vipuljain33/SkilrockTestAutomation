@@ -24,8 +24,12 @@ public class CommonFunctionLibrary {
 	public boolean switchFrame(String frameId)
 
 	{
-		try {
+		try
+		{
+			driver.switchTo().defaultContent();
+
 			wait = new WebDriverWait(driver, 5);
+			
 			wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameId));
 			// driver.switchTo().frame(frameId);
 			System.out.println(driver.getWindowHandle());

@@ -18,8 +18,10 @@ public class LoginFeatureStepDef {
 	LoginPage loginPage;
 	WebDriver driver;
 	HomePage homePage;
-	CommonFunctionLibrary functionLibrary;
 	BasePage basePage;
+	CommonFunctionLibrary functionLibrary;
+	
+
 
 	@Given("^Login page is opened$")
 	public void login_page_is_opened() throws Throwable {
@@ -42,21 +44,41 @@ public class LoginFeatureStepDef {
 
 	@Then("^HomePage should be visible$")
 	public void validateHomePage() throws Throwable {
+
+	    // Write code here that turns the phrase above into concrete actions
+	    //click Login and verify
+		basePage = loginPage.clickLogin();
+		homePage = (HomePage) basePage;
+		if(homePage == null)
+		{
+
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		homePage = loginPage.clickLogin();
+		homePage = (HomePage) loginPage.clickLogin();
 		if (homePage == null) {
+
 			Assert.fail();
+		}
 		}
 	}
 
 	@Then("^HomePage should not be visible$")
 	public void validateHomePageNotVisible() throws Throwable {
+
+	    // Write code here that turns the phrase above into concrete actions
+	    //click Login and verify
+		basePage = loginPage.clickLogin();
+		homePage = (HomePage)basePage;
+		if(homePage == null)
+		{
+
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		homePage = loginPage.clickLogin();
+		homePage = (HomePage) loginPage.clickLogin();
 		if (homePage == null) {
+
 			System.out.println("Home page is not visible when invalid credentials entered");
+		}
 		}
 	}
 

@@ -4,18 +4,27 @@ import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
+
+
 import org.slf4j.LoggerFactory;
 import objectRepository.LoginPageLocators;
+import objectRepository.HomePageLocator;
+import objectRepository.LoginPageLocators;
+import objectRepository.LuckeyNumberPageLocator;
+import utils.CommonFunctionLibrary;
+import org.slf4j.Logger;
 
 
 
 public class LoginPage extends BasePage {
+	
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
+
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		System.out.println(driver);
+		//functionLibrary = new CommonFunctionLibrary(driver);
 		if (isElementPresent(LoginPageLocators.userTextfield, 5)) {
 			System.out.println("Userbox is present");
 		} else {
@@ -39,10 +48,23 @@ public class LoginPage extends BasePage {
 
 	}
 
-	public HomePage clickLogin() {
+	public BasePage clickLogin() {
 		try {
 			driver.findElement(LoginPageLocators.loginBtn).click();
-			return new HomePage(driver);
+			if(functionLibrary.switchFrame("topFrame"))
+			{
+				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase("bomaster"))
+				{
+					
+					return new HomePage(driver);
+				}
+			}
+			if(isElementPresent(LuckeyNumberPageLocator.drawgamelocator, 5))
+			{
+				return new LuckyNumberPage(driver);
+			}
+			return null;
+			//return new BasePage(driver);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
