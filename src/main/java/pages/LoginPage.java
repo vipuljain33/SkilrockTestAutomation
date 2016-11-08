@@ -6,10 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import objectRepository.LoginPageLocators;
-import stepDefinitions.AttachHooks;
-import utils.CommonFunctionLibrary;
+
+
 
 public class LoginPage extends BasePage {
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
