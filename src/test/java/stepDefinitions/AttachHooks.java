@@ -42,7 +42,7 @@ public class AttachHooks {
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
 			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
 				try {
-					//DriverFactory.appiumStop();
+					// DriverFactory.appiumStop();
 					DriverFactory.appiumStart();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -57,7 +57,7 @@ public class AttachHooks {
 				capabilities.setCapability("platformVersion", ConfigManager.getProperty("PlatformVersion"));
 				capabilities.setCapability("platformName", ConfigManager.getProperty("PlatformName"));
 				capabilities.setCapability("app", ConfigManager.getProperty("ApkPath"));
-				
+
 				try {
 					driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 				} catch (MalformedURLException e) {
@@ -81,19 +81,24 @@ public class AttachHooks {
 				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 			}
 		}
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
+				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("--disable-extensions");
+				// options.addArguments("ignore-certificate-errors");
+				// options.addArguments("--allow-running-insecure-content");
+				driver = new ChromeDriver(options);
+			}
 
-		if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--disable-extensions");
-			// options.addArguments("ignore-certificate-errors");
-			// options.addArguments("--allow-running-insecure-content");
-			driver = new ChromeDriver(options);
-		}
+			else if (ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox")) {
+				driver = new FirefoxDriver();
 
-		if (ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
-
+			}
+			driver.get("http://192.168.124.73:8180/LMSLinuxNew");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().window().maximize();
+			System.out.println(driver.getTitle());
 		}
 		// System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
 		// System.setProperty("webdriver.chrome.driver",
@@ -101,12 +106,7 @@ public class AttachHooks {
 		// System.setProperty("webdriver.chrome.driver",
 		// System.getProperty("user.dir")+"\\chromedriver.exe");
 		// driver = new ChromeDriver();
-		driver.get("http://192.168.124.73:8180/LMSLinuxNew");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		System.out.println(driver.getTitle());
 		functionLibrary = new CommonFunctionLibrary(driver);
-
 	}
 
 	@After
