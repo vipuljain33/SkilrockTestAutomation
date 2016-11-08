@@ -1,16 +1,23 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import objectRepository.HomePageLocator;
 import objectRepository.LoginPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import objectRepository.LoginPageLocators;
+import stepDefinitions.AttachHooks;
+import utils.CommonFunctionLibrary;
 
 public class LoginPage extends BasePage {
 	CommonFunctionLibrary functionLibrary;
+	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
+
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
@@ -26,7 +33,7 @@ public class LoginPage extends BasePage {
 		WebElement elem = findElement(LoginPageLocators.userTextfield, 5);
 
 		if (elem == null) {
-			throw new IllegalStateException();
+			throw new ElementNotVisibleException("UserText field not visible");
 		}
 	}
 
@@ -57,6 +64,7 @@ public class LoginPage extends BasePage {
 			return null;
 			//return new BasePage(driver);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			return null;
 		}
 
