@@ -17,7 +17,7 @@ public class MobileLoginPage extends BasePage {
 	public MobileLoginPage(WebDriver driver) throws InterruptedException {
 		super(driver);
 		System.out.println(driver);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 
 		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
 		buttonClick(LoginPageLocators.drawerImageAndroid);

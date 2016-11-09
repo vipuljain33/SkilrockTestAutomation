@@ -34,10 +34,9 @@ public class MobileLoginStepDef {
 	public void valid_credentials_are_entered_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// enter valid credentials
-		mobileLoginPage.username("shreya");
-		mobileLoginPage.password("12345678");
-
 		try {
+			mobileLoginPage.username("shreya");
+			mobileLoginPage.password("12345678");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception in Valid app credentials");
@@ -69,7 +68,6 @@ public class MobileLoginStepDef {
 	public void AppHomeScreen_not_visible_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		mobileLoginPage.clickLogin();
 		mobileHomePage = mobileLoginPage.clickLogin();
 		if (mobileHomePage != null) {
 			Assert.fail();
