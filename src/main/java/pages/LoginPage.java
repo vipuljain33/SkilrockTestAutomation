@@ -1,20 +1,29 @@
 package pages;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import DataBaseQuery.DBConnection;
+import DataBaseQuery.LoginSqlQuery;
 import objectRepository.HomePageLocator;
 import objectRepository.LoginPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
 
 public class LoginPage extends BasePage {
+	 
 	CommonFunctionLibrary functionLibrary;
-
+	String username=null;
+	
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		System.out.println(driver);
+		
 		functionLibrary = new CommonFunctionLibrary(driver);
 		if (isElementPresent(LoginPageLocators.userTextfield, 5)) {
 			System.out.println("Userbox is present");
@@ -44,9 +53,8 @@ public class LoginPage extends BasePage {
 			driver.findElement(LoginPageLocators.loginBtn).click();
 			if(functionLibrary.switchFrame("topFrame"))
 			{
-				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase("bomaster"))
+				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase(username))
 				{
-					
 					return new HomePage(driver);
 				}
 			}
@@ -96,4 +104,21 @@ public class LoginPage extends BasePage {
 		
 	}
 
+	public void LoginWithActiveUser() throws SQLException{
+		DBConnection dbconnection= new DBConnection();	
+		Connection connection= dbconnection.CreateConnectionForLMS();
+		ResultSet rs = dbconnection.ExecuteQuery(connection,LoginSqlQuery.activeuser,"active","RETAILER");
+		
+
+		while (rs.next()) {
+			System.out.println(username=rs.getString(1));
+			username=rs.getString(1);
+		}
+		
+	    enterUsername(username);
+		enterPassword("12345678");
+		
+	}
+	
+	
 }

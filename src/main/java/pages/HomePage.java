@@ -25,7 +25,7 @@ public class HomePage extends BasePage {
 		}
 		//new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.sw)
 		WebElement elem = findElement(HomePageLocator.currentLoggedUser, 5);
-		if(elem.getText().equalsIgnoreCase("bomaster"))
+		if(elem != null)
 		{
 			System.out.println("Home page is opened");
 		}else

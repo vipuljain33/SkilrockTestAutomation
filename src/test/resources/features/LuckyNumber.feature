@@ -75,9 +75,24 @@ Feature: Lucky Number Sale
       |      15 |     455 |
       |      20 |    1140 |
 
-
-  @test
   Scenario: Validate panel price for permone bet types
     When Permone bet type is selected
     And selected numbers ten are given
     Then total ticket amount should be one
+ 
+ Scenario: Verify after selecting QP for perm1
+  When QP is selected
+  Then verify selected numbers on purches details 
+  
+  Scenario: Verify after selecting QP for perm2
+  Given  Permtwo bet type is selected
+  When QP is selected
+  And qpfield enable
+  Then verify selected numbers for parmtwo on purches details 
+  
+  Scenario: Verify after selecting QP for perm3
+  Given Permthree bet type is selected
+  When QP is selected
+  And qpfield enable
+  Then verify selected numbers for parmthree on purches details 
+    

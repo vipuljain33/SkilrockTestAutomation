@@ -21,4 +21,15 @@ public class LuckeyNumberPageLocator {
 	public static By qpEnteredTxt=By.xpath("//input[@id='numToBePickedFN']");
 	public static By qpTicketPrice=By.xpath("//button[@id='buy']//span[@id='tktPrice']");
 	
+	public static By BetTypeLocator=By.className("bettypes");
+	
+//***************************************	
+	 public static By qplocator = By.xpath(".//*[@id='qpCheck']");
+	 public static By numpicked = By.xpath(".//*[@id='numPicked']");
+	 public static By selectednum = By.xpath("//*[contains(@class,'selectnumber')]");
+	 
+	 public static By qpfield = By.xpath("html/body/div[2]/div[2]/div[2]/div[3]/div[7]/input");
+	 
+	
+	
 }

@@ -2,9 +2,15 @@ package stepDefinitions;
 
 
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
+import DataBaseQuery.DBConnection;
+import DataBaseQuery.LoginSqlQuery;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,7 +26,7 @@ public class LoginFeatureStepDef {
 	WebDriver Driver;
 	HomePage homePage;
 	BasePage basePage;
-	
+	DBConnection bdconnection;
 	
 	@Given("^Login page is opened$")
 	public void login_page_is_opened() throws Throwable {
@@ -37,8 +43,7 @@ public class LoginFeatureStepDef {
 	public void valid_credentials_are_entered() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		//enter valid credentials
-		loginPage.enterUsername("bomaster");
-		loginPage.enterPassword("12345678");
+		loginPage.LoginWithActiveUser();
 	    }
 
 	@Then("^HomePage should be visible$")

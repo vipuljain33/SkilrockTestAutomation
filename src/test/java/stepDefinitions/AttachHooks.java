@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +49,13 @@ public class AttachHooks {
 		if(ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox"))
 		{
 			driver = new FirefoxDriver();
+			
+		}
+		
+		if(ConfigManager.getProperty("browserName").equalsIgnoreCase("IE"))
+		{
+			System.setProperty("webdriver.ie.driver", "D:\\SkilrockAutomation\\IEDriverServer.exe");
+			driver = new InternetExplorerDriver();
 			
 		}
 		//System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");

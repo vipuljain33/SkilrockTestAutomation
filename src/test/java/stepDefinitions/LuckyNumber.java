@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.LoggerFactory;
 
 import com.sun.jna.platform.win32.WinDef.LONGLONG;
 
@@ -26,6 +27,8 @@ public class LuckyNumber {
 	HomePage homePage;
 	LuckyNumberPage lnpage;
 	BasePage basePage;
+	
+
 
 	@Given("^login with valid credentials$")
 	public void login_with_valid_credentials() throws Throwable {
@@ -57,13 +60,22 @@ public class LuckyNumber {
 	@Given("^Active bet types are present in DB$")
 	public void active_bet_types_are_present_in_DB() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		System.out.println("pass");
+		
+		if(lnpage.verifyActiveBetType()){
+			System.out.println("Active Bet Type Verified");	
+			
+			
+			
+		}else{
+			Assert.fail("Did not receive bet types from CB");
+		}		
 	}
 
 	@Then("^Active bet types are visible$")
 	public void active_bet_types_are_visible() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		System.out.println("Pass");
+		
+		System.out.println("Active Bet Type Visibility Verified");
 	}
 
 	@When("^Permone bet type is selected$")
@@ -332,6 +344,60 @@ public class LuckyNumber {
 		} else {
 			Assert.fail();
 		}
-	}
+	}	
+	  @When("^QP is selected$")
+	    public void qp_is_selected() throws Throwable {
+	    lnpage.findElement(LuckeyNumberPageLocator.qplocator,5).click();
+	   
+	     }
+	    
+	    @Then("^verify selected numbers on purches details$")
+	    public void verify_selected_numbers_on_purches_details() throws Throwable {
+	    	 if(lnpage.isQPValueMatched())
+		     {
+		      System.out.println("pass");
+		     }
+		     else
+		     {
+		     Assert.fail();
+		     }
+	    }
+	    
+	    @When("^qpfield enable$")
+	    public void qpfield_enable() throws Throwable {
+	    	 lnpage.findElement(LuckeyNumberPageLocator.qpfield,5).sendKeys("5");
+	        
+	    }
 
+	    @Then("^verify selected numbers for parmtwo on purches details$")
+	    public void verify_selected_numbers_for_parmtwo_on_purches_details() throws Throwable {
+	        // Write code here that turns the phrase above into concrete actions
+	    	
+	    	if(lnpage.isQPValueMatchedForParm2())
+		     {
+		      System.out.println("pass");
+		     }
+		     else
+		     {
+		     Assert.fail();
+		     }
+	    	
+	    }
+
+	    @Then("^verify selected numbers for parmthree on purches details$")
+	    public void verify_selected_numbers_for_parmthree_on_purches_details() throws Throwable {
+	    	if(lnpage.isQPValueMatchedForParm3())
+		     {
+		      System.out.println("pass");
+		     }
+		     else
+		     {
+		     Assert.fail();
+		     }
+	    	
+	    }
+
+
+	    
+	    
 }

@@ -1,5 +1,8 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,7 +45,7 @@ public class BasePage {
 		
 	}
 
-	public WebElement findElement(By locator, int timeoutSeconds)
+public WebElement findElement(By locator, int timeoutSeconds)
 	{
 		wait = new WebDriverWait(driver,timeoutSeconds);
 		WebElement elem =wait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -54,4 +57,24 @@ public class BasePage {
 			return null;
 		}
 	}
+
+public List <String> findElements(By locator, int timeoutSeconds)
+{
+	wait = new WebDriverWait(driver,timeoutSeconds);
+	List<WebElement> elem = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+	List <String> temp= new ArrayList<String>();
+	if(elem != null)
+	{
+		for(WebElement val : elem)
+		{
+			temp.add(val.getText());
+		}
+		return temp;
+	}else
+	{
+		return null;
+	}
+}
+
+
 }

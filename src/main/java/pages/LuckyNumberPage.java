@@ -1,5 +1,9 @@
 package pages;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,6 +14,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import DataBaseQuery.DBConnection;
+import DataBaseQuery.LoginSqlQuery;
+import DataBaseQuery.LuckyNumberSqlQuery;
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
 
@@ -178,4 +185,121 @@ public class LuckyNumberPage extends BasePage {
         	System.out.println("ticket price permone"+txt);
         	return txt.trim();
         }
+        
+        public boolean verifyActiveBetType() throws SQLException{
+        	DBConnection dbconnection= new DBConnection();	
+        	Connection connection=dbconnection.getDBConnectionDge();
+    		ResultSet rs = dbconnection.ExecuteQuery(connection, LuckyNumberSqlQuery.LuckyNumberActiveBetType,1,"active");
+    		List<String> dbbettype= new ArrayList<String>();
+    		List<String> uibettype= new ArrayList<String>();
+    		boolean flag=false;
+    		while (rs.next()) {
+    			dbbettype.add(rs.getString(1));
+    			System.out.println(rs.getString(1));    			
+    		}    		
+    		uibettype=findElements(LuckeyNumberPageLocator.BetTypeLocator, 5);
+    		
+    		if(dbbettype.equals(uibettype));   		
+    		{
+    			flag=true;
+    			LOGGER.info("DB and UI Bet types verified");
+    		}
+    		return flag;
+        }
+        
+        
+        public boolean isQPValueMatched()
+        {           
+            List<String> qpposselected=new ArrayList<String>();
+            ArrayList<String> qpselected=new ArrayList<String>();
+            
+            qpselected=(ArrayList<String>)isQpSelected(LuckeyNumberPageLocator.numpicked);
+            qpposselected=qpposselected(LuckeyNumberPageLocator.selectednum);          
+          if(qpselected.equals(qpposselected))
+          {
+           System.out.println("pass");
+           return true;
+          }
+          else
+          {
+           return false;
+          }
+         
+        }
+        
+        public boolean isQPValueMatchedForParm2()
+        {           
+            List<String> qpposselected=new ArrayList<String>();
+            ArrayList<String> qpselected=new ArrayList<String>();
+            
+            qpselected=(ArrayList<String>)isQpSelected(LuckeyNumberPageLocator.numpicked);
+            qpposselected=qpposselected(LuckeyNumberPageLocator.selectednum);          
+          if(qpselected.equals(qpposselected))
+          {
+           System.out.println("pass");
+           return true;
+          }
+          else
+          {
+           return false;
+          }
+         
+        }
+        
+        public boolean isQPValueMatchedForParm3()
+        {           
+            List<String> qpposselected=new ArrayList<String>();
+            ArrayList<String> qpselected=new ArrayList<String>();
+            
+            qpselected=(ArrayList<String>)isQpSelected(LuckeyNumberPageLocator.numpicked);
+            qpposselected=qpposselected(LuckeyNumberPageLocator.selectednum);          
+          if(qpselected.equals(qpposselected))
+          {
+           System.out.println("pass");
+           return true;
+          }
+          else
+          {
+           return false;
+          }
+         
+        }
+        
+        
+        
+        
+        
+        
+        
+        public List<String> isQpSelected(By by)
+   	 {
+   	  String str= findElement(by,5).getText();
+   	     System.out.println(str);
+   	  ArrayList<String> qpselected=new ArrayList<String>();
+   	  
+   	     for(String number:str.split(","))
+   	      {
+   	        System.out.println(number);
+   	        qpselected.add(number);
+   	       
+   	      }
+   	    return  qpselected;
+   	  
+   	 }
+        
+        public  List<String> qpposselected(By by){
+      	  
+    	    List<WebElement> qpposselected=new ArrayList<WebElement>();
+    	     
+    	       List<String> newlist=new ArrayList<String>();
+    	       qpposselected=driver.findElements(by);
+    	   for(WebElement we :qpposselected)
+    	   {
+    	    newlist.add(we.getText());
+    	   }
+    	    
+    	   System.out.println("newlist" +newlist);
+    	   return newlist;
+    	 }
+        
 }
