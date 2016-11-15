@@ -37,20 +37,16 @@ public class MobileLoginPage extends BasePage {
 
 	public MobileHomePage clickLogin() {
 
-		try
-		{
+		try {
 			buttonClick(LoginPageLocators.loginAndroid);
-			if(isElementPresent(LoginPageLocators.dismissNotification, 5))
-			{
-				if(buttonClick(LoginPageLocators.dismissNotification))
-				{
+			if (isElementPresent(LoginPageLocators.dismissNotification, 5)) {
+				if (buttonClick(LoginPageLocators.dismissNotification)) {
 					System.out.println("Notification dismissed");
-					//drawerClick();
 				}
 			}
-			
+
 			return new MobileHomePage(driver);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -62,7 +58,5 @@ public class MobileLoginPage extends BasePage {
 	public void password(String password) {
 		sendKeys(LoginPageLocators.passwordAndroid, password);
 	}
-
-	
 
 }

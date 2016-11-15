@@ -54,16 +54,15 @@ public class BasePage {
 	 * @param locator
 	 * @throws InterruptedException
 	 */
-	public boolean buttonClick(By locator)  {
-		try
-		{
-		WebElement element = findElement(locator, 10);
-		element.click();
-		return true;
-		}catch (Exception e) {
+	public boolean buttonClick(By locator) {
+		try {
+			WebElement element = findElement(locator, 10);
+			element.click();
+			return true;
+		} catch (Exception e) {
 			return false;
 		}
-		
+
 	}
 
 	/**
@@ -73,8 +72,8 @@ public class BasePage {
 	 * @param str
 	 */
 	public void sendKeys(By locator, String str) {
+		findElement(locator, 10).clear();
 		findElement(locator, 10).sendKeys(str);
 	}
-	
 
 }

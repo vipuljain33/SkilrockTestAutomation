@@ -1,18 +1,28 @@
 @MobileRegisteration
 Feature: This is Registration feature
 
+  Background: 
+    Given Open Registration popup
+
   @MobileValidReg
-  Scenario: Testing valid app enteries for Registration
-    Given Registration popup is opened
+  Scenario: Testing valid app data for Registration
     When Valid app enteries are entered
     Then Login popup should be visible
 
-  @MobileInvalidReg
-  Scenario Outline: Testing blank app enteries for Registration
-    Given Registration popup is opened
-    When blank app enteries <username> <mobileNo> <emailId> is entered
-    Then Login popup should not be visible
+  @MobileInvalidReg1
+  Scenario: Testing duplicate app data so that Registration is unsuccessful
+    When Invalid app data is entered on the page
+      | username | mobileNo   | emailId      |
+      | testdata | 9999999999 | abc@skil.com |
+      | test1    | 9560488046 | abc@skil.com |
 
-    Examples: 
-      | username | mobileNo | emailId      |
-      | test1    |          | abc@skil.com |
+  @MobileInvalidReg2
+  Scenario: Testing invalid app data so that Registration is unsuccessful
+    When Invalid app data is entered on the page
+      | username | mobileNo   | emailId      |
+      | abcde    |            | abc@skil.com |
+      |          | 9999999999 | abc@skil.com |
+      | abcde    | 9999999999 |              |
+      | abc      | 9999999999 | abc@skil.com |
+      | abcde    |     999999 | abc@skil.com |
+      | abcde    | 9999999999 | abc          |

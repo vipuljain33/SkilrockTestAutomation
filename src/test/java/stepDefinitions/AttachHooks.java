@@ -42,8 +42,10 @@ public class AttachHooks {
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
 			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
 				try {
-					// DriverFactory.appiumStop();
+					DriverFactory.appiumStop();
+					Thread.sleep(5000);
 					DriverFactory.appiumStart();
+					Thread.sleep(10000);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -112,11 +114,13 @@ public class AttachHooks {
 	@After
 	public void tearDown() throws InstantiationException, IllegalAccessException {
 
-		// driver.quit();
 		functionLibrary.embedScreenshot(scenario);
-		driver.quit();
-		if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
+
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
+			driver.quit();
 			DriverFactory.appiumStop();
+		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			driver.quit();
 		}
 	}
 
