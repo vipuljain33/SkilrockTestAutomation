@@ -19,10 +19,7 @@ public class MobileLoginPage extends BasePage {
 		System.out.println(driver);
 		Thread.sleep(10000);
 
-		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
-		buttonClick(LoginPageLocators.drawerImageAndroid);
-		buttonClick(LoginPageLocators.loginAndroid);
-
+		initiate();
 		if (isElementPresent(LoginPageLocators.usernameAndroid, 5)) {
 			System.out.println("Login popup is present");
 		} else {
@@ -33,6 +30,12 @@ public class MobileLoginPage extends BasePage {
 		if (elem == null) {
 			throw new ElementNotVisibleException("Login popup is not visible");
 		}
+	}
+
+	public void initiate() {
+		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
+		buttonClick(LoginPageLocators.drawerImageAndroid);
+		buttonClick(LoginPageLocators.loginAndroid);
 	}
 
 	public MobileHomePage clickLogin() {

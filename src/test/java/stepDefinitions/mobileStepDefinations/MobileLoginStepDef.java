@@ -10,6 +10,7 @@ import pages.mobilePages.MobileHomePage;
 import pages.mobilePages.MobileLoginPage;
 import stepDefinitions.AttachHooks;
 import utils.CommonFunctionLibrary;
+import utils.ConfigManager;
 
 public class MobileLoginStepDef {
 	WebDriver driver;
@@ -35,8 +36,8 @@ public class MobileLoginStepDef {
 		// Write code here that turns the phrase above into concrete actions
 		// enter valid credentials
 		try {
-			mobileLoginPage.username("shreya");
-			mobileLoginPage.password("12345678");
+			mobileLoginPage.username(ConfigManager.getProperty("Username"));
+			mobileLoginPage.password(ConfigManager.getProperty("Password"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception in Valid app credentials");
