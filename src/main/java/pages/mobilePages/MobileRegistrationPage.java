@@ -21,11 +21,7 @@ public class MobileRegistrationPage extends BasePage {
 		System.out.println(driver);
 		Thread.sleep(10000);
 
-		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
-		buttonClick(LoginPageLocators.drawerImageAndroid);
-		buttonClick(LoginPageLocators.loginAndroid);
-		buttonClick(LoginPageLocators.registerAndroid);
-
+		initiate();
 		if (isElementPresent(LoginPageLocators.mobileNoAndroid, 10)) {
 			System.out.println("Registration popup is present");
 		} else {
@@ -36,6 +32,13 @@ public class MobileRegistrationPage extends BasePage {
 		if (elem == null) {
 			throw new ElementNotVisibleException("Registration popup is not visible");
 		}
+	}
+
+	public void initiate() {
+		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
+		buttonClick(LoginPageLocators.drawerImageAndroid);
+		buttonClick(LoginPageLocators.loginAndroid);
+		buttonClick(LoginPageLocators.registerAndroid);
 	}
 
 	public void generateUsername() {

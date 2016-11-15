@@ -47,9 +47,6 @@ public class MobileRegistrationStepDef {
 
 	@When("^Invalid app data is entered on the page$")
 	public void enter_invalid_data_on_the_page(DataTable dataTable) throws Throwable {
-		// For automatic transformation, change DataTable to one of
-		// List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-		// E,K,V must be a scalar (String, Integer, Date, enum etc)
 		mobileRegistrationPage.enterformValues(dataTable);
 		try {
 			if (LoginPageLocators.registerUserAndroid == null) {
