@@ -1,9 +1,10 @@
 package utils;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ public class CommonFunctionLibrary{
 	
 	WebDriver driver ;
 	WebDriverWait wait;
+	
 	
 	public CommonFunctionLibrary(WebDriver driver)
 	{
@@ -61,6 +63,7 @@ public class CommonFunctionLibrary{
 		
 	}
 	
+
 	/*******************************************************************/
 	
 	/*public static String getFinalQuery(String value) {
@@ -101,11 +104,18 @@ public class CommonFunctionLibrary{
 	
 	}*/
 	
+	public void switchToAlertOk()
 	
-	
-	
-	
-	 
-	 
-	 
+	{
+		Alert alert=driver.switchTo().alert();
+	   alert.accept();
+		
+	}
+	public void switchToAlertCancel()
+	{
+		Alert alert=driver.switchTo().alert();
+		 alert.dismiss();
+		
+	}
+
 }

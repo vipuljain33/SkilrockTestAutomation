@@ -1,10 +1,19 @@
 package pages;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -16,12 +25,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LoginSqlQuery;
+import DataBaseQuery.DBConnection;
 import DataBaseQuery.LuckyNumberSqlQuery;
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
+import utils.ReusableStaticMethods;
 
 
 public class LuckyNumberPage extends BasePage {
+	static String txtBuynow;
+	static String txtPreviewTktPrice;
+	DBConnection con;
+	
 	private static Logger LOGGER = LoggerFactory.getLogger(LuckyNumberPage.class);
 	CommonFunctionLibrary functionLibrary;
 	public LuckyNumberPage(WebDriver driver) {
@@ -114,7 +129,8 @@ public class LuckyNumberPage extends BasePage {
 				Assert.fail();
 			}
 		}
-		public void isBuyButtonEnabled()
+
+		public void isBuyButtondisabled()
 		{
 			String txt=driver.findElement(LuckeyNumberPageLocator.buyNowLoctor).getAttribute("disabled");
 			System.out.println("buybutton: "+txt);
@@ -185,6 +201,7 @@ public class LuckyNumberPage extends BasePage {
         	System.out.println("ticket price permone"+txt);
         	return txt.trim();
         }
+
         
         public boolean verifyActiveBetType() throws SQLException{
         	DBConnection dbconnection= new DBConnection();	
@@ -265,12 +282,6 @@ public class LuckyNumberPage extends BasePage {
          
         }
         
-        
-        
-        
-        
-        
-        
         public List<String> isQpSelected(By by)
    	 {
    	  String str= findElement(by,5).getText();
@@ -302,4 +313,145 @@ public class LuckyNumberPage extends BasePage {
     	   return newlist;
     	 }
         
+
+        public String ticketPricePermtwo()
+        {
+        	String txt=driver.findElement(LuckeyNumberPageLocator.qpTicketPrice).getText();
+        	LOGGER.info("perm 2 ticket price:" +txt);
+        	return txt;
+        }
+        public String ticketPricePermthree()
+        {
+        	String txt=driver.findElement(LuckeyNumberPageLocator.qpTicketPrice).getText();
+        	LOGGER.info("perm 3 ticket price:" +txt);
+        	return txt;
+        }
+        
+        public boolean isBuyButtonEnable()
+        {
+        	
+        	if(findElement(LuckeyNumberPageLocator.buyNowLoctor, 5).isDisplayed())
+        	{
+        		LOGGER.info("luckey number button is enabled");
+        		txtBuynow=findElement(LuckeyNumberPageLocator.qpTicketPrice, 5).getText();
+        		LOGGER.info("txt buy now: "+txtBuynow);
+        		return true;
+        	}
+        	else
+        	{
+        		return false;
+        	}
+         } 
+        public boolean isCardnumberPopupEnable()
+        {
+        	if(findElement(LuckeyNumberPageLocator.enterCradnumberPopup, 5).isDisplayed())
+        	{	
+			return true;
+        	}
+        	else
+        	{
+        		return false;
+        	}
+        	
+        }
+        public void cardPopupCancel()
+        {
+        	functionLibrary.switchToAlertCancel();
+        }
+        public void alertboxclick()
+        {
+        	//if(functionLibrary.alertMessage().contains("Do you want to purchase"))
+        	{
+        		functionLibrary.switchToAlertOk();
+        	}
+        	
+        }
+        public boolean ticketView()
+        {
+        	if(findElement(LuckeyNumberPageLocator.ticketPreview, 5).isDisplayed())
+        	{
+        		txtPreviewTktPrice=findElement(LuckeyNumberPageLocator.txtPreviewTicketPrice,5).getText();
+        	   LOGGER.info("ticket preview amount:"+txtPreviewTktPrice);
+        	   
+        		if(ReusableStaticMethods.covertStringToTwoDecimalNum(txtPreviewTktPrice).equals(ReusableStaticMethods.covertStringToTwoDecimalNum(txtBuynow)))
+        		{
+        			return true;
+        		}
+        		else
+        		{
+        			return false;
+        		}
+        		
+        	}
+        	else
+        	{
+        		return false;
+        		
+        	}
+        }
+	 public void permthreeQpselected()
+	 {
+		 findElement(LuckeyNumberPageLocator.perm3Locator, 5).click();
+		 findElement(LuckeyNumberPageLocator.qpCheckbox, 5).click();
+		 findElement(LuckeyNumberPageLocator.qpEnteredTxt, 5).sendKeys("8");
+	 }
+	public List<Map<String, String>> returnDatabaseValue() throws SQLException
+	{
+		List<Map<String, String>> listitem=new ArrayList<Map<String, String>>();
+		String value=ReusableStaticMethods.removeZeroFromticket(findElement(LuckeyNumberPageLocator.ticketnumber, 5).getText());
+		LOGGER.info("In ticket number zero removed: "+value);
+		
+		
+		con=new DBConnection();
+	   
+		ResultSet resultset=con.ExecuteQuery(con.CreateConnectionForDGE(),LuckyNumberSqlQuery.ticketNumber, value);
+		
+		while(resultset.next())
+		{
+			
+			for(int i=1;i<=resultset.getMetaData().getColumnCount();i++)
+			{
+				HashMap<String, String> hashmap=new HashMap<String, String>();
+				hashmap.put(resultset.getMetaData().getColumnName(i),resultset.getString(i));
+				listitem.add(hashmap);
+				
+			}
+			
+		}
+		
+		return listitem;
+	}
+	public void advanceDrawVerify() throws SQLException
+	{  List<String> databaseValue=new ArrayList<String>();
+	   List<WebElement> drawlist=driver.findElements(LuckeyNumberPageLocator.advanceDraw);
+		con=new DBConnection();
+		   
+		ResultSet resultset=con.ExecuteQuery(con.CreateConnectionForDGE(),LuckyNumberSqlQuery.advanceDraw,"active" );
+		while(resultset.next())
+		{
+			for(int j=1;j<=resultset.getMetaData().getColumnCount();j++)
+			{
+			databaseValue.add(resultset.getString(j));
+			}
+		}
+		for(int i=0;i<drawlist.size();i++)
+			{
+			   
+				String value=ReusableStaticMethods.convertsToDateFormate(drawlist.get(i).getText().trim()).concat(".0");
+				
+				if(value.equals(databaseValue.get(i)))
+				{
+					
+					System.out.println("database value: "+databaseValue.get(i)+" match with front end: "+value);
+				}
+				else
+				{
+					System.out.println("value not matched");
+				}
+			}
+		
+		
+	}
+	
+
 }
