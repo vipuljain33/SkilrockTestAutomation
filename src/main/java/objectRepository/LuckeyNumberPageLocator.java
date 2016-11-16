@@ -29,7 +29,7 @@ public class LuckeyNumberPageLocator {
 	 public static By selectednum = By.xpath("//*[contains(@class,'selectnumber')]");
 	 
 	 public static By qpfield = By.xpath("html/body/div[2]/div[2]/div[2]/div[3]/div[7]/input");
-	 
+	 public static By advdraw = By.xpath(".//*[@id='numOfDrawsSelected']");
 	
 	
 }

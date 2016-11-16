@@ -396,8 +396,39 @@ public class LuckyNumber {
 		     }
 	    	
 	    }
-
-
 	    
+	    @When("^all three draws are selected$")
+	     public void all_three_draws_are_selected() throws Throwable 
+	     {
+	      lnpage.findElement(LuckeyNumberPageLocator.advdraw, 5).clear();
+	      lnpage.findElement(LuckeyNumberPageLocator.advdraw, 5).sendKeys("3");
+	     }
+	     String price;
+	     
+	     @When("^QP is selected for ticketprice$")
+	     public void qp_is_selected_for_ticketprice() throws Throwable 
+	     {
+	      lnpage.findElement(LuckeyNumberPageLocator.qpCheckbox, 10).click();
+	            
+	     }
+
+	     @Then("^sum of panel price should be three$")
+	     public void sum_of_panel_price_should_be_three() throws Throwable
+	     {  
+	      String tprice= Integer.toString(3);
+	         price=lnpage.findElement(LuckeyNumberPageLocator.qpTicketPrice, 5).getText();
+	      
+	     
+	      if(price.equals(tprice))
+	       {
+	        System.out.println("pass");
+	       }
+	       else
+	       {
+	       Assert.fail();
+	       }
+	        
+	     }  
+
 	    
 }

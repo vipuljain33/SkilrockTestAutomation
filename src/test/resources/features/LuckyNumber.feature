@@ -95,4 +95,8 @@ Feature: Lucky Number Sale
   When QP is selected
   And qpfield enable
   Then verify selected numbers for parmthree on purches details 
-    
+    @Amit
+   Scenario: Verify total price for ticket
+    When all three draws are selected
+    And QP is selected for ticketprice
+    Then sum of panel price should be three
