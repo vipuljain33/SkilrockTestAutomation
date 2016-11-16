@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ public class CommonFunctionLibrary {
 	
 	WebDriver driver ;
 	WebDriverWait wait;
+	
 	
 	public CommonFunctionLibrary(WebDriver driver)
 	{
@@ -50,6 +52,21 @@ public class CommonFunctionLibrary {
 				e.printStackTrace();
 			}
 		}
+		
+	}
+	
+	
+	public void switchToAlertOk()
+	
+	{
+		Alert alert=driver.switchTo().alert();
+	   alert.accept();
+		
+	}
+	public void switchToAlertCancel()
+	{
+		Alert alert=driver.switchTo().alert();
+		 alert.dismiss();
 		
 	}
 }
