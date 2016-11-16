@@ -5,8 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Assert;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LoginSqlQuery;
@@ -19,7 +22,8 @@ public class LoginPage extends BasePage {
 	 
 	CommonFunctionLibrary functionLibrary;
 	String username=null;
-	
+	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
+
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		System.out.println(driver);
@@ -35,7 +39,8 @@ public class LoginPage extends BasePage {
 		WebElement elem = findElement(LoginPageLocators.userTextfield, 5);
 
 		if (elem == null) {
-			throw new IllegalStateException();
+			//throw new IllegalStateException();
+			throw new ElementNotVisibleException("User TextField Not Visible");
 		}
 	}
 
@@ -65,6 +70,7 @@ public class LoginPage extends BasePage {
 			return null;
 			//return new BasePage(driver);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			return null;
 		}
 
