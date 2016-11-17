@@ -1,7 +1,5 @@
 package stepDefinitions;
 
-
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -44,8 +42,7 @@ public class LuckyNumber {
 	public void login_with_valid_credentials() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		loginPage = new LoginPage(AttachHooks.driver);
-		loginPage.enterUsername("naliniret");
-		loginPage.enterPassword("12345678");
+		loginPage.LoginWithActiveUser();
 		basePage = loginPage.clickLogin();
 		if (basePage == null) {
 			Assert.fail();
@@ -92,8 +89,8 @@ public class LuckyNumber {
 
 		// Write code here that turns the phrase above into concrete actions
 		lnpage.isPerm1Selected();
-	    // Write code here that turns the phrase above into concrete actions
-		lnpage.isPerm1Selected();    
+		// Write code here that turns the phrase above into concrete actions
+		lnpage.isPerm1Selected();
 	}
 
 	@When("^select more than ten numbers$")
@@ -106,17 +103,8 @@ public class LuckyNumber {
 			for (String val : ReusableStaticMethods.convertIntegerListToString(randomNumbers)) {
 				lnpage.findElement(By.xpath(LuckeyNumberPageLocator.selectNumber + val + "]"), 5).click();
 			}
-}
-	    // Write code here that turns the phrase above into concrete actions
-		if(lnpage != null)
-		{
-			randomNumbers = ReusableStaticMethods.randomNumber(1, 90,11);
-			for(String val :ReusableStaticMethods.convertIntegerListToString(randomNumbers))
-			{
-				lnpage.findElement(By.xpath(LuckeyNumberPageLocator.selectNumber+val+"]"), 5).click();
-				
-			}
 		}
+
 	}
 
 	@Then("^popup error message should display$")
@@ -127,16 +115,13 @@ public class LuckyNumber {
 		if (txt.equalsIgnoreCase("You can select 10 numbers only!!")) {
 			System.out.println("error message perm1 verify");
 		} else {
-	    // Write code here that turns the phrase above into concrete actions
-		if(txt.equalsIgnoreCase("You can select 10 numbers only!!"))
-		{
-			System.out.println("error message perm1 verify");
+			// Write code here that turns the phrase above into concrete actions
+			if (txt.equalsIgnoreCase("You can select 10 numbers only!!")) {
+				System.out.println("error message perm1 verify");
+			} else {
+				Assert.fail("Not able to verify error message :" + txt);
+			}
 		}
-		else
-		{
-			Assert.fail("Not able to verify error message :" + txt);
-		}
-	}
 	}
 
 	@When("^Permtwo bet type is selected$")
@@ -146,7 +131,6 @@ public class LuckyNumber {
 
 	}
 
-	
 	@When("^select more than twenty numbers$")
 	public void select_more_than_twenty_numbers() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
@@ -160,6 +144,7 @@ public class LuckyNumber {
 
 		}
 	}
+
 	@Then("^popup error message should display for greater than twenty numbers$")
 	public void popup_error_message_should_display_for_greater_than_twenty_numbers() throws Throwable {
 
@@ -276,7 +261,6 @@ public class LuckyNumber {
 		}
 
 	}
-
 
 	@When("^Select numbers less than three$")
 	public void select_numbers_less_than_three() throws Throwable {
@@ -661,9 +645,8 @@ public class LuckyNumber {
 
 	@Then("^draw info should be matched with database$")
 	public void draw_info_should_be_matched_with_database() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		// Write code here that turns the phrase above into concrete actions
 		lnpage.advanceDrawVerify();
 	}
 
-	
 }
