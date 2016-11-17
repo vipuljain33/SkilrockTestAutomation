@@ -18,6 +18,7 @@ public class HomePage extends BasePage {
 	public HomePage(WebDriver driver) {
 		super(driver);
 		functionLibrary = new CommonFunctionLibrary(driver);
+		
 		if(functionLibrary.switchFrame("topFrame"))
 		{
 			System.out.println("Successfully switched frame");
@@ -35,6 +36,8 @@ public class HomePage extends BasePage {
 			throw new ElementNotVisibleException("Home Page is not visible");
 			
 		}
+		
+		
 		
 	}
 

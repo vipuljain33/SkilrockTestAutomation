@@ -92,8 +92,6 @@ public class ReusableStaticMethods
 	  String format=formate.format(date);
 	  System.out.println(format);
 	  return format;
-	  
-	    
 	 }
 	
 }

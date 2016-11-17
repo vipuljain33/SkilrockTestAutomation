@@ -15,6 +15,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.BasePage;
+import pages.DrawGamePage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -27,6 +28,8 @@ public class LoginFeatureStepDef {
 	HomePage homePage;
 	BasePage basePage;
 	DBConnection bdconnection;
+	DrawGamePage drawGamePage;
+	
 	
 	@Given("^Login page is opened$")
 	public void login_page_is_opened() throws Throwable {
@@ -51,8 +54,17 @@ public class LoginFeatureStepDef {
 	    // Write code here that turns the phrase above into concrete actions
 	    //click Login and verify
 		basePage = loginPage.clickLogin();
-		homePage = (HomePage) basePage;
-		if(homePage == null)
+		System.out.println(basePage.getClass().getName());
+		if(basePage.getClass().getName().contains("DrawGamePage"))
+		{
+			drawGamePage = (DrawGamePage)basePage;
+		}
+		if(basePage.getClass().getName().contains("HomePage"))
+		{
+			homePage = (HomePage)basePage;
+		}
+		
+		if(homePage == null && drawGamePage == null)
 		{
 			Assert.fail();
 		}

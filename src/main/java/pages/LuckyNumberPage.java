@@ -42,16 +42,16 @@ public class LuckyNumberPage extends BasePage {
 	public LuckyNumberPage(WebDriver driver) {
 		super(driver);
 		functionLibrary = new CommonFunctionLibrary(driver);
-		if(isElementPresent(LuckeyNumberPageLocator.drawgamelocator, 5))
+		if(isElementPresent(LuckeyNumberPageLocator.luckynumberlocator, 5))
 		{
-			System.out.println("Draw game page is visible");
+			System.out.println("Lucky Number game page is visible");
 		}else
 		{
-			throw new ElementNotVisibleException("Draw Game page not visible");
+			throw new ElementNotVisibleException("Lucky Number Game page not visible");
 		}
 	}
 
-	public void isDrawgameSelected(){
+	/*public void isDrawgameSelected(){
 	if(	findElement(LuckeyNumberPageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
 		LOGGER.info("Draw Game Is Selected");
 	}
@@ -60,9 +60,9 @@ public class LuckyNumberPage extends BasePage {
 		Assert.fail();
 	}
 		
-	}
+	}*/
 	
-	public void isLuckyNumberSelected(){
+	/*public void isLuckyNumberSelected(){
 		
 		functionLibrary.switchFrame("leftbottom");
 	
@@ -77,15 +77,15 @@ public class LuckyNumberPage extends BasePage {
 			Assert.fail();
 		}
 		
-		/*
+		
 		if(	findElement(LuckeyNumberPageLocator.luckynumberlocator, 10).getAttribute("class").equalsIgnoreCase("sideMenuList select-game")){
 			LOGGER.info("Luckey Number Is Selected");
 		}
 		else{
 			LOGGER.error("Unable To Select DG");	
 			Assert.fail();
-		}*/
-	}
+		}
+	}*/
 		public void isPerm1Selected()
 		{
 			if(findElement(LuckeyNumberPageLocator.selectedBetLocator,5).getAttribute("betname").equalsIgnoreCase("Perm1"))
@@ -212,7 +212,7 @@ public class LuckyNumberPage extends BasePage {
     		boolean flag=false;
     		while (rs.next()) {
     			dbbettype.add(rs.getString(1));
-    			System.out.println(rs.getString(1));    			
+    			//System.out.println(rs.getString(1));    			
     		}    		
     		uibettype=findElements(LuckeyNumberPageLocator.BetTypeLocator, 5);
     		
@@ -452,6 +452,8 @@ public class LuckyNumberPage extends BasePage {
 		
 		
 	}
+	
+	
 	
 
 }

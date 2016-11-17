@@ -58,14 +58,16 @@ public class LoginPage extends BasePage {
 			driver.findElement(LoginPageLocators.loginBtn).click();
 			if(functionLibrary.switchFrame("topFrame"))
 			{
-				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase(username))
+				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase("bomaster"))
 				{
+					System.out.println("Inside home page bouser");
 					return new HomePage(driver);
 				}
 			}
 			if(isElementPresent(LuckeyNumberPageLocator.drawgamelocator, 5))
 			{
-				return new LuckyNumberPage(driver);
+				System.out.println("inside retailer home page");
+				return new DrawGamePage(driver);
 			}
 			return null;
 			//return new BasePage(driver);
@@ -113,7 +115,7 @@ public class LoginPage extends BasePage {
 	public void LoginWithActiveUser() throws SQLException{
 		DBConnection dbconnection= new DBConnection();	
 		Connection connection= dbconnection.CreateConnectionForLMS();
-		ResultSet rs = dbconnection.ExecuteQuery(connection,LoginSqlQuery.activeuser,"active","RETAILER");
+		ResultSet rs = dbconnection.ExecuteQuery(connection,dbconnection.getFinalQuery(LoginSqlQuery.activeuser),"active","RETAILER");
 		
 
 		while (rs.next()) {

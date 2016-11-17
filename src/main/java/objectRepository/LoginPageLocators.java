@@ -11,7 +11,7 @@ public class LoginPageLocators {
 	public static By errorMessageWhenUsernameNotEntered = By.xpath("//*[contains(text(),'Please Enter Login Name')]");
 	public static By errorMessageWhenPasswordNotEntered =  By.xpath("//*[contains(text(),'Please Enter Password')]");
 	//public static By loginBtn = By.id("submitLogin");
-	public static By errorWhenInvalidCredentialsEntered = By.xpath("//*[contains(text(),'Please Enter Correct Login Name and Password!!')]"); 
+	public static By errorWhenInvalidCredentialsEntered = By.xpath("//*[contains(text(),'Please Enter Correct Login Name and Password!!')]");
 
 	
 

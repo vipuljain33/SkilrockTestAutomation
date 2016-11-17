@@ -25,6 +25,7 @@ import cucumber.api.java.en.When;
 import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper.Null;
 import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
+import pages.DrawGamePage;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.LuckyNumberPage;
@@ -37,6 +38,7 @@ public class LuckyNumber {
 	HomePage homePage;
 	LuckyNumberPage lnpage;
 	BasePage basePage;
+	DrawGamePage drawGamePage;
 
 	@Given("^login with valid credentials$")
 	public void login_with_valid_credentials() throws Throwable {
@@ -47,21 +49,34 @@ public class LuckyNumber {
 		if (basePage == null) {
 			Assert.fail();
 		} else {
-			lnpage = (LuckyNumberPage) basePage;
+			drawGamePage = (DrawGamePage) basePage;
 		}
 	}
 
 	@Given("^Draw game option is selected$")
 	public void draw_game_option_is_selected() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		lnpage.isDrawgameSelected();
+		if(!drawGamePage.isDrawgameSelected())
+		{
+			Assert.fail();
+		}
 
 	}
 
 	@Given("^Lucky number game is selected$")
 	public void lucky_number_game_is_selected() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		lnpage.isLuckyNumberSelected();
+		System.out.println("test step");
+		lnpage = drawGamePage.selectLuckyNumber();
+		if(lnpage != null)
+		{
+			System.out.println("Lucky number page returned");
+			
+		}else
+		{
+			System.out.println("Lucky Number page not returned");
+			Assert.fail();
+		}
 	}
 
 	@Given("^Active bet types are present in DB$")
@@ -69,11 +84,10 @@ public class LuckyNumber {
 
 		// Write code here that turns the phrase above into concrete actions
 		if (lnpage.verifyActiveBetType()) {
-			System.out.println("Active Bet Type Verified");
+			System.out.println("DB and UI Bet types verified");
 		} else {
 			Assert.fail("Did not receive bet types from CB");
 		}
-		System.out.println("pass");
 
 	}
 
