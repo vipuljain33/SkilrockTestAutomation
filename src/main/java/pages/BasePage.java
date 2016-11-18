@@ -73,6 +73,13 @@ public List <String> findElements(By locator, int timeoutSeconds)
 		return null;
 	}
 }
+   
+public List<WebElement> findAllWebElements(By locator, int timeoutSeconds)
+{
+	wait = new WebDriverWait(driver,timeoutSeconds);
+	List<WebElement> elem = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));	
+		return elem;	
+}
 
 
 	/**
