@@ -38,10 +38,10 @@ public class LuckyNumberPage extends BasePage {
 	DBConnection con;
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(LuckyNumberPage.class);
-	CommonFunctionLibrary functionLibrary;
+	
 	public LuckyNumberPage(WebDriver driver) {
 		super(driver);
-		functionLibrary = new CommonFunctionLibrary(driver);
+		
 		if(isElementPresent(LuckeyNumberPageLocator.luckynumberlocator, 5))
 		{
 			System.out.println("Lucky Number game page is visible");

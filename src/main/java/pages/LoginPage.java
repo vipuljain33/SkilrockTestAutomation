@@ -20,7 +20,7 @@ import utils.CommonFunctionLibrary;
 
 public class LoginPage extends BasePage {
 	 
-	CommonFunctionLibrary functionLibrary;
+	
 	String username=null;
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
@@ -28,7 +28,7 @@ public class LoginPage extends BasePage {
 		super(driver);
 		System.out.println(driver);
 		
-		functionLibrary = new CommonFunctionLibrary(driver);
+		
 		if (isElementPresent(LoginPageLocators.userTextfield, 5)) {
 			System.out.println("Userbox is present");
 		} else {

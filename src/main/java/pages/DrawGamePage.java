@@ -15,11 +15,10 @@ import utils.CommonFunctionLibrary;
 public class DrawGamePage extends RetailerTopHeaderPage {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(DrawGamePage.class);
-	CommonFunctionLibrary functionLibrary;
+	
 
 	public DrawGamePage(WebDriver driver) {
 		super(driver);
-		functionLibrary = new CommonFunctionLibrary(driver);
 		
 		if(functionLibrary.switchFrame("topFrame"))
 		{

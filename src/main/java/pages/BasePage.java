@@ -11,16 +11,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import objectRepository.HomePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
+import utils.CommonFunctionLibrary;
 
 public class BasePage {
 	
 	
 	WebDriver driver;
 	WebDriverWait wait;
+	CommonFunctionLibrary functionLibrary;
 	
 	public BasePage(WebDriver driver)
 	{
 		this.driver = driver;
+		functionLibrary = new CommonFunctionLibrary(this.driver);
 		
 	}
 	

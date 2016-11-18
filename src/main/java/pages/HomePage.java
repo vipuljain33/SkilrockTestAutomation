@@ -13,11 +13,11 @@ import utils.CommonFunctionLibrary;
 
 public class HomePage extends BasePage {
 	
-	CommonFunctionLibrary functionLibrary;
+	
 
 	public HomePage(WebDriver driver) {
 		super(driver);
-		functionLibrary = new CommonFunctionLibrary(driver);
+		
 		
 		if(functionLibrary.switchFrame("topFrame"))
 		{
