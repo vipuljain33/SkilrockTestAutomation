@@ -1,6 +1,0 @@
-target/
-target/classes/log4j.properties
-.classpath
-.project
-.settings/
-logs.log
