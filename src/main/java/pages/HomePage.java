@@ -13,11 +13,12 @@ import utils.CommonFunctionLibrary;
 
 public class HomePage extends BasePage {
 	
-	CommonFunctionLibrary functionLibrary;
+	
 
 	public HomePage(WebDriver driver) {
 		super(driver);
-		functionLibrary = new CommonFunctionLibrary(driver);
+		
+		
 		if(functionLibrary.switchFrame("topFrame"))
 		{
 			System.out.println("Successfully switched frame");
@@ -27,7 +28,7 @@ public class HomePage extends BasePage {
 		}
 		//new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.sw)
 		WebElement elem = findElement(HomePageLocator.currentLoggedUser, 5);
-		if(elem.getText().equalsIgnoreCase("bomaster"))
+		if(elem != null)
 		{
 			System.out.println("Home page is opened");
 		}else
@@ -35,6 +36,8 @@ public class HomePage extends BasePage {
 			throw new ElementNotVisibleException("Home Page is not visible");
 			
 		}
+		
+		
 		
 	}
 

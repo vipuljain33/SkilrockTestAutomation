@@ -1,4 +1,4 @@
-@login
+ @login
 Feature: This is login feature
 
   @valid
@@ -23,15 +23,13 @@ Feature: This is login feature
   Scenario: Testing with invalid credentials blank credentials are entered
     Given Login page is opened
     When blank credentials are entered
-    Then verify error msg
-
-  @invalid
+    Then verify error msg  
+    
   Scenario: Testing with invalid credentials only username credentials are entered
     Given Login page is opened
     When only username credentials are entered
     Then verify error msg
-
-  @invalid
+    
   Scenario: Testing with invalid credentials only password credentials are entered
     Given Login page is opened
     When only password credentials are entered
