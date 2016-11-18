@@ -8,6 +8,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import objectRepository.LoginPageLocators;
+import pages.BasePage;
 import pages.mobilePages.MobileLoginPage;
 import pages.mobilePages.MobileRegistrationPage;
 import stepDefinitions.AttachHooks;
@@ -18,6 +19,7 @@ public class MobileRegistrationStepDef {
 	MobileRegistrationPage mobileRegistrationPage;
 	CommonFunctionLibrary functionLibrary;
 	MobileLoginPage mobileLoginPage;
+	BasePage basePage;
 
 	@Given("^Open Registration popup$")
 	public void reg_popup_is_opened_android() throws Throwable {
@@ -39,7 +41,8 @@ public class MobileRegistrationStepDef {
 
 	@Then("^Login popup should be visible$")
 	public void login_popup_is_visible_android() throws Throwable {
-		mobileLoginPage = mobileRegistrationPage.clickLetsPlay();
+		//mobileLoginPage = mobileRegistrationPage.clickLetsPlay();
+		basePage = mobileRegistrationPage.clickLetsPlay();
 		if (mobileLoginPage == null) {
 			Assert.fail();
 		}

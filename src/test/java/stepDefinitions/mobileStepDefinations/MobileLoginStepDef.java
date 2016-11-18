@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pages.BasePage;
 import pages.mobilePages.MobileHomePage;
 import pages.mobilePages.MobileLoginPage;
 import stepDefinitions.AttachHooks;
@@ -17,6 +18,7 @@ public class MobileLoginStepDef {
 	MobileLoginPage mobileLoginPage;
 	CommonFunctionLibrary functionLibrary;
 	MobileHomePage mobileHomePage;
+	BasePage basePage;
 
 	@Given("^Login popup is opened$")
 	public void login_popup_is_opened_android() throws Throwable {
@@ -48,7 +50,7 @@ public class MobileLoginStepDef {
 	public void validateAppHomeScreen_is_visible_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		mobileHomePage = mobileLoginPage.clickLogin();
+		basePage = mobileLoginPage.clickLogin();
 		if (mobileHomePage == null) {
 			Assert.fail();
 		}
@@ -69,8 +71,8 @@ public class MobileLoginStepDef {
 	public void AppHomeScreen_not_visible_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		mobileHomePage = mobileLoginPage.clickLogin();
-		if (mobileHomePage != null) {
+		basePage = mobileLoginPage.clickLogin();
+		if (basePage != null) {
 			Assert.fail();
 		}
 	}

@@ -70,7 +70,8 @@ public class MobileRegistrationPage extends BasePage {
 		sendKeys(LoginPageLocators.emailIdAndroid, emailId);
 	}
 
-	public MobileLoginPage clickLetsPlay() {
+//	public MobileHomePage clickLetsPlay() {
+	public BasePage clickLetsPlay() {
 		try {
 			buttonClick(LoginPageLocators.registerUserAndroid);
 			buttonClick(LoginPageLocators.clickSMSDone);

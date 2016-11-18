@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import io.appium.java_client.android.AndroidKeyCode;
 import objectRepository.LoginPageLocators;
+import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
 import pages.LoginPage;
+import pages.LuckyNumberPage;
 
 public class MobileLoginPage extends BasePage {
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
@@ -38,20 +40,24 @@ public class MobileLoginPage extends BasePage {
 		buttonClick(LoginPageLocators.loginAndroid);
 	}
 
-	public MobileHomePage clickLogin() {
+	public BasePage clickLogin() {
 
 		try {
-			buttonClick(LoginPageLocators.loginAndroid);
-			if (isElementPresent(LoginPageLocators.dismissNotification, 5)) {
-				if (buttonClick(LoginPageLocators.dismissNotification)) {
-					System.out.println("Notification dismissed");
+
+			if (isElementPresent(LoginPageLocators.loginAndroid, 5)) {
+				buttonClick(LoginPageLocators.loginAndroid);
+				if (isElementPresent(LoginPageLocators.dismissNotification, 5)) {
+					if (buttonClick(LoginPageLocators.dismissNotification)) {
+						System.out.println("Notification dismissed");
+					}
 				}
+				return new MobileHomePage(driver);
 			}
 
-			return new MobileHomePage(driver);
 		} catch (Exception e) {
 			return null;
 		}
+		return null;
 	}
 
 	public void username(String username) {

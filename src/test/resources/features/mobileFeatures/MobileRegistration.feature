@@ -19,10 +19,10 @@ Feature: This is Registration feature
   @MobileInvalidReg2
   Scenario: Testing invalid app data so that Registration is unsuccessful
     When Invalid app data is entered on the page
-      | username | mobileNo   | emailId      |
-      | abcde    |            | abc@skil.com |
-      |          | 9999999999 | abc@skil.com |
-      | abcde    | 9999999999 |              |
-      | abc      | 9999999999 | abc@skil.com |
-      | abcde    |     999999 | abc@skil.com |
-      | abcde    | 9999999999 | abc          |
+      | username  | mobileNo   | emailId      |
+      | testdata1 |            | abc@skil.com |
+      |           | 9999999999 | abc@skil.com |
+      | abcde     | 9999999999 |              |
+      | abc       | 9999999999 | abc@skil.com |
+      | abcde     |     999999 | abc@skil.com |
+      | abcde     | 9999999999 | abc          |

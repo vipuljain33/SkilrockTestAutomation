@@ -21,6 +21,7 @@ public class MobileHomePage extends BasePage {
 		} else {
 			throw new ElementNotVisibleException("User is not logged in");
 		}
+		buttonClick(LoginPageLocators.drawerImageAndroid);
 	}
 
 }

@@ -1,14 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.CommonFunctionLibrary;
 
-import objectRepository.HomePageLocator;
-import objectRepository.LuckeyNumberPageLocator;
+import io.appium.java_client.android.AndroidDriver;
+import utils.CommonFunctionLibrary;
 
 public class BasePage {
 
@@ -48,6 +48,12 @@ public class BasePage {
 		}
 	}
 
+	public void findElementAndroid() {
+		((AndroidDriver) driver)
+				.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"com.skilrock.lms.ui:id/game_button\")")
+				.click();
+	}
+
 	/**
 	 * To click an element
 	 * 
@@ -74,6 +80,30 @@ public class BasePage {
 	public void sendKeys(By locator, String str) {
 		findElement(locator, 10).clear();
 		findElement(locator, 10).sendKeys(str);
+	}
+
+	public static boolean nodeDetail(WebElement select, String string) {
+		boolean detail = select.getAttribute(string) != null;
+		// System.out.println("Button is Selected :: " + detail);
+		return detail;
+	}
+
+	/**
+	 * This function verifies element is present
+	 * 
+	 * @param locator
+	 */
+	public void verify(By locator) {
+		if (isElementPresent(locator, 5)) {
+			System.out.println(locator + " :: element is present");
+		} else {
+			System.out.println(locator + " :: element is not present");
+		}
+		WebElement elem = findElement(locator, 5);
+
+		if (elem == null) {
+			throw new ElementNotVisibleException(locator + " :: element is not visible");
+		}
 	}
 
 }
