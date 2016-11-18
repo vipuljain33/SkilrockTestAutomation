@@ -3,20 +3,20 @@ package pages;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LoginSqlQuery;
-import objectRepository.HomePageLocator;
 import objectRepository.LoginPageLocators;
+import objectRepository.HomePageLocator;
+
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
+
 
 public class LoginPage extends BasePage {
 	 
@@ -27,8 +27,7 @@ public class LoginPage extends BasePage {
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		System.out.println(driver);
-		
-		
+
 		if (isElementPresent(LoginPageLocators.userTextfield, 5)) {
 			System.out.println("Userbox is present");
 		} else {

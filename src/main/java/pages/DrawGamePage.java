@@ -22,6 +22,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		
 		if(functionLibrary.switchFrame("topFrame"))
 		{
+			
 			System.out.println("Successfully switched frame");
 		}else
 		{
