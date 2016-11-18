@@ -1,17 +1,17 @@
 package stepDefinitions;
 
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-
+import DataBaseQuery.DBConnection;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import objectRepository.LoginPageLocators;
 import pages.BasePage;
+import pages.DrawGamePage;
 import pages.HomePage;
 import pages.LoginPage;
-import utils.CommonFunctionLibrary;
-import utils.ConfigManager;
+
 
 public class LoginFeatureStepDef {
 
@@ -19,9 +19,8 @@ public class LoginFeatureStepDef {
 	WebDriver driver;
 	HomePage homePage;
 	BasePage basePage;
-	CommonFunctionLibrary functionLibrary;
-	
-
+	DBConnection bdconnection;
+	DrawGamePage drawGamePage;
 
 	@Given("^Login page is opened$")
 	public void login_page_is_opened() throws Throwable {
@@ -36,49 +35,54 @@ public class LoginFeatureStepDef {
 
 	@When("^valid credentials are entered$")
 	public void valid_credentials_are_entered() throws Throwable {
+
 		// Write code here that turns the phrase above into concrete actions
 		// enter valid credentials
-		loginPage.enterUsername("bomaster");
-		loginPage.enterPassword("12345678");
+		loginPage.LoginWithActiveUser();
 	}
 
 	@Then("^HomePage should be visible$")
 	public void validateHomePage() throws Throwable {
 
-	    // Write code here that turns the phrase above into concrete actions
-	    //click Login and verify
-		basePage = loginPage.clickLogin();
-		homePage = (HomePage) basePage;
-		if(homePage == null)
-		{
-
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		homePage = (HomePage) loginPage.clickLogin();
-		if (homePage == null) {
-
-			Assert.fail();
+		basePage = loginPage.clickLogin();
+		System.out.println(basePage.getClass().getName());
+		if (basePage.getClass().getName().contains("DrawGamePage")) {
+			drawGamePage = (DrawGamePage) basePage;
 		}
+		if (basePage.getClass().getName().contains("HomePage")) {
+			homePage = (HomePage) basePage;
+		}
+
+		if (homePage == null && drawGamePage == null) {
+
+			// Write code here that turns the phrase above into concrete actions
+			// click Login and verify
+			homePage = (HomePage) loginPage.clickLogin();
+			if (homePage == null) {
+
+				Assert.fail();
+			}
 		}
 	}
 
 	@Then("^HomePage should not be visible$")
 	public void validateHomePageNotVisible() throws Throwable {
 
-	    // Write code here that turns the phrase above into concrete actions
-	    //click Login and verify
-		basePage = loginPage.clickLogin();
-		homePage = (HomePage)basePage;
-		if(homePage == null)
-		{
-
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		homePage = (HomePage) loginPage.clickLogin();
+		basePage = loginPage.clickLogin();
+		homePage = (HomePage) basePage;
 		if (homePage == null) {
 
-			System.out.println("Home page is not visible when invalid credentials entered");
-		}
+			// Write code here that turns the phrase above into concrete actions
+			// click Login and verify
+			homePage = (HomePage) loginPage.clickLogin();
+			if (homePage == null) {
+
+				System.out.println("Home page is not visible when invalid credentials entered");
+			}
 		}
 	}
 

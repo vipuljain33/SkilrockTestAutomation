@@ -9,8 +9,9 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(plugin={"pretty","json:target/cucumberreports.json"},
 glue="stepDefinitions",
 features="src\\test\\resources\\features",
-tags={"@login"},
+tags={"@LuckyNumber"},
 monochrome=false)
 public class RunTest {
 
 }
+
