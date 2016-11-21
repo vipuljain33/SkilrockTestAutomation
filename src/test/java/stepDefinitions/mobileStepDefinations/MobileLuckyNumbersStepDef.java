@@ -62,24 +62,26 @@ public class MobileLuckyNumbersStepDef {
 
 	@Given("^numbers (\\d+) are picked$")
 	public void numbers_are_picked(int numberSelected) throws Throwable {
-		mobileLuckyNumPage.swipe();
+		mobileLuckyNumPage.swipe(1, 0.80, 0.10, 400, 300);
 		List<Integer> randomNumbers;
 		if (mobileLuckyNumPage != null) {
 			randomNumbers = ReusableStaticMethods.randomNumber(0, 89, numberSelected);
 			for (int i = 0; i < randomNumbers.size(); i++) {
-				mobileLuckyNumPage.findElement(
-						By.xpath(LuckeyNumberPageLocator.pickRandomNumAndroid + randomNumbers.get(i) + "']"), 10)
+				mobileLuckyNumPage
+						.findElement(
+								By.xpath(LuckeyNumberPageLocator.pickRandomNumAndroid + randomNumbers.get(i) + "']"), 5)
 						.click();
 			}
 		}
 	}
 
-	@When("^Number of lines selected are ten$")
-	public void number_of_lines_selected_are_ten() throws Throwable {
-
+	@When("^Number of lines selected are (\\w+)$")
+	public void number_of_lines_selected_are_ten(String noOfLines) throws Throwable {
+		mobileLuckyNumPage.validateExpected("Validate No of lines", LuckeyNumberPageLocator.noOfLinesAndroid,
+				noOfLines);
 	}
 
-	@Then("^betAmount (\\d+) and NumberPicked (\\d+) and NoOfLines (\\d+) and PurchaseAmt \\$(\\w+)$")
+	@Then("^betAmount (\\d+) and NumberPicked (\\d+) and PurchaseAmt \\$(\\w+)$")
 	public void betamount_and_NumberPicked_and_NoOfLines_and_PurchaseAmt_$(int arg1, int arg2, int arg3, String arg4)
 			throws Throwable {
 	}

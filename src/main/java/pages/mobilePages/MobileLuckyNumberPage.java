@@ -52,15 +52,19 @@ public class MobileLuckyNumberPage extends BasePage {
 		// select pick type
 		buttonClick(locator);
 		// validate selected pick type
-		//Assert.assertTrue(nodeDetail(driver.findElement(locator), node));
+		// Assert.assertTrue(nodeDetail(driver.findElement(locator), node));
 	}
-	
-	public void swipe(){
+
+	public void swipe(int endNumber, double x1, double x2, int duration, int sleep) {
 		try {
-			functionLibrary.swipingVertical(1, 0.80, 0.10, 400, 300);
+			functionLibrary.swipeVertical(endNumber, x1, x2, duration, sleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void validateExpected(String message, By locator, String Actual) {
+		assertEquals(message, driver.findElement(locator).getText(), Actual);
 	}
 
 }

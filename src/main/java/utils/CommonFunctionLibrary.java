@@ -83,7 +83,7 @@ public class CommonFunctionLibrary {
 
 	}
 
-	public void swipingVertical(int endNumber, double x1, double x2, int duration, int sleep)
+	public void swipeVertical(int endNumber, double x1, double x2, int duration, int sleep)
 			throws InterruptedException {
 		Thread.sleep(200);
 		for (int iCount = 1; iCount <= endNumber; iCount++) {
@@ -98,7 +98,7 @@ public class CommonFunctionLibrary {
 			// Swipe from Bottom to Top.
 			((AppiumDriver) driver).swipe(startx, starty, startx, endy, duration);
 			Thread.sleep(sleep);
-
+			
 			System.out.println("Count : " + iCount);
 			// Swipe from Top to Bottom.
 			// ((AppiumDriver) driver).swipe(startx, endy, startx, starty,
