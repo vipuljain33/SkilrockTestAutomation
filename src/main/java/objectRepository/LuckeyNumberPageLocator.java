@@ -19,7 +19,7 @@ public class LuckeyNumberPageLocator {
 			"//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/spinner_text' and @text='Lucky Numbers']");
 	public static By changeBetTypeAndroid = By.id("com.skilrock.lms.ui:id/change_bet_type");
 	public static By buyNowAndroid = By.id("com.skilrock.lms.ui:id/buy_now");
-	public static By betName = By.id("com.skilrock.lms.ui:id/bet_name");
+	public static By betNameAndroid = By.id("com.skilrock.lms.ui:id/bet_name");
 	public static By perm1Android = By
 			.xpath("//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/bet_name' and @text='Perm1']");
 	public static By perm2Android = By
@@ -37,6 +37,9 @@ public class LuckeyNumberPageLocator {
 	public static By finalAmountAndroid = By.id("com.skilrock.lms.ui:id/final_amt");
 	public static By clickOKAndroid = By
 			.xpath("//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/buy_now' and @text='OK']");
+	public static By dialogHeaderTextAndroid = By.id("com.skilrock.lms.ui:id/dialogHeaderText");
+	public static By clickDoneAndroid = By.id("com.skilrock.lms.ui:id/dialogDone");
+	public static By tktPreviewGamenameAndroid = By.id("com.skilrock.lms.ui:id/gameName");
 
 	// PCPOS Locators
 	public static By errorPopup = By.xpath("//div[@id='error-popup']//div[@class='modal-bodyWrap']//div[@id='error']");

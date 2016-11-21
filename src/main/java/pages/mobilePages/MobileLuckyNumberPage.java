@@ -2,6 +2,7 @@ package pages.mobilePages;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,8 @@ import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
 
 public class MobileLuckyNumberPage extends BasePage {
+	static String txtPreviewTktPrice;
+
 	public MobileLuckyNumberPage(WebDriver driver) throws InterruptedException {
 		super(driver);
 		System.out.println(driver);
@@ -27,11 +30,11 @@ public class MobileLuckyNumberPage extends BasePage {
 
 	public void validateBetType(By locator, String betName) {
 		buttonClick(LuckeyNumberPageLocator.changeBetTypeAndroid);
-		assertEquals("Correct Header name", driver.findElement(LuckeyNumberPageLocator.popupHeaderName).getText(),
+		assertEquals("Correct Header name", findElement(LuckeyNumberPageLocator.popupHeaderName, 5).getText(),
 				"SELECT BET");
 		// select bet name
 		buttonClick(locator);
-		assertEquals("Correct Bet Type", driver.findElement(LuckeyNumberPageLocator.betName).getText(), betName);
+		assertEquals("Correct Bet Type", findElement(LuckeyNumberPageLocator.betNameAndroid, 5).getText(), betName);
 
 	}
 
@@ -50,13 +53,20 @@ public class MobileLuckyNumberPage extends BasePage {
 		}
 	}
 
-	public void clickOK() {
-		buttonClick(LuckeyNumberPageLocator.clickOKAndroid);
-	}
-
 	public void clickMultiple(By locator, int clickTimes) {
 		for (int clk = 0; clk < clickTimes; clk++) {
 			buttonClick(locator);
+		}
+	}
+
+	public void confirmBuy() {
+		buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
+		if (!(findElement(LuckeyNumberPageLocator.dialogHeaderTextAndroid, 5).getText().contains("CONFIRM"))) {
+			Assert.fail();
+		}
+		buttonClick(LuckeyNumberPageLocator.clickDoneAndroid);
+		if (!(findElement(LuckeyNumberPageLocator.subHeaderTextAndroid, 5).getText().contains("PURCHASED TICKET"))) {
+			Assert.fail();
 		}
 	}
 

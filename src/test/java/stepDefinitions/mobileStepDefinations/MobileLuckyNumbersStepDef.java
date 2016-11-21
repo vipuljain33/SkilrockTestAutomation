@@ -81,7 +81,7 @@ public class MobileLuckyNumbersStepDef {
 						.click();
 			}
 		}
-		mobileLuckyNumPage.clickOK();
+		mobileLuckyNumPage.buttonClick(LuckeyNumberPageLocator.clickOKAndroid);
 
 	}
 
@@ -106,13 +106,15 @@ public class MobileLuckyNumbersStepDef {
 				.contains(amount))) {
 			Assert.fail();
 		}
-
 	}
 
 	@Then("^Purchased ticket is generated$")
 	public void purchased_ticket_is_generated() throws Throwable {
-		mobileLuckyNumPage.buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
-		
+		mobileLuckyNumPage.confirmBuy();
+		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.tktPreviewGamenameAndroid, 5).getText()
+				.contains("LUCKY NUMBERS"))) {
+			Assert.fail();
+		}
 	}
 
 }
