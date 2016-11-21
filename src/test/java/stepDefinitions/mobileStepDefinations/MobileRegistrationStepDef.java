@@ -43,7 +43,7 @@ public class MobileRegistrationStepDef {
 	public void login_popup_is_visible_android() throws Throwable {
 		//mobileLoginPage = mobileRegistrationPage.clickLetsPlay();
 		basePage = mobileRegistrationPage.clickLetsPlay();
-		if (mobileLoginPage == null) {
+		if (basePage == null) {
 			Assert.fail();
 		}
 	}

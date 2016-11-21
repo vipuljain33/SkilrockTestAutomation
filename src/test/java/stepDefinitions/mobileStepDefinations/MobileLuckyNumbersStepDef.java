@@ -81,9 +81,10 @@ public class MobileLuckyNumbersStepDef {
 				noOfLines);
 	}
 
-	@Then("^betAmount (\\d+) and NumberPicked (\\d+) and PurchaseAmt \\$(\\w+)$")
-	public void betamount_and_NumberPicked_and_NoOfLines_and_PurchaseAmt_$(int arg1, int arg2, int arg3, String arg4)
+	@Then("^betAmount (\\d+) and NumberPicked (\\d+) and PurchaseAmt \\$(.*)$")
+	public void betamount_and_NumberPicked_and_PurchaseAmt_$(int clickBetAmt, int numPicked, String amount)
 			throws Throwable {
+
 	}
 
 	@Then("^Purchased ticket is generated$")
