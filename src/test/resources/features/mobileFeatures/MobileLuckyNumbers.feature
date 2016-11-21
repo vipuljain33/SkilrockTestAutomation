@@ -9,11 +9,11 @@ Feature: Mobile app Lucky Number Sale
   @MobileLuckyNumPickNewsaleTest
   Scenario Outline: Validate Perm1 bet type using Pick New
     Given PermOne bet type and Pick New is selected
-    And numbers <numberSelected> are picked
-    When Number of lines selected are <noOfLines>
-    Then betAmount <clickBetAmt> and NumberPicked <numPicked> and PurchaseAmt $<amount>
+    And numbers <numPicked> are picked
+    When number of lines selected are <noOfLines> and NumberSelected <numberSelected> and increase betAmount by <clickBetAmt>
+    Then PurchaseAmt $ <amount>
     And Purchased ticket is generated
 
     Examples: 
-      | numberSelected | clickBetAmt | numPicked | noOfLines | amount |
-      |             10 |           2 |        10 |        10 |   3.00 |
+      | numPicked | noOfLines | numberSelected | clickBetAmt | amount |
+      |        10 |        10 |             10 |           2 |   3.00 |

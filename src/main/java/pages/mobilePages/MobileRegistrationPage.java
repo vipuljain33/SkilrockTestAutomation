@@ -70,7 +70,7 @@ public class MobileRegistrationPage extends BasePage {
 		sendKeys(LoginPageLocators.emailIdAndroid, emailId);
 	}
 
-//	public MobileHomePage clickLetsPlay() {
+	// public MobileHomePage clickLetsPlay() {
 	public BasePage clickLetsPlay() {
 		try {
 			buttonClick(LoginPageLocators.registerUserAndroid);
@@ -93,17 +93,5 @@ public class MobileRegistrationPage extends BasePage {
 			buttonClick(LoginPageLocators.registerUserAndroid);
 			driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		}
-
-		// List<String> list = new ArrayList<String>();
-		// System.out.println("\nFilling form with below data\n");
-		//
-		// for (String k : m.keySet()) {
-		// System.out.println("Key -> " + k + " Value -> " + m.get(k));
-		// list.add(m.get(k));
-		// }
-
-		// sendKeys(LoginPageLocators.usernameAndroid, list.get(0));
-		// sendKeys(LoginPageLocators.mobileNoAndroid, list.get(1));
 	}
-
 }

@@ -10,6 +10,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
+import pages.mobilePages.MobileDrawGamePage;
 import pages.mobilePages.MobileHomePage;
 import pages.mobilePages.MobileLoginPage;
 import pages.mobilePages.MobileLuckyNumberPage;
@@ -24,6 +25,7 @@ public class MobileLuckyNumbersStepDef {
 	MobileHomePage mobileHomePage;
 	MobileLuckyNumberPage mobileLuckyNumPage;
 	BasePage basePage;
+	MobileDrawGamePage mobileDrawGamePage;
 	CommonFunctionLibrary functionLibrary;
 
 	@Given("^User is logged in$")
@@ -36,22 +38,28 @@ public class MobileLuckyNumbersStepDef {
 		}
 		mobileLoginPage.username(ConfigManager.getProperty("Username"));
 		mobileLoginPage.password(ConfigManager.getProperty("Password"));
-		basePage = mobileLoginPage.clickLogin();
-		if (basePage == null) {
+		mobileHomePage = mobileLoginPage.clickLogin();
+		if (mobileHomePage == null) {
 			Assert.fail();
-		} else {
-			mobileLuckyNumPage = (MobileLuckyNumberPage) basePage;
 		}
 	}
 
 	@Given("^Draw games icon is selected$")
 	public void draw_games_icon_is_selected() throws Throwable {
-		mobileLuckyNumPage.selectDG();
+		mobileDrawGamePage = mobileHomePage.selectDrawGame();
+		if (mobileDrawGamePage == null) {
+			Assert.fail();
+		}
+		// mobileLuckyNumPage.selectDG();
 	}
 
 	@Given("^Lucky numbers game is selected$")
 	public void lucky_numbers_game_is_selected() throws Throwable {
-		mobileLuckyNumPage.selectLuckyNumbers();
+		mobileLuckyNumPage = mobileDrawGamePage.selectLuckyNumbers();
+		if (mobileLuckyNumPage == null) {
+			Assert.fail();
+		}
+		// mobileLuckyNumPage.selectLuckyNumbers();
 	}
 
 	@Given("^PermOne bet type and Pick New is selected$")
@@ -61,11 +69,11 @@ public class MobileLuckyNumbersStepDef {
 	}
 
 	@Given("^numbers (\\d+) are picked$")
-	public void numbers_are_picked(int numberSelected) throws Throwable {
-		mobileLuckyNumPage.swipe(1, 0.80, 0.10, 400, 300);
+	public void numbers_are_picked(int numPicked) throws Throwable {
+		mobileLuckyNumPage.swipe(1, 0.80, 0.10, 600, 400);
 		List<Integer> randomNumbers;
 		if (mobileLuckyNumPage != null) {
-			randomNumbers = ReusableStaticMethods.randomNumber(0, 89, numberSelected);
+			randomNumbers = ReusableStaticMethods.randomNumber(0, 89, numPicked);
 			for (int i = 0; i < randomNumbers.size(); i++) {
 				mobileLuckyNumPage
 						.findElement(
@@ -73,23 +81,38 @@ public class MobileLuckyNumbersStepDef {
 						.click();
 			}
 		}
+		mobileLuckyNumPage.clickOK();
+
 	}
 
-	@When("^Number of lines selected are (\\w+)$")
-	public void number_of_lines_selected_are_ten(String noOfLines) throws Throwable {
-		mobileLuckyNumPage.validateExpected("Validate No of lines", LuckeyNumberPageLocator.noOfLinesAndroid,
-				noOfLines);
-	}
-
-	@Then("^betAmount (\\d+) and NumberPicked (\\d+) and PurchaseAmt \\$(.*)$")
-	public void betamount_and_NumberPicked_and_PurchaseAmt_$(int clickBetAmt, int numPicked, String amount)
+	@When("^number of lines selected are (\\w+) and NumberSelected (\\w+) and increase betAmount by (\\d+)$")
+	public void number_of_lines_selected_are_ten(String noOfLines, String numberSelected, int clickBetAmt)
 			throws Throwable {
+		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.noOfLinesAndroid, 5).getText()
+				.contains(noOfLines))) {
+			Assert.fail();
+		}
+
+		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.selectedNumbersAndroid, 5).getText()
+				.contains(numberSelected))) {
+			Assert.fail();
+		}
+		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseAndroid, clickBetAmt);
+	}
+
+	@Then("^PurchaseAmt \\$ (.*)$")
+	public void betamount_and_NumberPicked_and_PurchaseAmt_$(String amount) throws Throwable {
+		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.finalAmountAndroid, 5).getText()
+				.contains(amount))) {
+			Assert.fail();
+		}
 
 	}
 
 	@Then("^Purchased ticket is generated$")
 	public void purchased_ticket_is_generated() throws Throwable {
-
+		mobileLuckyNumPage.buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
+		
 	}
 
 }

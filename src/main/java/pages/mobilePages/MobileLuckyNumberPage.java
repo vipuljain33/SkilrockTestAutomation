@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
@@ -14,26 +15,12 @@ public class MobileLuckyNumberPage extends BasePage {
 		super(driver);
 		System.out.println(driver);
 		Thread.sleep(10000);
-	}
 
-	public void selectDG() {
-		buttonClick(LuckeyNumberPageLocator.drawGameAndroid);
-		assertEquals("Correct Header text", driver.findElement(LuckeyNumberPageLocator.headerTextAndroid).getText(),
-				"DRAW GAMES");
-		if (findElement(LuckeyNumberPageLocator.headerTextAndroid, 5) == null) {
-			throw new ElementNotVisibleException("Draw Game lobby is not visible");
-		}
-
-	}
-
-	public void selectLuckyNumbers() {
-		buttonClick(LuckeyNumberPageLocator.gameSelectDropdownAndroid);
-		buttonClick(LuckeyNumberPageLocator.selectLuckyNumbersAndroid);
-		buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
-		System.out.println(driver.findElement(LuckeyNumberPageLocator.subHeaderTextAndroid).getText());
-		assertEquals("Correct Sub Header text",
-				driver.findElement(LuckeyNumberPageLocator.subHeaderTextAndroid).getText(), "LUCKY NUMBERS");
-		if (findElement(LuckeyNumberPageLocator.subHeaderTextAndroid, 5) == null) {
+		WebElement elem = driver.findElement(LuckeyNumberPageLocator.subHeaderTextAndroid);
+		System.out.println(elem.getText());
+		if (elem.getText().equalsIgnoreCase("LUCKY NUMBERS")) {
+			System.out.println("Lucky page is opened");
+		} else {
 			throw new ElementNotVisibleException("Lucky Number lobby is not visible");
 		}
 	}
@@ -63,8 +50,14 @@ public class MobileLuckyNumberPage extends BasePage {
 		}
 	}
 
-	public void validateExpected(String message, By locator, String Actual) {
-		assertEquals(message, driver.findElement(locator).getText(), Actual);
+	public void clickOK() {
+		buttonClick(LuckeyNumberPageLocator.clickOKAndroid);
+	}
+
+	public void clickMultiple(By locator, int clickTimes) {
+		for (int clk = 0; clk < clickTimes; clk++) {
+			buttonClick(locator);
+		}
 	}
 
 }

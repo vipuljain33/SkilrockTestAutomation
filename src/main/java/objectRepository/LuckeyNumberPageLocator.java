@@ -4,15 +4,12 @@ import org.openqa.selenium.By;
 
 public class LuckeyNumberPageLocator {
 
-	public static By drawgamelocator = By.id("dg");
 	public static By luckynumberlocator = By.xpath("//*[@class='sideMenuList select-game']");
 	public static By selectedBetLocator = By.xpath("//button[@class='bettypes select-bet']");
 	// public static By luckynumberlocator = By.id("0~1");
 	public static String selectNumber = "//*[@class='lnum-no-select']/ul/li[";
 
 	// Android App Locators
-	public static By drawGameAndroid = By
-			.xpath("//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/menu_name' and @text='Draw Games']");
 	public static By headerTextAndroid = By.id("com.skilrock.lms.ui:id/header_text");
 	public static By subHeaderTextAndroid = By.id("com.skilrock.lms.ui:id/header_sub_text");
 	public static By popupHeaderName = By.id("com.skilrock.lms.ui:id/header_name");
@@ -30,6 +27,7 @@ public class LuckeyNumberPageLocator {
 	public static By perm3Android = By
 			.xpath("//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/bet_name' and @text='Perm3']");
 	public static By noOfLinesAndroid = By.id("com.skilrock.lms.ui:id/no_of_lines");
+	public static By selectedNumbersAndroid = By.id("com.skilrock.lms.ui:id/selected_nos");
 	public static By quickPickAndroid = By.id("com.skilrock.lms.ui:id/quick_pick");
 	public static By lastPickAndroid = By.id("com.skilrock.lms.ui:id/last_picked");
 	public static By pickNewAndroid = By.id("com.skilrock.lms.ui:id/select_nos");
