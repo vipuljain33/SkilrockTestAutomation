@@ -1,5 +1,8 @@
 target/
-bin/
-.settings/
-.project/
 logs.log
+.classpath
+.project
+.settings/
+logs.log
+bin/
+

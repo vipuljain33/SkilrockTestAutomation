@@ -10,9 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.CommonFunctionLibrary;
 
-import objectRepository.HomePageLocator;
-import objectRepository.LuckeyNumberPageLocator;
-import utils.CommonFunctionLibrary;
 
 public class BasePage {
 
