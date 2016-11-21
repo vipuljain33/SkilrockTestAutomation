@@ -1,30 +1,33 @@
 package pages;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import DataBaseQuery.DBConnection;
+import DataBaseQuery.LoginSqlQuery;
 import objectRepository.LoginPageLocators;
 import objectRepository.HomePageLocator;
-import objectRepository.LoginPageLocators;
+
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
-import org.slf4j.Logger;
-
 
 
 public class LoginPage extends BasePage {
+	 
 	
+	String username=null;
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
-
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		System.out.println(driver);
-		//functionLibrary = new CommonFunctionLibrary(driver);
+
 		if (isElementPresent(LoginPageLocators.userTextfield, 5)) {
 			System.out.println("Userbox is present");
 		} else {
@@ -35,7 +38,8 @@ public class LoginPage extends BasePage {
 		WebElement elem = findElement(LoginPageLocators.userTextfield, 5);
 
 		if (elem == null) {
-			throw new ElementNotVisibleException("UserText field not visible");
+			//throw new IllegalStateException();
+			throw new ElementNotVisibleException("User TextField Not Visible");
 		}
 	}
 
@@ -55,13 +59,14 @@ public class LoginPage extends BasePage {
 			{
 				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase("bomaster"))
 				{
-					
+					System.out.println("Inside home page bouser");
 					return new HomePage(driver);
 				}
 			}
 			if(isElementPresent(LuckeyNumberPageLocator.drawgamelocator, 5))
 			{
-				return new LuckyNumberPage(driver);
+				System.out.println("inside retailer home page");
+				return new DrawGamePage(driver);
 			}
 			return null;
 			//return new BasePage(driver);
@@ -106,4 +111,21 @@ public class LoginPage extends BasePage {
 		
 	}
 
+	public void LoginWithActiveUser() throws SQLException{
+		DBConnection dbconnection= new DBConnection();	
+		Connection connection= dbconnection.CreateConnectionForLMS();
+		ResultSet rs = dbconnection.ExecuteQuery(connection,dbconnection.getFinalQuery(LoginSqlQuery.activeuser),"active","RETAILER");
+		
+
+		while (rs.next()) {
+			System.out.println(username=rs.getString(1));
+			username=rs.getString(1);
+		}
+		
+	    enterUsername(username);
+		enterPassword("12345678");
+		
+	}
+	
+	
 }

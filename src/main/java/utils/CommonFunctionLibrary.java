@@ -1,12 +1,16 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import cucumber.api.Scenario;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -18,16 +22,18 @@ public class CommonFunctionLibrary {
 	public Dimension size;
 
 	public CommonFunctionLibrary(WebDriver driver) {
+
 		this.driver = driver;
+
 	}
 
-	public boolean switchFrame(String frameId)
-
-	{
+	public boolean switchFrame(String frameId) {
 		try {
 			driver.switchTo().defaultContent();
 
 			wait = new WebDriverWait(driver, 5);
+
+			wait = new WebDriverWait(driver, 10);
 
 			wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameId));
 			// driver.switchTo().frame(frameId);
@@ -48,7 +54,6 @@ public class CommonFunctionLibrary {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -62,7 +67,6 @@ public class CommonFunctionLibrary {
 	}
 
 	public void swipeHorizontal(int endNumber, double x1, double x2, int duration, int sleep) {
-
 		try {
 			// appiumNative();
 			for (int iCount = 1; iCount <= endNumber; iCount++) {
@@ -80,7 +84,6 @@ public class CommonFunctionLibrary {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	public void swipeVertical(int endNumber, double x1, double x2, int duration, int sleep)
@@ -98,12 +101,21 @@ public class CommonFunctionLibrary {
 			// Swipe from Bottom to Top.
 			((AppiumDriver) driver).swipe(startx, starty, startx, endy, duration);
 			Thread.sleep(sleep);
-			
+
 			System.out.println("Count : " + iCount);
 			// Swipe from Top to Bottom.
 			// ((AppiumDriver) driver).swipe(startx, endy, startx, starty,
 			// 3000);
 		}
+	}
 
+	public void switchToAlertOk() {
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+	}
+
+	public void switchToAlertCancel() {
+		Alert alert = driver.switchTo().alert();
+		alert.dismiss();
 	}
 }

@@ -1,12 +1,14 @@
 package pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import io.appium.java_client.android.AndroidDriver;
 import utils.CommonFunctionLibrary;
 
@@ -14,12 +16,12 @@ public class BasePage {
 
 	protected WebDriver driver;
 	WebDriverWait wait;
+
 	public CommonFunctionLibrary functionLibrary;
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
 		functionLibrary = new CommonFunctionLibrary(this.driver);
-
 	}
 
 	public boolean isElementPresent(By locator, int timeoutInSeconds) {
@@ -52,6 +54,26 @@ public class BasePage {
 		((AndroidDriver) driver)
 				.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"com.skilrock.lms.ui:id/game_button\")")
 				.click();
+	}
+
+	public List<String> findElements(By locator, int timeoutSeconds) {
+		wait = new WebDriverWait(driver, timeoutSeconds);
+		List<WebElement> elem = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+		List<String> temp = new ArrayList<String>();
+		if (elem != null) {
+			for (WebElement val : elem) {
+				temp.add(val.getText());
+			}
+			return temp;
+		} else {
+			return null;
+		}
+	}
+
+	public List<WebElement> findAllWebElements(By locator, int timeoutSeconds) {
+		wait = new WebDriverWait(driver, timeoutSeconds);
+		List<WebElement> elem = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+		return elem;
 	}
 
 	/**

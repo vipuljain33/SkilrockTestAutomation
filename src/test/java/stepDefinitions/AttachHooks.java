@@ -4,15 +4,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -97,12 +96,17 @@ public class AttachHooks {
 				driver = new FirefoxDriver();
 
 			}
+			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("IE")) {
+				System.setProperty("webdriver.ie.driver", "D:\\SkilrockAutomation\\IEDriverServer.exe");
+				driver = new InternetExplorerDriver();
+			}
 			// System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
 			// System.setProperty("webdriver.chrome.driver",
 			// "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
 			// System.setProperty("webdriver.chrome.driver",
 			// System.getProperty("user.dir")+"\\chromedriver.exe");
 			// driver = new ChromeDriver();
+
 			driver.get("http://192.168.124.73:8180/LMSLinuxNew");
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			driver.manage().window().maximize();

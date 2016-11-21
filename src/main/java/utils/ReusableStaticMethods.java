@@ -1,6 +1,8 @@
 package utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -63,13 +65,35 @@ public class ReusableStaticMethods {
 
 	public static String IntegerListToString(List<Integer> list, String string) {
 		List<String> temp = new ArrayList<String>();
-		String str="";
+		String str = "";
 		for (int i = 0; i < list.size(); i++) {
-					str=str+list.get(i);
+			str = str + list.get(i);
 		}
-		return string+str;
-		
+		return string + str;
 
 	}
 
+	public static String covertStringToTwoDecimalNum(String input) {
+		float ftnum = Float.parseFloat(input);
+		return String.format("%.2f", ftnum);
+
+	}
+
+	public static String removeZeroFromticket(String val) {
+		if (val.length() != 0) {
+			val = val.substring(0, val.length() - 1);
+			return val;
+
+		} else {
+			return null;
+		}
+	}
+
+	public static String convertsToDateFormate(String Dateinput) {
+		java.util.Date date = new Date(Dateinput);
+		SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String format = formate.format(date);
+		System.out.println(format);
+		return format;
+	}
 }
