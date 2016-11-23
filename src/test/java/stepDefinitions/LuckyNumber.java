@@ -56,8 +56,7 @@ public class LuckyNumber {
 	@Given("^Draw game option is selected$")
 	public void draw_game_option_is_selected() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		if(!drawGamePage.isDrawgameSelected())
-		{
+		if (!drawGamePage.isDrawgameSelected()) {
 			Assert.fail();
 		}
 
@@ -68,12 +67,10 @@ public class LuckyNumber {
 		// Write code here that turns the phrase above into concrete actions
 		System.out.println("test step");
 		lnpage = drawGamePage.selectLuckyNumber();
-		if(lnpage != null)
-		{
+		if (lnpage != null) {
 			System.out.println("Lucky number page returned");
-			
-		}else
-		{
+
+		} else {
 			System.out.println("Lucky Number page not returned");
 			Assert.fail();
 		}
@@ -101,8 +98,6 @@ public class LuckyNumber {
 	@When("^Permone bet type is selected$")
 	public void permone_bet_type_is_selected() throws Throwable {
 
-		// Write code here that turns the phrase above into concrete actions
-		lnpage.isPerm1Selected();
 		// Write code here that turns the phrase above into concrete actions
 		lnpage.isPerm1Selected();
 	}

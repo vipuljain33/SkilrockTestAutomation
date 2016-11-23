@@ -1,6 +1,5 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
-import objectRepository.HomePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
-import utils.CommonFunctionLibrary;
 
 public class DrawGamePage extends RetailerTopHeaderPage {
 	
@@ -42,7 +39,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 	}
 	
 	public boolean isDrawgameSelected(){
-		if(	findElement(LuckeyNumberPageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
+		if(	findElement(DrawGamePageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
 			LOGGER.info("Draw Game Is Selected");
 			return true;
 		}
