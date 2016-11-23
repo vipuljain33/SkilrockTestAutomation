@@ -36,7 +36,5 @@ public class LuckeyNumberPageLocator {
 	public static By advanceDraw=By.xpath("//div[@class='ad-draw-check-box']//label[1]");
 	public static By advanceDrawLocator=By.xpath("//*[@id='advDrawSel']/a");
 	public static By insufficienterrorpopup=By.xpath("//*[@id='error-popup']//div[@class='modal-bodyWrap']//div[@id='error']");
-
-	
 	
 }

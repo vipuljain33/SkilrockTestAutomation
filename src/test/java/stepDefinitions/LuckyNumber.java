@@ -38,7 +38,7 @@ public class LuckyNumber {
 	HomePage homePage;
 	LuckyNumberPage lnpage;
 	BasePage basePage;
-	DrawGamePage drawGamePage;
+    DrawGamePage drawGamePage;
 
 	@Given("^login with valid credentials$")
 	public void login_with_valid_credentials() throws Throwable {
@@ -648,19 +648,6 @@ public class LuckyNumber {
 			}
 		}
 
-	}
-
-	@When("^Advance draw is selected$")
-	public void advance_draw_is_selected() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		lnpage.findElement(LuckeyNumberPageLocator.advanceDrawLocator, 5).click();
-
-	}
-
-	@Then("^draw info should be matched with database$")
-	public void draw_info_should_be_matched_with_database() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		lnpage.advanceDrawVerify();
 	}
 
 }

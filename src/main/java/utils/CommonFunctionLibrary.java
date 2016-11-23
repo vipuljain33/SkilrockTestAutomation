@@ -98,5 +98,16 @@ public class CommonFunctionLibrary{
 		 alert.dismiss();
 		
 	}
+	
+	public WebElement findElement(By locator, int timeoutSeconds)
+	{
+		wait = new WebDriverWait(driver, timeoutSeconds);
+		WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		if (elem != null) {
+			return elem;
+		} else {
+			return null;
+		}
+	}
 
 }
