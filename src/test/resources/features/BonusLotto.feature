@@ -17,7 +17,8 @@ Feature: Bonus Lotto Sale
     And number num greater than Four is entered
       | 6 |
       | 8 |
-	@test
+
+  @test
   Scenario: Validate valid Quick Pick Functionality for DIRECT-SIX
     When QuickPick for direct-six is checked
     And number less than Five is entered
@@ -25,7 +26,7 @@ Feature: Bonus Lotto Sale
       | 3 |
 
   Scenario Outline: Validate the RESET functionality
-    Given <num> numbers are picked
+    Given <num> numbers are picked for bonus Lotto
     When reset button is clicked
     Then validate reset
 
@@ -39,7 +40,7 @@ Feature: Bonus Lotto Sale
     Then popup error message should display Bonus Lotto
 
   Scenario Outline: Validate the DIRECT-SIX Ticket Price
-    Given <num> numbers are picked
+    Given <num> numbers are picked for bonus Lotto
     When bet amount <amount> is selected
     Then validate ticket price direct6
 
@@ -78,7 +79,7 @@ Feature: Bonus Lotto Sale
 
   Scenario Outline: Validate Buy button for Perm6 bet type
     When Perm6 is selected
-    And <num> numbers are picked
+    And <num> numbers are picked for bonus Lotto
     Then buy option should enable to buy
 
     Examples: 
@@ -104,7 +105,7 @@ Feature: Bonus Lotto Sale
 
   Scenario Outline: Validate the PERM_SIX Ticket Price
     When Perm6 is selected
-    Given <num> numbers are picked
+    Given <num> numbers are picked for bonus Lotto
     When bet amount <amount> is selected
     Then validate ticket price perm6
 
@@ -119,7 +120,7 @@ Feature: Bonus Lotto Sale
 
   Scenario Outline: validate sale for permsix using quickpick
     Given Perm6 is selected
-    When <num> numbers are picked
+    When <num> numbers are picked for bonus Lotto
     And buynow button selected bonus Lotto
     And In popup alert box accepted bonus Lotto
     Then ticket should be puchased bonus Lotto
@@ -130,7 +131,7 @@ Feature: Bonus Lotto Sale
 
   Scenario Outline: validate sale for directsix using quickpick
     Given Direct6 is selected
-    When <num> numbers are picked
+    When <num> numbers are picked for bonus Lotto
     And buynow button selected bonus Lotto
     And In popup alert box accepted bonus Lotto
     Then ticket should be puchased bonus Lotto
@@ -158,7 +159,7 @@ Feature: Bonus Lotto Sale
     When Perm6 is selected
     And Advance draw is selected bonus Lotto
     And select <noOfDraws>
-    And <num> numbers are picked
+    And <num> numbers are picked for bonus Lotto
     Then validate ticket price perm6
 
     Examples: 
