@@ -6,16 +6,21 @@ import org.openqa.selenium.WebDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pages.BasePage;
+import pages.mobilePages.MobileDrawGamePage;
 import pages.mobilePages.MobileHomePage;
 import pages.mobilePages.MobileLoginPage;
 import stepDefinitions.AttachHooks;
 import utils.CommonFunctionLibrary;
+import utils.ConfigManager;
 
 public class MobileLoginStepDef {
 	WebDriver driver;
 	MobileLoginPage mobileLoginPage;
 	CommonFunctionLibrary functionLibrary;
 	MobileHomePage mobileHomePage;
+	BasePage basePage;
+	MobileDrawGamePage mobileDrawGamePage;
 
 	@Given("^Login popup is opened$")
 	public void login_popup_is_opened_android() throws Throwable {
@@ -34,10 +39,9 @@ public class MobileLoginStepDef {
 	public void valid_credentials_are_entered_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// enter valid credentials
-		mobileLoginPage.username("shreya");
-		mobileLoginPage.password("12345678");
-
 		try {
+			mobileLoginPage.username(ConfigManager.getProperty("Username"));
+			mobileLoginPage.password(ConfigManager.getProperty("Password"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception in Valid app credentials");
@@ -69,7 +73,6 @@ public class MobileLoginStepDef {
 	public void AppHomeScreen_not_visible_android() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// click Login and verify
-		mobileLoginPage.clickLogin();
 		mobileHomePage = mobileLoginPage.clickLogin();
 		if (mobileHomePage != null) {
 			Assert.fail();

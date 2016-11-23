@@ -3,7 +3,7 @@ package objectRepository;
 import org.openqa.selenium.By;
 
 public class LoginPageLocators {
-	
+
 	public static String appId = "com.skilrock.lms.ui:";
 
 	public static By userTextfield = By.id("username");
@@ -30,4 +30,14 @@ public class LoginPageLocators {
 	public static By homeScreenImageAndroid = By.id("com.skilrock.lms.ui:id/image_display");
 	public static By startNow = By.id("com.skilrock.lms.ui:id/done");
 	public static By dismissNotification = By.id("com.skilrock.lms.ui:id/dialogcancel");
+
+	public static By registerAndroid = By.id("com.skilrock.lms.ui:id/register");
+	public static By dobAndroid = By.id("com.skilrock.lms.ui:id/date_of_birth");
+	public static By mobileNoAndroid = By.id("com.skilrock.lms.ui:id/phoneNumber");
+	public static By referralCodeAndroid = By.id("com.skilrock.lms.ui:id/refer_promo_code");
+	public static By emailIdAndroid = By.id("com.skilrock.lms.ui:id/email");
+	public static By TermsAndroid = By.id("com.skilrock.lms.ui:id/txt_tc");
+	public static By registerUserAndroid = By.id("com.skilrock.lms.ui:id/lets_play");
+	public static By clickOKAndroid = By.id("android:id/button1");
+	public static By clickSMSDone = By.id("com.skilrock.lms.ui:id/dialogDone");
 }
