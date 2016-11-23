@@ -1,6 +1,11 @@
 package pages;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -10,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import DataBaseQuery.DBConnection;
+import DataBaseQuery.LuckyNumberSqlQuery;
 import io.appium.java_client.android.AndroidDriver;
 import utils.CommonFunctionLibrary;
 
@@ -107,7 +114,6 @@ public class BasePage {
 
 	public static boolean nodeDetail(WebElement select, String string) {
 		boolean detail = select.getAttribute(string) != null;
-		// System.out.println("Button is Selected :: " + detail);
 		return detail;
 	}
 
@@ -127,6 +133,26 @@ public class BasePage {
 		if (elem == null) {
 			throw new ElementNotVisibleException(locator + " :: element is not visible");
 		}
+	}
+
+	public boolean verifyActiveBetType(By locator, String query, String status) throws SQLException {
+		DBConnection dbconnection = new DBConnection();
+		Connection connection = dbconnection.getDBConnectionDge();
+		ResultSet rs = dbconnection.ExecuteQuery(connection, query, 1, status);
+		List<String> dbbettype = new ArrayList<String>();
+		List<String> uibettype = new ArrayList<String>();
+		boolean flag = false;
+		while (rs.next()) {
+			dbbettype.add(rs.getString(1));
+			System.out.println(rs.getString(1));
+		}
+		uibettype = findElements(locator, 5);
+		System.out.println(uibettype);
+		Collections.sort(dbbettype);
+		if (dbbettype.equals(uibettype))
+			return true;
+
+		return flag;
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
+import DataBaseQuery.LuckyNumberSqlQuery;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -50,7 +52,6 @@ public class MobileLuckyNumbersStepDef {
 		if (mobileDrawGamePage == null) {
 			Assert.fail();
 		}
-		// mobileLuckyNumPage.selectDG();
 	}
 
 	@Given("^Lucky numbers game is selected$")
@@ -59,16 +60,15 @@ public class MobileLuckyNumbersStepDef {
 		if (mobileLuckyNumPage == null) {
 			Assert.fail();
 		}
-		// mobileLuckyNumPage.selectLuckyNumbers();
 	}
 
-	@Given("^PermOne bet type and Pick New is selected$")
-	public void permOne_bet_type_and_Pick_New_is_selected() throws Throwable {
-		mobileLuckyNumPage.validateBetType(LuckeyNumberPageLocator.perm1Android, "Perm1");
+	@Given("^(\\w+) bet type and Pick New is selected$")
+	public void bet_type_and_Pick_New_is_selected(String betType) throws Throwable {
+		mobileLuckyNumPage.validateBetName(LuckeyNumberPageLocator.betTypeSelectAndroid, betType);
 		mobileLuckyNumPage.validatePickType(LuckeyNumberPageLocator.pickNewAndroid, "checked");
 	}
 
-	@Given("^numbers (\\d+) are picked$")
+	@Given("^(\\d+) numbers are picked$")
 	public void numbers_are_picked(int numPicked) throws Throwable {
 		mobileLuckyNumPage.swipe(1, 0.80, 0.10, 600, 400);
 		List<Integer> randomNumbers;
@@ -85,19 +85,40 @@ public class MobileLuckyNumbersStepDef {
 
 	}
 
-	@When("^number of lines selected are (\\w+) and NumberSelected (\\w+) and increase betAmount by (\\d+)$")
-	public void number_of_lines_selected_are_ten(String noOfLines, String numberSelected, int clickBetAmt)
+	@Given("^(\\w+) bet type and Quick Pick is selected$")
+	public void permOne_bet_type_and_Pick_New_is_selected(String betType) throws Throwable {
+		mobileLuckyNumPage.validateBetName(LuckeyNumberPageLocator.betTypeSelectAndroid, betType);
+		mobileLuckyNumPage.validatePickType(LuckeyNumberPageLocator.quickPickAndroid, "checked");
+	}
+
+	@Given("^(\\d+) qp numbers are picked$")
+	public void qp_numbers_are_picked(int clickQpNumPicked) throws Throwable {
+		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseNumbersAndroid, clickQpNumPicked);
+	}
+
+	@When("^number of lines selected are (\\w+) and NumberSelected (\\w+) and bet type is (\\w+)$")
+	public void validate_number_of_lines_selected(String noOfLines, String numberSelected, String betType)
 			throws Throwable {
 		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.noOfLinesAndroid, 5).getText()
 				.contains(noOfLines))) {
 			Assert.fail();
 		}
-
-		if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.selectedNumbersAndroid, 5).getText()
-				.contains(numberSelected))) {
-			Assert.fail();
+		if (betType.contains("Perm1")) {
+			if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.selectedNumbersAndroid, 5).getText()
+					.contains(numberSelected))) {
+				Assert.fail();
+			}
+		} else if (betType.contains("Perm2") && betType.contains("Perm3")) {
+			if (!(mobileLuckyNumPage.findElement(LuckeyNumberPageLocator.selectQPNumbersAndroid, 5).getText()
+					.contains(numberSelected))) {
+				Assert.fail();
+			}
 		}
-		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseAndroid, clickBetAmt);
+	}
+
+	@When("^increase betAmount by (\\d+)$")
+	public void increase_bet_amount(int clickBetAmt) throws Throwable {
+		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseBetAndroid, clickBetAmt);
 	}
 
 	@Then("^PurchaseAmt \\$ (.*)$")
@@ -115,6 +136,34 @@ public class MobileLuckyNumbersStepDef {
 				.contains("LUCKY NUMBERS"))) {
 			Assert.fail();
 		}
+	}
+
+	@Given("^Active bet types in app are present in DB$")
+	public void active_bet_types_are_present_in_DB_Mobile() throws Throwable {
+		mobileLuckyNumPage.buttonClick(LuckeyNumberPageLocator.changeBetTypeAndroid);
+		// getChild(driver.findElement(LuckeyNumberPageLocator.betListAndroid),
+		// 1);
+		if (mobileLuckyNumPage.verifyActiveBetType(LuckeyNumberPageLocator.betNameAndroid,
+				LuckyNumberSqlQuery.LuckyNumberActiveBetType, "active")) {
+			System.out.println("DB and UI Bet types verified");
+		} else {
+			Assert.fail("Did not receive bet types from UI");
+		}
+
+	}
+
+	@Then("^Active bet types are visible in app$")
+	public void active_bet_types_are_visible_Android() throws Throwable {
+		System.out.println("Active Bet Type Visibility Verified");
+	}
+
+	@Then("^Ticket should not be generated$")
+	public void ticket_is_not_generated() throws Throwable {
+		mobileLuckyNumPage.buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
+		if ((mobileLuckyNumPage.isElementPresent(LuckeyNumberPageLocator.confirmDialogHeaderAndroid, 5))) {
+			Assert.fail();
+		}
+		System.out.println("Ticket is not generated");
 	}
 
 }
