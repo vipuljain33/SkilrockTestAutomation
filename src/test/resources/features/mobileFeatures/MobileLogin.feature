@@ -7,7 +7,7 @@ Feature: This is login feature
     When Valid app credentials are entered
     Then HomeScreen should be visible
 
-  @outline_1
+  @outlineMobileInvalid
   Scenario Outline: Testing with invalid credentials
     Given Login popup is opened
     When invalid app username <username> is entered
@@ -18,3 +18,5 @@ Feature: This is login feature
       | username | password |
       | test     | 12345678 |
       | shreya   |     1234 |
+      
+      
