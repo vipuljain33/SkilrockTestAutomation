@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(plugin={"pretty","json:target/cucumberreports.json"},
 glue="stepDefinitions",
 features="src\\test\\resources\\features",
-tags={"@LuckyNumber"},
+tags={"@MobileValid"},
 monochrome=false)
 public class RunTest {
 

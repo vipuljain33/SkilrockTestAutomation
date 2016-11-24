@@ -126,7 +126,7 @@ Feature: Lucky Number Sale
       |      10 |       12.00 |
       |      20 |      114.00 |
 
-  @Test
+ 
   Scenario: validate sale for permone using quickpick
     When permone quickpick option is selected
     And buynow button selected
