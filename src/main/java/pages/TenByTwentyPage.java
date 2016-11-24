@@ -720,18 +720,13 @@ public class TenByTwentyPage extends BasePage {
 					value);
 
 			while (resultset.next()) {
-				System.out.println(resultset.getString(2));
-				// for(int i=1;i<=resultset.getMetaData().getColumnCount();i++)
-				// {
-				/*
-				 * System.out.println("For loop");
-				 */
-				HashMap hashmap = new MultiHashMap();
-				hashmap.put(resultset.getString(0), resultset.getString(1));
-				hashmap.put(resultset.getString(0), resultset.getString(2));
-				hashmap.put(resultset.getString(0), resultset.getString(3));
+				for(int i=1;i<=resultset.getMetaData().getColumnCount();i++)
+				{
+					HashMap<String, String> hashmap=new HashMap<String, String>();
+				hashmap.put(resultset.getMetaData().getColumnName(i),resultset.getString(i));
 				listitem.add(hashmap);
-				// }
+				
+			}
 
 			}
 		} else {
