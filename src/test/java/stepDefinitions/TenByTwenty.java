@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +35,9 @@ public class TenByTwenty {
 	LuckyNumberPage lnpage;
 	TenByTwentyPage tbt;
 	BasePage basePage;
-
+	WebDriver driver;	
+	DrawGamePage drawGamePage;
+	//TenByTwentyPage tenByTwentyPage;
 	int flag = 1;
 
 	@Given("^login with given credentials for TenByTwenty$")
@@ -258,5 +261,216 @@ public class TenByTwenty {
 			Assert.fail("WRONG TICKET PRICE");
 		}
 	}
+	
+	@Given("^Draw game option is selected aaa TenByTwenty$")
+	public void draw_game_option_is_selected_aaa_TenByTwenty() {
+		// mypage = new TenByTewntyPage(AttachHooks.driver);
+		if (drawGamePage.isDrawgameSelected()) {
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@Given("^Select Ten By Twenty TenByTwenty$")
+	public void select_Ten_By_Twenty_TenByTwenty() {
+		// mypage = new TenByTewntyPage(AttachHooks.driver);
+		tbt = drawGamePage.selectTENBYTWENTY();
+		if (tbt == null) {
+			Assert.fail();
+		} else {
+			System.out.println("TenByTwenty Page Returned TenByTwenty");
+		}
+	}
+
+	@Given("^click on direct ten bet type TenByTwenty$")
+	public void click_on_direct_ten_bet_type_TenByTwenty() {
+		tbt.isDirectTenBetTypeSelected();
+
+	}
+
+	@When("^select the QuickPick option TenByTwenty$")
+	public void select_the_QuickPick_option_TenByTwenty() throws Throwable {
+		if (tbt.isQuickPickSelected()) {
+			System.out.println("INSIDE QUICK PICK");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Then("^ten numbers should be randomly selected TenByTwenty$")
+	public void ten_numbers_should_be_randomly_selected_TenByTwenty() throws Throwable {
+
+		if (tbt.isTenNumbersselected()) {
+			System.out.println("RANDOM NUMBER SELECTED");
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@Then("^ticket preview should shown TenByTwenty$")
+	public void ticket_preview_should_shown_TenByTwenty() {
+		if (tbt.ticketView()) {
+			System.out.println("ticket preview display sucessfully");
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	/*
+	 * @When("^select number by Manual pick option TenByTwenty$") public void
+	 * select_number_by_Manual_pick_option_TenByTwenty() throws Throwable { //
+	 * Write code here that turns the phrase above into concrete actions throw
+	 * new PendingException(); }
+	 */
+
+	@Given("^Click on FIRST(\\d+) Bet type TenByTwenty$")
+	public void click_on_FIRST_Bet_type_TenByTwenty(int arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+
+		if (tbt.isFirst10BettypeSelected()) {
+
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@When("^Click on buy button TenByTwenty$")
+	public void click_on_buy_button_TenByTwenty() throws Throwable {
+		if (tbt.clickonBuyButton()) {
+			System.out.println("Scenario Run successfully");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Given("^Click on LAST(\\d+) Bet type TenByTwenty$")
+	public void click_on_LAST_Bet_type_TenByTwenty(int arg1) {
+
+		if (tbt.isLastTenBettypeSelected()) {
+			System.out.println("LAST TEN BET TYPE SELECTED");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Given("^Click on ALLODD Bet type TenByTwenty$")
+	public void click_on_ALLODD_Bet_type_TenByTwenty() throws Throwable {
+
+		if (tbt.isALLODDBettypeSelected()) {
+			System.out.println("ALL ODD BET TYPE SELECTED");
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@Given("^Click on ODDEVEN Bet type TenByTwenty$")
+	public void click_on_ODDEVEN_Bet_type_TenByTwenty() throws Throwable {
+
+		if (tbt.isODDEVENBettypeSelected()) {
+
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Given("^Click on EVENODD Bet type TenByTwenty$")
+	public void click_on_EVENODD_Bet_type_TenByTwenty() throws Throwable {
+
+		if (tbt.isEvenOddBettypeSelected()) {
+			System.out.println("Step Def Executed Successfully");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Given("^Click on JUMPEVENODD Bet type TenByTwenty$")
+	public void click_on_JUMPEVENODD_Bet_type_TenByTwenty() throws Throwable {
+
+		if (tbt.isJumpEvenOddBettypeSelected()) {
+			System.out.println("Step Def Executed Successfully");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@Given("^Click on JUMPODDEVEN Bet type TenByTwenty$")
+	public void click_on_JUMPODDEVEN_Bet_type_TenByTwenty() throws Throwable {
+
+		if (tbt.isJumpOddEvenBettypeSelected()) {
+			System.out.println("Step Def Executed Successfully");
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@Then("^draw info should be matched with database TenByTwenty$")
+	public void draw_info_should_be_matched_with_database_TenByTwenty() throws Throwable {
+		if (tbt.dbadvanceDrawVerify()) {
+			System.out.println("DataBase value verified for Advance Draw List");
+			System.out.println("Step Def Executed Successfully");
+
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@When("^Click on Advance Draw Section TenByTwenty$")
+	public void click_on_Advance_Draw_Section_TenByTwenty() throws Throwable {
+		if (tbt.isAdvanceDrawClicked()) {
+			System.out.println("Advance Draw Selected");
+			System.out.println("Step Def Executed Successfully");
+		} else {
+			Assert.fail();
+		}
+	}
+
+	@When("^First(\\d+) Ticket purchased TenByTwenty$")
+	public void first_Ticket_purchased_TenByTwenty(int arg1) throws Throwable {
+
+		if (tbt.isFirst10BettypeSelected()) {
+			if (tbt.clickonBuyButton()) {
+				System.out.println("First 10 Sale done");
+				System.out.println("Step Def Executed Successfully");
+			}
+		} else {
+			Assert.fail();
+		}
+
+	}
+
+	@Then("^ticket number in preview should be equal to database value TenByTwenty$")
+	public void ticket_number_in_preview_should_be_equal_to_database_value_TenByTwenty() throws Throwable {
+
+		List<Map<String, String>> returnedList;
+		// Write code here that turns the phrase above into concrete actions
+		returnedList = tbt.returnDatabaseValue();
+
+		if (returnedList != null) {
+			for (Map<String, String> value : returnedList) {
+				System.out.println("Printing key value pair");
+				for (Map.Entry<String, String> entry : value.entrySet()) {
+					System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+
+					if (tbt.findElement(By.xpath("//*[contains(text(), '" + entry.getValue() + "')]"),
+							5) != null) {
+
+						System.out.println("Element found: " + entry.getValue());
+					}
+
+				}
+
+			}
+		} else {
+			Assert.fail();
+		}
+
+	}
+
 
 }

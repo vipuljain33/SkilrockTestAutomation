@@ -8,7 +8,8 @@ Feature: Ten By Twenty sale
   #Scenario: verify ten by twenty is available for TenByTwenty
   # Given logged in successfully for TenByTwenty
   #  When draw game is selected for TenByTwenty
-  # Then ten by twenty should be visible for TenByTwenty
+  # Then ten by twenty should be visible for TenByTwenty\
+ 
   Scenario: verify direct ten bet type for TenByTwenty
     Given direct ten bet type is selected for TenByTwenty
     When Quickpick is selected for TenByTwenty
@@ -54,8 +55,73 @@ Feature: Ten By Twenty sale
     Then number picked should be in evenodd pair for TenByTwenty
     And QP should not enable for TenByTwenty
 
-  @shiwangi
   Scenario: Validate ticket price for all odd TenByTwenty
     When all odd bet type is selected for TenByTwenty
     And other bet amount selected five point five
     Then total ticket amount should be five point five
+ @amit
+  Scenario: verify Direct ten by quick pick TenByTwenty
+    Given click on direct ten bet type TenByTwenty
+    When select the QuickPick option TenByTwenty
+    Then ten numbers should be randomly selected TenByTwenty
+
+  Scenario: verify Sale for Direct10 QP TenByTwenty
+    Given click on direct ten bet type TenByTwenty
+    When select the QuickPick option TenByTwenty
+    And Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for FIRST10 TenByTwenty
+    Given Click on FIRST10 Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for LAST10 TenByTwenty
+    Given Click on LAST10 Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for AllODD TenByTwenty
+    Given Click on ALLODD Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for AllEVEN TenByTwenty
+    Given Click on FIRST10 Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for  ODDEVEN TenByTwenty
+    Given Click on ODDEVEN Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for EVENODD TenByTwenty
+    Given Click on EVENODD Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for JUMPEVENODD TenByTwenty
+    Given Click on JUMPEVENODD Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify Sale for JUMPODDEVEN TenByTwenty
+    Given Click on JUMPODDEVEN Bet type TenByTwenty
+    When Click on buy button TenByTwenty
+    Then ticket preview should shown TenByTwenty
+
+  Scenario: verify advance draw sale for Direct10 Quick Pick TenByTwenty
+    Given click on direct ten bet type TenByTwenty
+    And select the QuickPick option TenByTwenty
+    When Click on Advance Draw Section TenByTwenty
+    And Click on buy button TenByTwenty
+    And ticket preview should shown TenByTwenty
+
+  Scenario: Validate advance draw info with database
+    When click on direct ten bet type TenByTwenty
+    Then draw info should be matched with database TenByTwenty
+
+  Scenario: verify database table for sale TenByTwenty
+    When First10 Ticket purchased TenByTwenty
+    Then ticket number in preview should be equal to database value TenByTwenty
