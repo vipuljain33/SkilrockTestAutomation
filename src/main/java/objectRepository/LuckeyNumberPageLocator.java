@@ -63,7 +63,7 @@ public class LuckeyNumberPageLocator {
 	public static By qpfield = By.xpath("html/body/div[2]/div[2]/div[2]/div[3]/div[7]/input");
 	public static By advdraw = By.xpath(".//*[@id='numOfDrawsSelected']");
 
-	/*public static By enterCradnumberPopupcancel=By.xpath("//*[@id='card-no']//div[@class='button-cancel']");
+	public static By enterCradnumberPopupcancel=By.xpath("//*[@id='card-no']//div[@class='button-cancel']");
 	public static By enterCradnumberPopup=By.xpath(".//div[@id='card-no']");
 	public static By ticketPreview=By.xpath("//div[@id='tktView']");
 	public static By prizePreview=By.xpath(".//*[@id='gamePrizeScheme']");
@@ -74,7 +74,7 @@ public class LuckeyNumberPageLocator {
 	public static By advanceDrawLocator=By.xpath("//*[@id='advDrawSel']/a");
 	public static By insufficienterrorpopup=By.xpath("//*[@id='error-popup']//div[@class='modal-bodyWrap']//div[@id='error']");
 
-	public static By enterCradnumberPopupcancel = By.xpath("//*[@id='card-no']//div[@class='button-cancel']");
+	/*public static By enterCradnumberPopupcancel = By.xpath("//*[@id='card-no']//div[@class='button-cancel']");
 	public static By enterCradnumberPopup = By.xpath(".//div[@id='card-no']");
 	public static By ticketPreview = By.xpath("//div[@id='tktView']");
 	public static By prizePreview = By.xpath(".//*[@id='gamePrizeScheme']");
