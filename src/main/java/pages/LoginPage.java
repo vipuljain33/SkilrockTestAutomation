@@ -12,16 +12,15 @@ import org.slf4j.LoggerFactory;
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LoginSqlQuery;
 import objectRepository.LoginPageLocators;
+import objectRepository.DrawGamePageLocator;
 import objectRepository.HomePageLocator;
 
 import objectRepository.LuckeyNumberPageLocator;
 import utils.CommonFunctionLibrary;
 
-
 public class LoginPage extends BasePage {
-	 
-	
-	String username=null;
+
+	String username = null;
 	private static Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
 	public LoginPage(WebDriver driver) {
@@ -38,7 +37,7 @@ public class LoginPage extends BasePage {
 		WebElement elem = findElement(LoginPageLocators.userTextfield, 5);
 
 		if (elem == null) {
-			//throw new IllegalStateException();
+			// throw new IllegalStateException();
 			throw new ElementNotVisibleException("User TextField Not Visible");
 		}
 	}
@@ -55,21 +54,19 @@ public class LoginPage extends BasePage {
 	public BasePage clickLogin() {
 		try {
 			driver.findElement(LoginPageLocators.loginBtn).click();
-			if(functionLibrary.switchFrame("topFrame"))
-			{
-				if(isElementPresent(HomePageLocator.currentLoggedUser, 5) && findElement(HomePageLocator.currentLoggedUser,5).getText().equalsIgnoreCase("bomaster"))
-				{
+			if (functionLibrary.switchFrame("topFrame")) {
+				if (isElementPresent(HomePageLocator.currentLoggedUser, 5)
+						&& findElement(HomePageLocator.currentLoggedUser, 5).getText().equalsIgnoreCase("bomaster")) {
 					System.out.println("Inside home page bouser");
 					return new HomePage(driver);
 				}
 			}
-			if(isElementPresent(LuckeyNumberPageLocator.drawgamelocator, 5))
-			{
+			if (isElementPresent(DrawGamePageLocator.drawgamelocator, 5)) {
 				System.out.println("inside retailer home page");
 				return new DrawGamePage(driver);
 			}
 			return null;
-			//return new BasePage(driver);
+			// return new BasePage(driver);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
@@ -77,55 +74,45 @@ public class LoginPage extends BasePage {
 
 	}
 
-	public void verifyerror()
-	{
+	public void verifyerror() {
 		boolean flag = false;
-		String txt1 ;
+		String txt1;
 		String txt2;
 		String txt3;
-		
-	
-		if(isElementPresent(LoginPageLocators.errorMessageWhenUsernameNotEntered, 10))
-		{
+
+		if (isElementPresent(LoginPageLocators.errorMessageWhenUsernameNotEntered, 10)) {
 			txt1 = findElement(LoginPageLocators.errorMessageWhenUsernameNotEntered, 10).getText();
 			flag = true;
 		}
-		if(isElementPresent(LoginPageLocators.errorMessageWhenPasswordNotEntered, 10))
-		{
+		if (isElementPresent(LoginPageLocators.errorMessageWhenPasswordNotEntered, 10)) {
 			txt2 = findElement(LoginPageLocators.errorMessageWhenPasswordNotEntered, 10).getText();
 			flag = true;
 		}
-		if(isElementPresent(LoginPageLocators.errorWhenInvalidCredentialsEntered, 10))
-		{
+		if (isElementPresent(LoginPageLocators.errorWhenInvalidCredentialsEntered, 10)) {
 			txt3 = findElement(LoginPageLocators.errorWhenInvalidCredentialsEntered, 10).getText();
-			flag= true;
+			flag = true;
 		}
-		
-		if(flag == false)
-		{
+
+		if (flag == false) {
 			Assert.fail();
 		}
-		
-		
-		
-		
+
 	}
 
-	public void LoginWithActiveUser() throws SQLException{
-		DBConnection dbconnection= new DBConnection();	
-		Connection connection= dbconnection.CreateConnectionForLMS();
-		ResultSet rs = dbconnection.ExecuteQuery(connection,dbconnection.getFinalQuery(LoginSqlQuery.activeuser),"active","RETAILER");
-		
+	public void LoginWithActiveUser() throws SQLException {
+		DBConnection dbconnection = new DBConnection();
+		Connection connection = dbconnection.CreateConnectionForLMS();
+		ResultSet rs = dbconnection.ExecuteQuery(connection, dbconnection.getFinalQuery(LoginSqlQuery.activeuser),
+				"active", "RETAILER");
 
 		while (rs.next()) {
-			System.out.println(username=rs.getString(1));
-			username=rs.getString(1);
+			System.out.println(username = rs.getString(1));
+			username = rs.getString(1);
 		}
-		
-	    enterUsername(username);
+
+		enterUsername(username);
 		enterPassword("12345678");
-		
+
 	}
-	
-	
+
 }

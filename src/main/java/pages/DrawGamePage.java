@@ -1,17 +1,17 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
-import objectRepository.HomePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
 import utils.CommonFunctionLibrary;
+
 
 public class DrawGamePage extends RetailerTopHeaderPage {
 	
@@ -42,7 +42,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 	}
 	
 	public boolean isDrawgameSelected(){
-		if(	findElement(LuckeyNumberPageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
+		if(	findElement(DrawGamePageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
 			LOGGER.info("Draw Game Is Selected");
 			return true;
 		}
@@ -69,23 +69,22 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		
 	}
 	
-	public boolean isLuckyNumberSelected()
+	public BonusLottoPage selectBonusLotto()
 	{
 		functionLibrary.switchFrame("leftbottom");
+		if(findElement(BonusLottoPageLocators.bonusLottoButton, 5) != null)
+		{
+			findElement(BonusLottoPageLocators.bonusLottoButton, 5).click();
+			System.out.println("Bonus Lotto is selected");
+			return new BonusLottoPage(driver);
+		}else
+		{
+			System.out.println("Bonus Lotto  is not selected");
+			return null;
+		}
 		
-		if(findElement(LuckeyNumberPageLocator.luckynumberlocator, 5).getAttribute("gamename").equalsIgnoreCase("KenoTwo"))
-		{
-			LOGGER.info("Lucky Number Game Is Selected");
-			
-			return true;
-		}
-		else
-		{
-			LOGGER.info("Lucky Number Game Is Not Selected");
-			return false;
-		}
 	}
-	
+
 	public TenByTwentyPage selectTENBYTWENTY()
 	 {
 	  functionLibrary.switchFrame("leftbottom");
@@ -113,7 +112,8 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 	   return false; 
 	  }
 	  
-	  
-	 }
+	  }
 	
 }
+
+
