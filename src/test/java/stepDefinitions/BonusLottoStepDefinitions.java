@@ -198,7 +198,7 @@ public class BonusLottoStepDefinitions {
 		Assert.assertTrue(bonusLottoPage.buyisEnabled());
 	}
 
-	@Given("^(\\d+) numbers are picked$")
+	@Given("^(\\d+) numbers are picked for bonus Lotto$")
 	public void numbers_are_picked(int N) throws InterruptedException {
 		bonusLottoPage.selectNumber(N);
 
