@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
+import objectRepository.TenByTwentyLocator;
+import utils.CommonFunctionLibrary;
+
 
 public class DrawGamePage extends RetailerTopHeaderPage {
 	
@@ -82,7 +85,35 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		
 	}
 
-
+	public TenByTwentyPage selectTENBYTWENTY()
+	 {
+	  functionLibrary.switchFrame("leftbottom");
+	  if(findElements(TenByTwentyLocator.TBTlocator, 5) != null)
+	  {
+	   findElement(TenByTwentyLocator.TBTlocator, 5).click();
+	   System.out.println("Ten By Twenty Game Is Selected");
+	   return new TenByTwentyPage(driver);
+	  }else
+	  {
+	   System.out.println("Ten By Twenty Game Is Not Selected");
+	   return null;
+	  }
+	  
+	 }
+	 public boolean isTenByTwentyGameSelected()
+	 {
+	  functionLibrary.switchFrame("leftbottom");
+	  if(findElement(TenByTwentyLocator.TBTlocator, 5).getAttribute("gamename").equalsIgnoreCase("TenByTwenty"))
+	  {
+	   return true;
+	  }
+	  else
+	  {
+	   return false; 
+	  }
+	  
+	  }
+	
 }
 
 
