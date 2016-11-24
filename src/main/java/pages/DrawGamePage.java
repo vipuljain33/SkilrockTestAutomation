@@ -1,6 +1,6 @@
 package pages;
 
-import org.junit.Assert;
+
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,9 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import objectRepository.DrawGamePageLocator;
-import objectRepository.HomePageLocator;
+
 import objectRepository.LuckeyNumberPageLocator;
-import utils.CommonFunctionLibrary;
+
+
 
 public class DrawGamePage extends RetailerTopHeaderPage {
 	
@@ -28,7 +29,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		{
 			throw new ElementNotVisibleException("topframe not visible");
 		}
-		//new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.sw)
+		
 		WebElement elem = findElement(DrawGamePageLocator.drawgamelocator, 5);
 		if(elem != null)
 		{
@@ -83,5 +84,21 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 			LOGGER.info("Lucky Number Game Is Not Selected");
 			return false;
 		}
+	}
+	
+	public MiniRoulettePage selectMiniRoulette(){
+		functionLibrary.switchFrame("leftbottom");
+		if(findElement(DrawGamePageLocator.miniRouletteButton, 5) != null)
+		{
+			findElement(DrawGamePageLocator.miniRouletteButton, 5).click();
+			System.out.println("Mini Roulette is selected");
+			return new MiniRoulettePage(driver);
+		}else
+		{
+			System.out.println("Mini Roulette is not selected");
+			return null;
+		}
+		
+		
 	}
 }
