@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,13 +16,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import DataBaseQuery.DBConnection;
-import DataBaseQuery.LuckyNumberSqlQuery;
 import io.appium.java_client.android.AndroidDriver;
-import objectRepository.LuckeyNumberPageLocator;
-
 import utils.CommonFunctionLibrary;
 import utils.DateUtils;
-import utils.ReusableStaticMethods;
 
 public class BasePage {
 
@@ -186,16 +181,25 @@ public class BasePage {
 		return flag;
 	}
 
-	public void advanceDrawListVerify(By parentLocator, By childLocator, String query, String param1,
+	/**
+	 * @param parentLocator
+	 * @param childLocator
+	 * @param header
+	 * @param query
+	 * @param param1
+	 * @param returnFormat
+	 * @throws SQLException
+	 */
+	public void advanceDrawListVerify(By parentLocator, By childLocator, String header, String query, String param1,
 			String returnFormat) throws SQLException {
 		List<String> databaseValue = new ArrayList<String>();
 		List<WebElement> drawList = getChildElements(parentLocator, childLocator);
 		List<String> uiDrawInfo = new ArrayList<String>();
 		if (drawList != null) {
 			for (WebElement elem : drawList) {
-				if (!elem.getText().equalsIgnoreCase("SELECT DRAWS") && !elem.getText().equalsIgnoreCase("")) {
+				if (!elem.getText().equalsIgnoreCase(header) && !elem.getText().equalsIgnoreCase("")) {
 					uiDrawInfo.add(elem.getText());
-					System.out.println("UI :: " + uiDrawInfo);
+					System.out.println("UI List :: " + uiDrawInfo);
 				}
 			}
 		} else {
@@ -208,7 +212,7 @@ public class BasePage {
 				String temp = DateUtils.getDateInExpectedFormat("yyyy-MM-dd HH:mm:ss.S", resultset.getString(j),
 						returnFormat);
 				databaseValue.add(temp);
-				System.out.println(databaseValue);
+				System.out.println("DB List :: " + databaseValue);
 			}
 		}
 		if (uiDrawInfo.equals(databaseValue)) {

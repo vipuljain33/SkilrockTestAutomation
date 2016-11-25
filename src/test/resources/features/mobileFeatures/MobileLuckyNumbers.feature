@@ -11,45 +11,45 @@ Feature: Mobile app Lucky Number Sale
     Given Active bet types in app are present in DB
     Then Active bet types are visible in app
 
-  Scenario Outline: Validate ticket is not generated when less than minimum nos are selected for all bet types
+  Scenario Outline: Validate minimum numbers selected for all bet types
     When <betType> and Pick New is selected in app
-    And <numPicked> numbers are picked in app
+    And <numbers> are picked in app
     Then ticket should not be generated in app
 
     Examples: 
-      | betType | numPicked |
-      | Perm1   |         9 |
-      | Perm2   |         4 |
-      | Perm3   |         4 |
+      | betType | numbers |
+      | Perm1   |       9 |
+      | Perm2   |       4 |
+      | Perm3   |       4 |
 
   @MobileLuckyNumberGamePlayValidate
   Scenario Outline: Validate maximum numbers selected for all bet types
     When <betType> and Pick New is selected in app
-    And <numPicked> numbers are picked in app
+    And <numbers> are picked in app
     Then Maximum Numbers should be displayed in <numberSelected> in app
 
     Examples: 
-      | betType | numPicked | numberSelected |
-      | Perm1   |        11 |             10 |
-      | Perm2   |        21 |             20 |
-      | Perm3   |        21 |             20 |
+      | betType | numbers | numberSelected |
+      | Perm1   |      11 |             10 |
+      | Perm2   |      21 |             20 |
+      | Perm3   |      21 |             20 |
 
   Scenario Outline: Validate No. of lines , Numbers selected & Final Amount in all bet types using Quick Pick
     Given <betType> and Quick Pick is selected in app
-    And <clickQpNumPicked> qp numbers are picked in app
+    And <qpNumbers> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> QP in app
     Then Purchase amount is $ <amount> in app
 
     Examples: 
-      | betType | clickQpNumPicked | numberSelected | noOfLines | amount |
-      | Perm1   |                0 |             10 |        10 |   1.00 |
-      | Perm2   |                0 |              5 |        10 |   1.00 |
-      | Perm3   |                5 |             10 |       120 |  12.00 |
-      | Perm3   |               15 |             20 |      1140 | 114.00 |
+      | betType | qpNumbers | numberSelected | noOfLines | amount |
+      | Perm1   |         0 |             10 |        10 |   1.00 |
+      | Perm2   |         0 |              5 |        10 |   1.00 |
+      | Perm3   |         5 |             10 |       120 |  12.00 |
+      | Perm3   |        15 |             20 |      1140 | 114.00 |
 
   Scenario Outline: Validate No. of lines , Numbers selected & Final Amount in all bet types using Pick New
     Given <betType> and Pick New is selected in app
-    And <numberSelected> numbers are picked in app
+    And <numberSelected> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> in app
     Then Purchase amount is $ <amount> in app
 
@@ -63,25 +63,25 @@ Feature: Mobile app Lucky Number Sale
   @MobileLuckyNumQuickPickSale
   Scenario Outline: Validate sale for Perm1, Perm2 and Perm3 bet types using Quick Pick
     Given <betType> and Quick Pick is selected in app
-    And <clickQpNumPicked> qp numbers are picked in app
+    And <qpNumbers> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> QP in app
     And increase app betAmount by <clickBetAmt>
     Then Purchase amount is $ <amount> in app
     And Purchased ticket is generated in app
 
     Examples: 
-      | betType | clickQpNumPicked | numberSelected | noOfLines | clickBetAmt | amount |
-      | Perm1   |                0 |             10 |        10 |           0 |   1.00 |
-      | Perm1   |                0 |             10 |        10 |           5 |   6.00 |
-      | Perm2   |                0 |              5 |        10 |           2 |   3.00 |
-      | Perm2   |               15 |             20 |       190 |           1 |  38.00 |
-      | Perm3   |                0 |              5 |        10 |           3 |   4.00 |
-      | Perm3   |               15 |             20 |      1140 |           0 | 114.00 |
+      | betType | qpNumbers | numberSelected | noOfLines | clickBetAmt | amount |
+      | Perm1   |         0 |             10 |        10 |           0 |   1.00 |
+      | Perm1   |         0 |             10 |        10 |           5 |   6.00 |
+      | Perm2   |         0 |              5 |        10 |           2 |   3.00 |
+      | Perm2   |        15 |             20 |       190 |           1 |  38.00 |
+      | Perm3   |         0 |              5 |        10 |           3 |   4.00 |
+      | Perm3   |        15 |             20 |      1140 |           0 | 114.00 |
 
   @MobileLuckyNumPickNewSale
   Scenario Outline: Validate sale for Perm1, Perm2 and Perm3 bet types using Pick New
     Given <betType> and Pick New is selected in app
-    And <numberSelected> numbers are picked in app
+    And <numberSelected> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> in app
     And increase app betAmount by <clickBetAmt>
     Then Purchase amount is $ <amount> in app
@@ -106,6 +106,8 @@ Feature: Mobile app Lucky Number Sale
     Examples: 
       | betType |
       | Perm1   |
+      | Perm2   |
+      | Perm3   |
 
   Scenario Outline: Verify total price for ticket when multiple draws are selected
     Given <betType> and Quick Pick is selected in app

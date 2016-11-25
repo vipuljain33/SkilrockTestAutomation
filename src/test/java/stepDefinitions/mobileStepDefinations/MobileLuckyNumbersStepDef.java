@@ -67,12 +67,12 @@ public class MobileLuckyNumbersStepDef {
 		mobileLuckyNumPage.validatePickType(LuckeyNumberPageLocator.pickNewAndroid, "checked");
 	}
 
-	@Given("^(\\d+) numbers are picked in app$")
-	public void numbers_are_picked(int numPicked) throws Throwable {
+	@Given("^(\\d+) are picked in app$")
+	public void numbers_are_picked(int numbers) throws Throwable {
 		mobileLuckyNumPage.swipe(1, 0.80, 0.10, 600, 400);
 		List<Integer> randomNumbers;
 		if (mobileLuckyNumPage != null) {
-			randomNumbers = ReusableStaticMethods.randomNumber(0, 89, numPicked);
+			randomNumbers = ReusableStaticMethods.randomNumber(0, 89, numbers);
 			for (int i = 0; i < randomNumbers.size(); i++) {
 				mobileLuckyNumPage
 						.findElement(
@@ -90,9 +90,9 @@ public class MobileLuckyNumbersStepDef {
 		mobileLuckyNumPage.validatePickType(LuckeyNumberPageLocator.quickPickAndroid, "checked");
 	}
 
-	@Given("^(\\d+) qp numbers are picked in app$")
-	public void qp_numbers_are_picked(int clickQpNumPicked) throws Throwable {
-		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseNumbersAndroid, clickQpNumPicked);
+	@Given("^(\\d+) are picked in app$")
+	public void qp_numbers_are_picked(int qpNumbers) throws Throwable {
+		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseNumbersAndroid, qpNumbers);
 	}
 
 	@When("^number of lines selected are (\\w+) and NumberSelected (\\w+) for bet type (\\w+) in app$")
@@ -201,7 +201,8 @@ public class MobileLuckyNumbersStepDef {
 	@Then("^app draw info should be matched with database$")
 	public void app_draw_info_should_match_with_database() throws Throwable {
 		mobileLuckyNumPage.advanceDrawListVerify(LuckeyNumberPageLocator.drawListAndroid,
-				LuckeyNumberPageLocator.textViewAndroid, LuckyNumberSqlQuery.advanceDraw, "active", "dd-MM-yyyy HH:mm");
+				LuckeyNumberPageLocator.textViewAndroid, "SELECT DRAWS", LuckyNumberSqlQuery.advanceDraw, "active",
+				"dd-MM-yyyy HH:mm");
 
 	}
 }
