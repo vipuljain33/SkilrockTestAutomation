@@ -1,6 +1,8 @@
 target/
+logs.log
 .classpath
 .project
 .settings/
 logs.log
 bin/
+

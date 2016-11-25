@@ -1,4 +1,5 @@
 package utils;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -14,24 +15,26 @@ import cucumber.api.Scenario;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
+public class CommonFunctionLibrary {
 
-public class CommonFunctionLibrary{
-	
-	WebDriver driver ;
+	WebDriver driver;
 	WebDriverWait wait;
 	public Dimension size;
+
 	public CommonFunctionLibrary(WebDriver driver) {
 
 		this.driver = driver;
-		
+
 	}
 
-	public boolean switchFrame(String frameId)
-	{
-		try
-		{
+	public boolean switchFrame(String frameId) {
+		try {
 			driver.switchTo().defaultContent();
+
+			wait = new WebDriverWait(driver, 5);
+
 			wait = new WebDriverWait(driver, 10);
+
 			wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameId));
 			// driver.switchTo().frame(frameId);
 			System.out.println(driver.getWindowHandle());
@@ -51,7 +54,6 @@ public class CommonFunctionLibrary{
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -64,8 +66,7 @@ public class CommonFunctionLibrary{
 		((AndroidDriver) driver).pressKeyCode(key);
 	}
 
-	public void swipe(int endNumber, double x1, double x2, int duration, int sleep) {
-
+	public void swipeHorizontal(int endNumber, double x1, double x2, int duration, int sleep) {
 		try {
 			// appiumNative();
 			for (int iCount = 1; iCount <= endNumber; iCount++) {
@@ -83,20 +84,49 @@ public class CommonFunctionLibrary{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-	public void switchToAlertOk()
+
+	public void swipeVertical(int endNumber, double x1, double x2, int duration, int sleep)
+			throws InterruptedException {
+		Thread.sleep(200);
+		for (int iCount = 1; iCount <= endNumber; iCount++) {
+			// Get the size of screen.
+			size = driver.manage().window().getSize();
+			System.out.println(size);
+			int starty = (int) (size.height * x1);
+			int endy = (int) (size.height * x2);
+			int startx = size.width / 2;
+			System.out.println("starty = " + starty + " ,endy = " + endy + " , startx = " + startx);
+
+			// Swipe from Bottom to Top.
+			((AppiumDriver) driver).swipe(startx, starty, startx, endy, duration);
+			Thread.sleep(sleep);
+
+			System.out.println("Count : " + iCount);
+			// Swipe from Top to Bottom.
+			// ((AppiumDriver) driver).swipe(startx, endy, startx, starty,
+			// 3000);
+		}
+	}
+
+	public void switchToAlertOk() {
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+	}
 	
+	public WebElement findElement(By locator, int timeoutSeconds)
 	{
-		Alert alert=driver.switchTo().alert();
-	   alert.accept();
-		
-	}
-	public void switchToAlertCancel()
-	{
-		Alert alert=driver.switchTo().alert();
-		 alert.dismiss();
-		
+		wait = new WebDriverWait(driver, timeoutSeconds);
+		WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		if (elem != null) {
+			return elem;
+		} else {
+			return null;
+		}
 	}
 
+	public void switchToAlertCancel() {
+		Alert alert = driver.switchTo().alert();
+		alert.dismiss();
+	}
 }
