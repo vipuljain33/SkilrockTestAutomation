@@ -128,6 +128,21 @@ public class DBConnection {
 		return rs;
 	}
 
+
+	public ResultSet ExecuteQuery(Connection connection, String Query, int param1) throws SQLException {
+
+		// select * from employee where ename = ? and location = ?`
+
+		// Statement stmt = (Statement) con.createStatement();
+		PreparedStatement ps = connection.prepareStatement(Query);
+		ps.setInt(1, param1);		
+		ResultSet rs = ps.executeQuery();
+
+		// while (rs.next()) {}
+		return rs;
+	}
+
+	
 	public String getFinalQuery(String value) {
 
 		String tempQuery = value;
