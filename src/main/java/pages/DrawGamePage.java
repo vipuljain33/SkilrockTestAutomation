@@ -41,7 +41,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 	}
 	
 	public boolean isDrawgameSelected(){
-		if(	findElement(LuckeyNumberPageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
+		if(	findElement(DrawGamePageLocator.drawgamelocator, 5).getCssValue("border-bottom") != null){
 			LOGGER.info("Draw Game Is Selected");
 			return true;
 		}

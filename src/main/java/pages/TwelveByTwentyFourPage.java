@@ -489,7 +489,7 @@ public class TwelveByTwentyFourPage extends BasePage {
 			int gameNo = 15;
 			DBConnection dbconnection = new DBConnection();
 			Connection con = DBConnection.getDBConnectionDge();
-			ResultSet rs=dbconnection.executeQuery(con, TwelveByTwentyFourSqlQuery.TwelveByTwentyFourActiveBetType, gameNo);
+			ResultSet rs=dbconnection.ExecuteQuery(con, TwelveByTwentyFourSqlQuery.TwelveByTwentyFourActiveBetType, gameNo);
 			List<String> dbbettype= new ArrayList<String>();
     		boolean flag=false;
 			while(rs.next()){
@@ -513,7 +513,7 @@ public class TwelveByTwentyFourPage extends BasePage {
 	
 	
 	public void verifyAdvanceDraw() throws SQLException {
-		List<String> dbadvancedraws = new ArrayList<>();
+		List<String> dbadvancedraws = new ArrayList<String>();
 
 		List<WebElement> advancedraws = driver.findElements(TwelveByTwentyFourPageLocator.advanceDraw);
 		DBConnection dbconnection = new DBConnection();
