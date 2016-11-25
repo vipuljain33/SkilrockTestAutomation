@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.HomePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
+import objectRepository.TwelveByTwentyFourPageLocator;
 import utils.CommonFunctionLibrary;
 
 public class DrawGamePage extends RetailerTopHeaderPage {
@@ -35,8 +36,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 			System.out.println("Draw Game page is opened");
 		}else
 		{
-			throw new ElementNotVisibleException("Draw Game Page is not visible");
-			
+			throw new ElementNotVisibleException("Draw Game Page is not visible");			
 		}
 	}
 	
@@ -68,6 +68,23 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		
 	}
 	
+	public TwelveByTwentyFourPage selectTwelveByTwentyFour()
+	{
+		functionLibrary.switchFrame("leftbottom");
+		if(findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5) != null)
+		{
+			findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5).click();
+			System.out.println("TwelveByTwentyFour is selected");
+			return new TwelveByTwentyFourPage(driver);
+		}else
+		{
+			System.out.println("TwelveByTwentyFour is not selected");
+			return null;
+		}
+		
+	}
+	
+	
 	public boolean isLuckyNumberSelected()
 	{
 		functionLibrary.switchFrame("leftbottom");
@@ -84,4 +101,22 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 			return false;
 		}
 	}
+	
+	public boolean isTwelveByTwentyFourSelected()
+	{
+		functionLibrary.switchFrame("leftbottom");
+		
+		if(findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5).getAttribute("gamename").equalsIgnoreCase("TwelveByTwentyFour"))
+		{
+			LOGGER.info("TwelveByTwentyFour Game Is Selected");
+			
+			return true;
+		}
+		else
+		{
+			LOGGER.info("TwelveByTwentyFour Game Is Not Selected");
+			return false;
+		}
+	}
+	
 }
