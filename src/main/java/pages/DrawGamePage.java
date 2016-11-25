@@ -10,6 +10,7 @@ import objectRepository.DrawGamePageLocator;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
+import objectRepository.TwelveByTwentyFourPageLocator;
 import utils.CommonFunctionLibrary;
 
 public class DrawGamePage extends RetailerTopHeaderPage {
@@ -107,4 +108,17 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		}
 
 	}
+
+	public TwelveByTwentyFourPage selectTwelveByTwentyFour(){
+		functionLibrary.switchFrame("leftbottom");
+		if (findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5) != null) {
+			findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5).click();
+			System.out.println("TwelveByTwentyFourPage is selected");
+			return new TwelveByTwentyFourPage(driver);
+		} else {
+			System.out.println("TwelveByTwentyFourPage");
+			return null;
+		}
+
+	}	
 }
