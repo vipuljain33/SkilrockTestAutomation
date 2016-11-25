@@ -1,8 +1,6 @@
 package pages.mobilePages;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -10,8 +8,6 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import cucumber.api.DataTable;
-import objectRepository.LoginPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import pages.BasePage;
 
@@ -37,7 +33,6 @@ public class MobileLuckyNumberPage extends BasePage {
 			Assert.fail();
 		}
 		// select bet name
-		// buttonClick(locator);
 		driver.findElement(By.xpath(locator + betName + "']")).click();
 		if (!(findElement(LuckeyNumberPageLocator.betNameAndroid, 5).getText().contains(betName))) {
 			Assert.fail();
@@ -74,5 +69,26 @@ public class MobileLuckyNumberPage extends BasePage {
 		if (!(findElement(LuckeyNumberPageLocator.subHeaderTextAndroid, 5).getText().contains("PURCHASED TICKET"))) {
 			Assert.fail();
 		}
+	}
+
+	public void drawSelect() {
+		buttonClick(LuckeyNumberPageLocator.advanceDrawAndroid);
+		if (!(findElement(LuckeyNumberPageLocator.popupHeaderName, 5).getText().contains("SELECT DRAWS"))) {
+			Assert.fail();
+		}
+		List<WebElement> list = getChildElements(LuckeyNumberPageLocator.drawListAndroid,
+				LuckeyNumberPageLocator.checkBoxAndroid);
+		if (list != null) {
+			for (WebElement elem : list) {
+				
+				if (!Boolean.valueOf(elem.getAttribute("checked"))) {
+					elem.click();
+				}
+			}
+
+		} else {
+			Assert.fail();
+		}
+		buttonClick(LuckeyNumberPageLocator.checkDoneAndroid);
 	}
 }

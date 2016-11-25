@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +19,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LuckyNumberSqlQuery;
 import io.appium.java_client.android.AndroidDriver;
+import objectRepository.LuckeyNumberPageLocator;
+
 import utils.CommonFunctionLibrary;
+import utils.DateUtils;
+import utils.ReusableStaticMethods;
 
 public class BasePage {
 
 	protected WebDriver driver;
 	WebDriverWait wait;
+	DBConnection connnection;
 
 	public CommonFunctionLibrary functionLibrary;
 
@@ -112,11 +118,6 @@ public class BasePage {
 		findElement(locator, 10).sendKeys(str);
 	}
 
-	public static boolean nodeDetail(WebElement select, String string) {
-		boolean detail = select.getAttribute(string) != null;
-		return detail;
-	}
-
 	/**
 	 * This function verifies element is present
 	 * 
@@ -135,6 +136,36 @@ public class BasePage {
 		}
 	}
 
+	/**
+	 * @param parentLocator
+	 * @param childPath
+	 * @return
+	 */
+	public List<WebElement> getChildElements(By parentLocator, By childLocator) {
+		try {
+			WebElement listViewElement = findElement(parentLocator, 5);
+			List<WebElement> childElementList = listViewElement.findElements(childLocator);
+			// System.out.println("LIST ::" + childElementList);
+			System.out.println(childElementList.size());
+			for (WebElement elem : childElementList) {
+				String text = elem.getText();
+				System.out.println(text);
+			}
+			return childElementList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	/**
+	 * @param locator
+	 * @param query
+	 * @param status
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean verifyActiveBetType(By locator, String query, String status) throws SQLException {
 		DBConnection dbconnection = new DBConnection();
 		Connection connection = dbconnection.getDBConnectionDge();
@@ -155,4 +186,35 @@ public class BasePage {
 		return flag;
 	}
 
+	public void advanceDrawListVerify(By parentLocator, By childLocator, String query, String param1,
+			String returnFormat) throws SQLException {
+		List<String> databaseValue = new ArrayList<String>();
+		List<WebElement> drawList = getChildElements(parentLocator, childLocator);
+		List<String> uiDrawInfo = new ArrayList<String>();
+		if (drawList != null) {
+			for (WebElement elem : drawList) {
+				if (!elem.getText().equalsIgnoreCase("SELECT DRAWS") && !elem.getText().equalsIgnoreCase("")) {
+					uiDrawInfo.add(elem.getText());
+					System.out.println("UI :: " + uiDrawInfo);
+				}
+			}
+		} else {
+			Assert.fail();
+		}
+		connnection = new DBConnection();
+		ResultSet resultset = connnection.ExecuteQuery(connnection.CreateConnectionForDGE(), query, param1);
+		while (resultset.next()) {
+			for (int j = 1; j <= resultset.getMetaData().getColumnCount(); j++) {
+				String temp = DateUtils.getDateInExpectedFormat("yyyy-MM-dd HH:mm:ss.S", resultset.getString(j),
+						returnFormat);
+				databaseValue.add(temp);
+				System.out.println(databaseValue);
+			}
+		}
+		if (uiDrawInfo.equals(databaseValue)) {
+			System.out.println("database value: " + databaseValue + " match with front end: " + uiDrawInfo);
+		} else {
+			System.out.println("value not matched");
+		}
+	}
 }

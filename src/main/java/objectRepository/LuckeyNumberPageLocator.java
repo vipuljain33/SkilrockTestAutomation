@@ -40,6 +40,11 @@ public class LuckeyNumberPageLocator {
 			"//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/dialogHeaderText' and @text='CONFIRM']");
 	public static By clickDoneAndroid = By.id("com.skilrock.lms.ui:id/dialogDone");
 	public static By tktPreviewGamenameAndroid = By.id("com.skilrock.lms.ui:id/gameName");
+	public static By advanceDrawAndroid = By.id("com.skilrock.lms.ui:id/advance_menu");
+	public static By drawListAndroid = By.id("com.skilrock.lms.ui:id/contact_list");
+	public static By checkDoneAndroid = By.id("com.skilrock.lms.ui:id/done");
+	public static By textViewAndroid = By.xpath(".//*[@class='android.widget.TextView']");
+	public static By checkBoxAndroid = By.xpath(".//*[@class='android.widget.CheckBox']"); 
 
 	// PCPOS Locators
 	public static By errorPopup = By.xpath("//div[@id='error-popup']//div[@class='modal-bodyWrap']//div[@id='error']");
