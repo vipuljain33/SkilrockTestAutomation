@@ -90,9 +90,9 @@ public class MobileLuckyNumbersStepDef {
 		mobileLuckyNumPage.validatePickType(LuckeyNumberPageLocator.quickPickAndroid, "checked");
 	}
 
-	@Given("^(\\d+) are picked in app$")
-	public void qp_numbers_are_picked(int qpNumbers) throws Throwable {
-		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseNumbersAndroid, qpNumbers);
+	@Given("^qp (\\d+) are picked in app$")
+	public void qp_numbers_are_picked(int numbers) throws Throwable {
+		mobileLuckyNumPage.clickMultiple(LuckeyNumberPageLocator.increaseNumbersAndroid, numbers);
 	}
 
 	@When("^number of lines selected are (\\w+) and NumberSelected (\\w+) for bet type (\\w+) in app$")

@@ -36,16 +36,16 @@ Feature: Mobile app Lucky Number Sale
 
   Scenario Outline: Validate No. of lines , Numbers selected & Final Amount in all bet types using Quick Pick
     Given <betType> and Quick Pick is selected in app
-    And <qpNumbers> are picked in app
+    And qp <numbers> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> QP in app
     Then Purchase amount is $ <amount> in app
 
     Examples: 
-      | betType | qpNumbers | numberSelected | noOfLines | amount |
-      | Perm1   |         0 |             10 |        10 |   1.00 |
-      | Perm2   |         0 |              5 |        10 |   1.00 |
-      | Perm3   |         5 |             10 |       120 |  12.00 |
-      | Perm3   |        15 |             20 |      1140 | 114.00 |
+      | betType | numbers | numberSelected | noOfLines | amount |
+      | Perm1   |       0 |             10 |        10 |   1.00 |
+      | Perm2   |       0 |              5 |        10 |   1.00 |
+      | Perm3   |       5 |             10 |       120 |  12.00 |
+      | Perm3   |      15 |             20 |      1140 | 114.00 |
 
   Scenario Outline: Validate No. of lines , Numbers selected & Final Amount in all bet types using Pick New
     Given <betType> and Pick New is selected in app
@@ -63,20 +63,20 @@ Feature: Mobile app Lucky Number Sale
   @MobileLuckyNumQuickPickSale
   Scenario Outline: Validate sale for Perm1, Perm2 and Perm3 bet types using Quick Pick
     Given <betType> and Quick Pick is selected in app
-    And <qpNumbers> are picked in app
+    And qp <numbers> are picked in app
     When number of lines selected are <noOfLines> and NumberSelected <numberSelected> for bet type <betType> QP in app
     And increase app betAmount by <clickBetAmt>
     Then Purchase amount is $ <amount> in app
     And Purchased ticket is generated in app
 
     Examples: 
-      | betType | qpNumbers | numberSelected | noOfLines | clickBetAmt | amount |
-      | Perm1   |         0 |             10 |        10 |           0 |   1.00 |
-      | Perm1   |         0 |             10 |        10 |           5 |   6.00 |
-      | Perm2   |         0 |              5 |        10 |           2 |   3.00 |
-      | Perm2   |        15 |             20 |       190 |           1 |  38.00 |
-      | Perm3   |         0 |              5 |        10 |           3 |   4.00 |
-      | Perm3   |        15 |             20 |      1140 |           0 | 114.00 |
+      | betType | numbers | numberSelected | noOfLines | clickBetAmt | amount |
+      | Perm1   |       0 |             10 |        10 |           0 |   1.00 |
+      | Perm1   |       0 |             10 |        10 |           5 |   6.00 |
+      | Perm2   |       0 |              5 |        10 |           2 |   3.00 |
+      | Perm2   |      15 |             20 |       190 |           1 |  38.00 |
+      | Perm3   |       0 |              5 |        10 |           3 |   4.00 |
+      | Perm3   |      15 |             20 |      1140 |           0 | 114.00 |
 
   @MobileLuckyNumPickNewSale
   Scenario Outline: Validate sale for Perm1, Perm2 and Perm3 bet types using Pick New
@@ -97,7 +97,6 @@ Feature: Mobile app Lucky Number Sale
       | Perm3   |              9 |        84 |           4 |  42.00 |
       | Perm3   |             20 |      1140 |           1 | 228.00 |
 
-  @MobileLuckyNumberAdvanceDraw
   Scenario Outline: Validate advance draw info with database
     Given <betType> and Quick Pick is selected in app
     When Advance draws are selected in app
@@ -109,6 +108,7 @@ Feature: Mobile app Lucky Number Sale
       | Perm2   |
       | Perm3   |
 
+  @MobileLuckyNumberAdvanceDraw
   Scenario Outline: Verify total price for ticket when multiple draws are selected
     Given <betType> and Quick Pick is selected in app
     When select multiple draws
@@ -116,6 +116,6 @@ Feature: Mobile app Lucky Number Sale
 
     Examples: 
       | betType | amount |
-      | Perm1   |   2.00 |
-      | Perm2   |   2.00 |
-      | perm3   |   2.00 |
+      | Perm1   |   3.00 |
+      | Perm2   |   3.00 |
+      | perm3   |   3.00 |

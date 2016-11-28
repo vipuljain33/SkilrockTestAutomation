@@ -80,12 +80,10 @@ public class MobileLuckyNumberPage extends BasePage {
 				LuckeyNumberPageLocator.checkBoxAndroid);
 		if (list != null) {
 			for (WebElement elem : list) {
-				
 				if (!Boolean.valueOf(elem.getAttribute("checked"))) {
 					elem.click();
 				}
 			}
-
 		} else {
 			Assert.fail();
 		}
