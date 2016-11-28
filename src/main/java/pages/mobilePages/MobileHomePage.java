@@ -3,6 +3,7 @@ package pages.mobilePages;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 
+import objectRepository.CommonMobileLocators;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.LoginPageLocators;
 import pages.BasePage;
@@ -16,7 +17,8 @@ public class MobileHomePage extends BasePage {
 		super(driver);
 		functionLibrary = new CommonFunctionLibrary(driver);
 
-		//isElementPresent(By.xpath("//android.widget.ImageView[@content-desc='Banner']"), 5);
+		// isElementPresent(By.xpath("//android.widget.ImageView[@content-desc='Banner']"),
+		// 5);
 
 		buttonClick(LoginPageLocators.drawerImageAndroid);
 		if (isElementPresent(LoginPageLocators.LoggedInUserAndroid, 5)) {
@@ -28,8 +30,17 @@ public class MobileHomePage extends BasePage {
 	}
 
 	public MobileDrawGamePage selectDrawGame() {
-		if (buttonClick(DrawGamePageLocator.drawGameAndroid)) {
+		if (buttonClick(CommonMobileLocators.drawGameAndroid)) {
 			return new MobileDrawGamePage(driver);
+		} else {
+			return null;
+		}
+
+	}
+
+	public MobileSportsLotteryPage selectSportsLottery() {
+		if (buttonClick(CommonMobileLocators.sportsLotteryAndroid)) {
+			return new MobileSportsLotteryPage(driver);
 		} else {
 			return null;
 		}
