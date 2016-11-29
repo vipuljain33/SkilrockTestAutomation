@@ -11,6 +11,7 @@ Feature: Mobile app Lucky Number Sale
     Given Active bet types in app are present in DB
     Then Active bet types are visible in app
 
+  @MobileLuckyNumberGamePlayValidate
   Scenario Outline: Validate minimum numbers selected for all bet types
     When <betType> and Pick New is selected in app
     And <numbers> are picked in app
@@ -22,7 +23,6 @@ Feature: Mobile app Lucky Number Sale
       | Perm2   |       4 |
       | Perm3   |       4 |
 
-  @MobileLuckyNumberGamePlayValidate
   Scenario Outline: Validate maximum numbers selected for all bet types
     When <betType> and Pick New is selected in app
     And <numbers> are picked in app
@@ -97,6 +97,7 @@ Feature: Mobile app Lucky Number Sale
       | Perm3   |              9 |        84 |           4 |  42.00 |
       | Perm3   |             20 |      1140 |           1 | 228.00 |
 
+  @MobileLuckyNumberAdvanceDraw
   Scenario Outline: Validate advance draw info with database
     Given <betType> and Quick Pick is selected in app
     When Advance draws are selected in app
@@ -108,7 +109,6 @@ Feature: Mobile app Lucky Number Sale
       | Perm2   |
       | Perm3   |
 
-  @MobileLuckyNumberAdvanceDraw
   Scenario Outline: Verify total price for ticket when multiple draws are selected
     Given <betType> and Quick Pick is selected in app
     When select multiple draws

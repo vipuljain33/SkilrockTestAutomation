@@ -1,5 +1,7 @@
 package pages.mobilePages;
 
+import java.util.Random;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
@@ -22,11 +24,7 @@ public class MobileSportsLotteryPage extends BasePage {
 		}
 	}
 
-	public MobileSoccer13Page selectSoccer13() {
-		// buttonClick(CommonMobileLocators.gameSelectDropdownAndroid);
-		// findElement(By.xpath(CommonMobileLocators.selectDropdownElementAndroid
-		// + "Soccer 13']"), 5);
-
+	public MobileSoccer13Page selectSoccerGame() {
 		if (buttonClick(CommonMobileLocators.buyNowAndroid)) {
 			try {
 				return new MobileSoccer13Page(driver);
@@ -38,4 +36,5 @@ public class MobileSportsLotteryPage extends BasePage {
 		}
 		return null;
 	}
+
 }

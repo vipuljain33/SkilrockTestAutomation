@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 public class CommonMobileLocators {
 	// Android App Locators
 
+	public static By listViewAndroid = By.xpath(".//*[@class='android.widget.ListView']");
+	public static By relativeLayoutAndroid = By.xpath(".//*[@class='android.widget.RelativeLayout']");
 	public static By textViewAndroid = By.xpath(".//*[@class='android.widget.TextView']");
 	public static By checkBoxAndroid = By.xpath(".//*[@class='android.widget.CheckBox']");
 
@@ -73,9 +75,10 @@ public class CommonMobileLocators {
 	public static By finalAmountAndroid = By.id("com.skilrock.lms.ui:id/final_amt");
 
 	// Sports Lottery Selection
-	public static By clickHomeAndroid = By.id("com.skilrock.lms.ui:id/cb_home");
-	public static By clickDrawAndroid = By.id("com.skilrock.lms.ui:id/cb_draw");
-	public static By clickAwayAndroid = By.id("com.skilrock.lms.ui:id/cb_away");
+	public static String homeAndroid = "com.skilrock.lms.ui:id/cb_home";
+	public static String drawAndroid = "com.skilrock.lms.ui:id/cb_draw";
+	public static String awayAndroid = "com.skilrock.lms.ui:id/cb_away";
+	public static String SLEList = "//android.widget.ListView[@resource-id='com.skilrock.lms.ui:id/lst_event']/android.widget.RelativeLayout[@index='";
 
 	// BUYNOW
 	public static By buyNowAndroid = By.id("com.skilrock.lms.ui:id/buy_now");
