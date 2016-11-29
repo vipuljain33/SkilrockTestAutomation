@@ -15,16 +15,15 @@ public class SaleApi {
 	
 	public String authenticate()
 	{
-		//Map<String, String> cookieMap;
 		String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/loginMgmt/userLogin.action ";
-		String postData = "{\"userName\":\"testret\",\"password\":\"12345678\"}\n";
+		String jsonData = "{\"userName\":\"testret\",\"password\":\"12345678\"}\n";
 		
 		response = given()
                 .contentType("application/json")
-                .queryParam("json", postData)
-                .when()
+                .queryParam("json", jsonData)
                 .get(url);
         body = response.getBody().asString();
+        System.out.println(response);
         System.out.println(response.getStatusCode());
         System.out.println(body);
         cookieMap =  response.getCookies();
@@ -75,14 +74,14 @@ public class SaleApi {
                 "    ],\n" +
                 "    \"noOfDraws\": 1,\n" +
                 "    \"isDrawManual\": true,\n" +
-                "    \"gameName\": \"KenoTwo\"\n" +
+                "    \"gameName\": \"KenoSix\"\n" +
                 "  },\n" +
                 "  \"betTypeData\": [\n" +
                 "    {\n" +
-                "      \"noPicked\": \"10\",\n" +
+                "      \"noPicked\": \"20\",\n" +
                 "      \"betAmtMul\": 1,\n" +
                 "      \"isQp\": true,\n" +
-                "      \"pickedNumbers\": \"07,08,13,24,31,42,53,69,80,86\",\n" +
+                "      \"pickedNumbers\": \"07,08,13,24,31,42,53,100,80,86\",\n" +
                 "      \"betName\": \"Perm1\",\n" +
                 "      \"QPPreGenerated\": true\n" +
                 "    }\n" +
@@ -113,7 +112,6 @@ public class SaleApi {
 			
 			String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/reprintTicket.action";
 			response = given()
-	                .cookies(cookieMap)
 	                .contentType("application/json")
 	                .queryParam("json", jsonData)
 	                .when()
@@ -127,13 +125,31 @@ public class SaleApi {
 			
 		}
 	}
+	
+	public void cancelApi(String ticketNo, String sessionId)
+	{
+		try {
+			
+			String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/cancelTicket.action";
+			String jsonData = "{\"ticketNumber\":null,\"autoCancel\":false,\"userName\":\"testret\",\"sessionId\":\"}";
+			response = given()
+	                .cookies(cookieMap)
+	                .contentType("application/json")
+	                .queryParam("json", jsonData)
+	                .when()
+	                .get(url);
+		} catch (Exception e) {
+			
+		}
+	}
 	public static void main(String[] args) {
 		
 		SaleApi api = new SaleApi();
 		String session = api.authenticate();
 		//api.fetchDrawGameData();
 		api.performSale();
-		api.reprintApi(session);
+		//api.reprintApi(session);
+		//api.authenticate();
 		
 		
 	}
