@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
+import objectRepository.FortuneGameLocator;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
@@ -73,6 +74,38 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 
 	}
 
+	public FortuneGamePage selectFortuneGame()
+	{
+		functionLibrary.switchFrame("leftbottom");
+		if(findElement(FortuneGameLocator.fortuneGamelocator, 5) != null)
+		{
+			findElement(FortuneGameLocator.fortuneGamelocator, 5).click();
+			System.out.println("Fortune Game is selected");
+			return new FortuneGamePage(driver);
+		}else
+		{
+			System.out.println("Lucky Number is not selected");
+			return null;
+		}
+		
+	}
+	public boolean isFortuneGameSelected()
+	{
+		functionLibrary.switchFrame("leftbottom");
+		
+		if(findElement(FortuneGameLocator.fortuneGamelocator, 5).getAttribute("gamename").equalsIgnoreCase("OneToTwelve"))
+		{
+			LOGGER.info("Fortune Game is selected");
+			
+			return true;
+		}
+		else
+		{
+			LOGGER.info("Fortune Game is selected");
+			return false;
+		}
+	}
+	
 	public MiniRoulettePage selectMiniRoulette() {
 		functionLibrary.switchFrame("leftbottom");
 		if (findElement(DrawGamePageLocator.miniRouletteButton, 5) != null) {
