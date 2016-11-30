@@ -4,8 +4,9 @@ Feature: Mobile app Soccer13 Sale
   Background: 
     Given User is logged in app
     And Sports Lottery app icon is selected
-    And Soccer13 app game is selected
+    And Soccer13 app bet is selected
 
+  @Running
   Scenario Outline: Validate Soccer13 sale from app
     Given <betName> is displayed in app Bettype dropdown
     When atlest one team is selected in each app event

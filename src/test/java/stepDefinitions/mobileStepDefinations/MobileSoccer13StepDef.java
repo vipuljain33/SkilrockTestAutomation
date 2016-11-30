@@ -16,21 +16,21 @@ public class MobileSoccer13StepDef {
 	MobileLoginPage mobileLoginPage;
 	MobileHomePage mobileHomePage;
 	BasePage basePage;
-	MobileSportsLotteryPage mobileSportsLottery;
+	MobileSportsLotteryPage mobileSportsLotteryPage;
 	MobileSoccer13Page mobileSoccer13Page;
 	CommonFunctionLibrary functionLibrary;
 
 	@Given("^Sports Lottery app icon is selected$")
 	public void draw_games_icon_is_selected() throws Throwable {
-		mobileSportsLottery = mobileHomePage.selectSportsLottery();
-		if (mobileSportsLottery == null) {
+		mobileSportsLotteryPage = mobileHomePage.selectSportsLottery();
+		if (mobileSportsLotteryPage == null) {
 			Assert.fail();
 		}
 	}
 
-	@Given("^Soccer13 app game is selected$")
+	@Given("^Soccer13 app bet is selected$")
 	public void lucky_numbers_game_is_selected() throws Throwable {
-		mobileSoccer13Page = mobileSportsLottery.selectSoccerGame();
+		mobileSoccer13Page = mobileSportsLotteryPage.selectSoccerGame();
 		if (mobileSoccer13Page == null) {
 			Assert.fail();
 		}
