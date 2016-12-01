@@ -36,8 +36,10 @@ public class AttachHooks {
 		ConfigManager.loadConfig();
 		this.scenario = scenario;
 		System.out.println(scenario.getName());
-		System.out.println("Our browser will be invoked here");
-
+		
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")) {
+			System.out.println("API Execution Start");
+		}			        
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
 			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
 				try {
@@ -83,6 +85,7 @@ public class AttachHooks {
 			}
 		}
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			System.out.println("Our browser will be invoked here");
 			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
 				ChromeOptions options = new ChromeOptions();
@@ -118,12 +121,15 @@ public class AttachHooks {
 	@After
 	public void tearDown() throws InstantiationException, IllegalAccessException {
 
-		functionLibrary.embedScreenshot(scenario);
-
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")){
+			System.out.println("API Execution Stop :) ");
+		}
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
+			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 			DriverFactory.appiumStop();
 		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 		}
 	}
