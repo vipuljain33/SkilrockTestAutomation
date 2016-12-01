@@ -135,5 +135,27 @@ public class PCPOSApi {
 		}
 		return null;
 	}
+	
+	
+	public HashMap<String, String> performBonusLottoSale(String betname) {
+		HashMap<String, String> temp = new HashMap<String, String>();
+		String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/zimLottoBonusBuy.action";
+		String postData ="{\"commonSaleData\":{\"isAdvancePlay\":false,\"drawData\":[],\"noOfDraws\":1,\"isDrawManual\":true,\"gameName\":\"ZimLottoBonus\"},\"betTypeData\":[{\"noPicked\":\"6\",\"betAmtMul\":1,\"isQp\":false,\"pickedNumbers\":\"12,17,19,25,06,14\",\"betName\":\"Direct6\",\"QPPreGenerated\":false}],\"noOfPanel\":1,\"totalPurchaseAmt\":\"0.2\"}";
+
+		response = given().cookies(cookieMap).contentType("application/json").queryParam("json", postData).when().get(url);
+		body = response.getBody().asString();
+
+		System.out.println(response.getStatusCode());
+		System.out.println(body);
+		System.out.println("Sale done successfully");
+		ticketno = response.jsonPath().get("mainData.commonSaleData.ticketNumber").toString();
+		temp.put("gameName", response.jsonPath().get("mainData.commonSaleData.gameName").toString());
+		temp.put("ticketNumber", response.jsonPath().get("mainData.commonSaleData.ticketNumber").toString());
+		temp.put("purchaseAmt", response.jsonPath().get("mainData.commonSaleData.purchaseAmt").toString());
+		temp.put("purchaseTime", response.jsonPath().get("mainData.commonSaleData.purchaseTime").toString());
+		temp.put("pickedNumbers", response.jsonPath().get("mainData.betTypeData.pickedNumbers").toString());
+		return temp;
+
+	}
 
 }
