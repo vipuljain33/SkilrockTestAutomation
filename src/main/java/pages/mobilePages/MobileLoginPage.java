@@ -17,12 +17,9 @@ public class MobileLoginPage extends BasePage {
 	public MobileLoginPage(WebDriver driver) throws InterruptedException {
 		super(driver);
 		System.out.println(driver);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 
-		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
-		buttonClick(LoginPageLocators.drawerImageAndroid);
-		buttonClick(LoginPageLocators.loginAndroid);
-
+		initiate();
 		if (isElementPresent(LoginPageLocators.usernameAndroid, 5)) {
 			System.out.println("Login popup is present");
 		} else {
@@ -35,24 +32,30 @@ public class MobileLoginPage extends BasePage {
 		}
 	}
 
+	public void initiate() {
+		functionLibrary.deviceKeyAndroid(AndroidKeyCode.BACK);
+		buttonClick(LoginPageLocators.drawerImageAndroid);
+		buttonClick(LoginPageLocators.loginAndroid);
+	}
+
 	public MobileHomePage clickLogin() {
 
-		try
-		{
-			buttonClick(LoginPageLocators.loginAndroid);
-			if(isElementPresent(LoginPageLocators.dismissNotification, 5))
-			{
-				if(buttonClick(LoginPageLocators.dismissNotification))
-				{
+		try {
+
+			if (isElementPresent(LoginPageLocators.loginAndroid, 5)) {
+				buttonClick(LoginPageLocators.loginAndroid);
+				if (isElementPresent(LoginPageLocators.dismissNotification, 5)) {
+					buttonClick(LoginPageLocators.dismissNotification);
 					System.out.println("Notification dismissed");
-					//drawerClick();
-				}
+				} 
+				return new MobileHomePage(driver);
 			}
 			
-			return new MobileHomePage(driver);
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			return null;
 		}
+		return null;
 	}
 
 	public void username(String username) {
@@ -62,7 +65,5 @@ public class MobileLoginPage extends BasePage {
 	public void password(String password) {
 		sendKeys(LoginPageLocators.passwordAndroid, password);
 	}
-
-	
 
 }

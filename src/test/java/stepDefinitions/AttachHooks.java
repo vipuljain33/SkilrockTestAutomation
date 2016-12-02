@@ -36,14 +36,17 @@ public class AttachHooks {
 		ConfigManager.loadConfig();
 		this.scenario = scenario;
 		System.out.println(scenario.getName());
-		System.out.println("Our browser will be invoked here");
-
+		
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")) {
+			System.out.println("API Execution Start");
+		}			        
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
-			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) 
-			{
+			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
 				try {
-					//DriverFactory.appiumStop();
+					DriverFactory.appiumStop();
+					Thread.sleep(5000);
 					DriverFactory.appiumStart();
+					Thread.sleep(10000);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -57,14 +60,14 @@ public class AttachHooks {
 				capabilities.setCapability("platformVersion", ConfigManager.getProperty("PlatformVersion"));
 				capabilities.setCapability("platformName", ConfigManager.getProperty("PlatformName"));
 				capabilities.setCapability("app", ConfigManager.getProperty("ApkPath"));
-				
+
 				try {
 					driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 			} else if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("IOS")) {
 				capabilities = new DesiredCapabilities();
@@ -80,48 +83,55 @@ public class AttachHooks {
 				}
 				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 			}
-		}if(ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("web"))
-		{
-		if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--disable-extensions");
-			// options.addArguments("ignore-certificate-errors");
-			// options.addArguments("--allow-running-insecure-content");
-			driver = new ChromeDriver(options);
 		}
-		if (ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
+		if ((ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web"))||((ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("WebPortal")))) {
 
-		}
-		if(ConfigManager.getProperty("browserName").equalsIgnoreCase("IE"))
-		{
-			System.setProperty("webdriver.ie.driver", "D:\\SkilrockAutomation\\IEDriverServer.exe");
-			driver = new InternetExplorerDriver();
-			
-		}
-		//System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
-		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
-		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
-		//driver = new ChromeDriver();
+			System.out.println("Our browser will be invoked here");
+			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
+				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("--disable-extensions");
+				// options.addArguments("ignore-certificate-errors");
+				// options.addArguments("--allow-running-insecure-content");
+				driver = new ChromeDriver(options);
+			}
 
-		driver.get("http://192.168.124.73:8180/LMSLinuxNew");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		System.out.println(driver.getTitle());
+			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("firefox")) {
+				driver = new FirefoxDriver();
+
+			}
+			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("IE")) {
+				System.setProperty("webdriver.ie.driver", "D:\\SkilrockAutomation\\IEDriverServer.exe");
+				driver = new InternetExplorerDriver();
+			}
+			// System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
+			// System.setProperty("webdriver.chrome.driver",
+			// "C:\\Users\\vipuljain\\Desktop\\chromedriver.exe");
+			// System.setProperty("webdriver.chrome.driver",
+			// System.getProperty("user.dir")+"\\chromedriver.exe");
+			// driver = new ChromeDriver();
+
+			driver.get(ConfigManager.getProperty("EnvironmentURL"));
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().window().maximize();
+			System.out.println(driver.getTitle());
+		}
 		functionLibrary = new CommonFunctionLibrary(driver);
-		}
-
 	}
 
 	@After
 	public void tearDown() throws InstantiationException, IllegalAccessException {
 
-		// driver.quit();
-		functionLibrary.embedScreenshot(scenario);
-		driver.quit();
-		if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")){
+			System.out.println("API Execution Stop :) ");
+		}
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
+			functionLibrary.embedScreenshot(scenario);
+			driver.quit();
 			DriverFactory.appiumStop();
+		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			functionLibrary.embedScreenshot(scenario);
+			driver.quit();
 		}
 	}
 

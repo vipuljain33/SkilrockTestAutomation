@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -269,10 +270,12 @@ public class LuckyNumberPage extends BasePage {
             ArrayList<String> qpselected=new ArrayList<String>();
             
             qpselected=(ArrayList<String>)isQpSelected(LuckeyNumberPageLocator.numpicked);
-            qpposselected=qpposselected(LuckeyNumberPageLocator.selectednum);          
-          if(qpselected.equals(qpposselected))
+            qpposselected=qpposselected(LuckeyNumberPageLocator.selectednum);
+            
+            
+          if(qpselected.containsAll( qpposselected) &&  qpposselected.containsAll(qpselected))
           {
-           System.out.println("pass");
+           System.out.println("Number Selected Matched");
            return true;
           }
           else
@@ -291,7 +294,7 @@ public class LuckyNumberPage extends BasePage {
    	     for(String number:str.split(","))
    	      {
    	        System.out.println(number);
-   	        qpselected.add(number);
+   	        qpselected.add(number.trim());
    	       
    	      }
    	    return  qpselected;
@@ -306,7 +309,7 @@ public class LuckyNumberPage extends BasePage {
     	       qpposselected=driver.findElements(by);
     	   for(WebElement we :qpposselected)
     	   {
-    	    newlist.add(we.getText());
+    	    newlist.add(we.getText().trim());
     	   }
     	    
     	   System.out.println("newlist" +newlist);
