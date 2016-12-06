@@ -11,7 +11,7 @@ Feature: Mobile app Soccer13 Sale
     Given <betName> is displayed in app Bet type dropdown
     When Atleast one team is selected in each app event
     Then No of lines should be <noOfLines> and Bet amount is <betAmount> for $ <ticketAmount> in app
-    And SLE Purchased ticket is generated in app
+    And SLE Purchased ticket is generated in app with <noOfLines> and $ <ticketAmount> in app
 
     Examples: 
       | betName   | noOfLines | betAmount | ticketAmount |

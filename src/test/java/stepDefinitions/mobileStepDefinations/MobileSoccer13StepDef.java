@@ -85,7 +85,7 @@ public class MobileSoccer13StepDef {
 
 	}
 
-	@Then("^SLE Purchased ticket is generated in app$")
+	@Then("^SLE Purchased ticket is generated in app with (.*) and \\$ (.*) in app$")
 	public void sle_Purchased_ticket_is_generated_in_app(String noOfLines, String ticketAmount) throws Throwable {
 		mobileSoccer13Page.confirmBuy("Soccer 13");
 		if (!(mobileSoccer13Page.findElement(CommonMobileLocators.tktPreviewNoOfLinesAndroid, 5).getText()

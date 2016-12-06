@@ -52,6 +52,6 @@ public class MobileSoccer13Page extends BasePage {
 		if (!(findElement(CommonMobileLocators.tktPreviewGamenameAndroid, 5).getText().contains(betName))) {
 			Assert.fail();
 		}
-		functionLibrary.swipeVertical(1, .70, .10, 100, 500);
+		functionLibrary.swipeVertical(1, .70, .10, 200, 500);
 	}
 }
