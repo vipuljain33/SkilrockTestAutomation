@@ -22,7 +22,7 @@ public class MobileSoccer13StepDef {
 	MobileSportsLotteryPage mobileSportsLotteryPage;
 	MobileSoccer13Page mobileSoccer13Page;
 	CommonFunctionLibrary functionLibrary;
-	
+
 	@Given("^User is logged in app Soccer13$")
 	public void user_is_logged_in() throws Throwable {
 		try {
@@ -38,12 +38,12 @@ public class MobileSoccer13StepDef {
 			Assert.fail();
 		}
 	}
-	
+
 	@Given("^Sports Lottery app icon is selected$")
 	public void draw_games_icon_is_selected() throws Throwable {
-		mobileHomePage=new MobileHomePage(AttachHooks.driver);
-		mobileSportsLotteryPage = mobileHomePage.selectSportsLottery();	
-		if (mobileSportsLotteryPage == null) {	
+		// mobileHomePage=new MobileHomePage(AttachHooks.driver);
+		mobileSportsLotteryPage = mobileHomePage.selectSportsLottery();
+		if (mobileSportsLotteryPage == null) {
 			Assert.fail();
 		}
 	}
@@ -63,7 +63,7 @@ public class MobileSoccer13StepDef {
 
 	@When("^Atleast one team is selected in each app event$")
 	public void atlest_one_team_is_selected() throws Throwable {
-		mobileSoccer13Page.clickSLEEvents(1, 0.80, 0.10, 500, 500);
+		mobileSoccer13Page.clickSLEEvents(1, 0.65, 0.10, 1000, 500);
 	}
 
 	@Then("^No of lines should be (.*) and Bet amount is (.*) for \\$ (.*) in app$")
@@ -73,16 +73,29 @@ public class MobileSoccer13StepDef {
 				.contains(noOfLines))) {
 			Assert.fail();
 		}
-		
-			if (!(mobileSoccer13Page.findElement(CommonMobileLocators.betAmountSLEAndroid, 5).getText()
-					.contains(betAmount))) {
-				Assert.fail();
-			}
-			if (!(mobileSoccer13Page.findElement(CommonMobileLocators.ticketAmountSLEAndroid, 5).getText()
-					.contains(ticketAmount))) {
-				Assert.fail();
-			}
-		
+
+		if (!(mobileSoccer13Page.findElement(CommonMobileLocators.betAmountSLEAndroid, 5).getText()
+				.contains(betAmount))) {
+			Assert.fail();
+		}
+		if (!(mobileSoccer13Page.findElement(CommonMobileLocators.ticketAmountSLEAndroid, 5).getText()
+				.contains(ticketAmount))) {
+			Assert.fail();
+		}
+
+	}
+
+	@Then("^SLE Purchased ticket is generated in app$")
+	public void sle_Purchased_ticket_is_generated_in_app(String noOfLines, String ticketAmount) throws Throwable {
+		mobileSoccer13Page.confirmBuy("Soccer 13");
+		if (!(mobileSoccer13Page.findElement(CommonMobileLocators.tktPreviewNoOfLinesAndroid, 5).getText()
+				.contains(noOfLines))) {
+			Assert.fail();
+		}
+		if (!(mobileSoccer13Page.findElement(CommonMobileLocators.tktPreviewTotalAmountAndroid, 5).getText()
+				.contains(ticketAmount))) {
+			Assert.fail();
+		}
 	}
 
 }
