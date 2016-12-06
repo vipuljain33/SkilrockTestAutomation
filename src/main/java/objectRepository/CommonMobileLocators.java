@@ -2,6 +2,8 @@ package objectRepository;
 
 import org.openqa.selenium.By;
 
+import io.appium.java_client.MobileBy;
+
 public class CommonMobileLocators {
 	// Android App Locators
 
@@ -29,8 +31,12 @@ public class CommonMobileLocators {
 			"//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/menu_name' and @text='Scratch Cards']");
 
 	// Dropdown
-	public static By gameSelectDropdownAndroid = By
-			.xpath("//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/spinner_text']");
+	// public static By gameSelectDropdownAndroid =
+	// By.xpath("//android.widget.Spinner[@resource-id='com.skilrock.lms.ui:id/spinner']");
+
+	public static By gameSelectDropdownAndroid = MobileBy
+			.AndroidUIAutomator("new UiSelector().className(android.widget.Spinner)");
+
 	public static String selectDropdownElementAndroid = "//android.widget.TextView[@resource-id='com.skilrock.lms.ui:id/spinner_text' and @text='";
 
 	// Draw selection
@@ -88,5 +94,7 @@ public class CommonMobileLocators {
 
 	// Ticket Preview
 	public static By tktPreviewGamenameAndroid = By.id("com.skilrock.lms.ui:id/gameName");
+	public static By tktPreviewNoOfLinesAndroid = By.id("com.skilrock.lms.ui:id/no_of_draws");
+	public static By tktPreviewTotalAmountAndroid = By.id("com.skilrock.lms.ui:id/tot_amt");
 
 }

@@ -23,7 +23,7 @@ import utils.ReusableStaticMethods;
 public class MobileLuckyNumbersStepDef {
 
 	MobileLoginPage mobileLoginPage;
-	MobileHomePage mobileHomePage;
+	public MobileHomePage mobileHomePage;
 	MobileLuckyNumberPage mobileLuckyNumPage;
 	BasePage basePage;
 	MobileDrawGamePage mobileDrawGamePage;
