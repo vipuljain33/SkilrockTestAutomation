@@ -45,7 +45,7 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
-   @ApisaleBonusLotto
+  @ApisaleBonusLotto
   Scenario Outline: validate Ticket Cancelatilon for BonusLotto GAMES
     Then validate Ticket Cancelatilon for <bettypes>  By API after sale for BonusLotto
 
@@ -63,3 +63,15 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
+  @ApisaleMiniRoulette
+  Scenario Outline: validate API sale for MiniRoulette GAMES
+    When <bettypes> selected and Sale Performed By API
+    Then <bettypes> validate response data from API
+
+    Examples: 
+      | bettypes       |
+      | firstRow       |
+      | fourToNine     |
+      | sevenToTwelve  |
+      | allEvenNumbers |
+      | redNumbers     |

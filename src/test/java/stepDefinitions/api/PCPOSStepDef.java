@@ -22,11 +22,12 @@ public class PCPOSStepDef {
 	PCPOSApi pcposapi = new PCPOSApi();
 	ApiCommonValidationPage apicommonfunctionlibrary = new ApiCommonValidationPage();
 	public static boolean flag = false;
+	public static boolean selectedNum=false;
 
 	@Given("^authenticate User$")
 	public void authenticate_User() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		if (!pcposapi.authenticate("testret", "12345678")) {
+		if (!pcposapi.authenticate("damani", "12345678")) {
 			System.out.println("authenticat fail");
 			LOGGER.info("authenticat fail");
 			Assert.fail();
@@ -148,6 +149,32 @@ public class PCPOSStepDef {
 		
 	}
 	
-	
+	@When("^(.*) selected and Sale Performed By API$")
+	public void firstrow_selected_and_Sale_Performed_By_API(String betname) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		flag = apicommonfunctionlibrary.isVerifySaleResponseWithDBforMiniRoulette(betname);
+		selectedNum=apicommonfunctionlibrary.verifyPickedNumMiniroulette();
+		
+		if (flag && selectedNum) {
+			System.out.println("API And DB DATA Matched");
+			LOGGER.info("API And DB DATA Matched");
+		} else {
+			Assert.fail();
+		}		
+	   
+	}
 
+	@Then("^(.*) validate response data from API$")
+	public void firstrow_validate_response_data_from_API(String args1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	  if(flag)
+	  {
+		  System.out.println("data verify"+args1);
+	  }
+	    
+	  else
+	  {
+		  Assert.fail();
+	  }
+	}
 }

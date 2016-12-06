@@ -14,6 +14,7 @@ public class PCPOSApi {
 	public static Map<String, String> cookieMap;
 	public static String sessionId;
 	public static String ticketno;
+	
 
 	public boolean authenticate(String username, String password) {
 		try {
@@ -157,5 +158,95 @@ public class PCPOSApi {
 		return temp;
 
 	}
-
+	
+	public HashMap<String, String> performMiniRouleteSale(String betName)
+	{
+		String picked_data="";
+		int size=0;
+		String firstRow="3,6,9,12";
+		String fourToNine="4,5,6,7,8,9"; 
+		String sevenToTwelve="7,8,9,10,11,12";
+		String allEvenNumbers="2,4,6,8,10,12";
+		String redNumbers ="1,3,5,7,9,11";
+		if(betName.equalsIgnoreCase("firstRow"))
+		{
+			picked_data=firstRow;
+			size=4;
+		}
+		else if(betName.equalsIgnoreCase("fourToNine"))
+		{
+			picked_data=fourToNine;
+			size=6;
+		}
+		else if(betName.equalsIgnoreCase("sevenToTwelve"))
+		{
+			picked_data=sevenToTwelve;
+			size=6;
+		}
+		else if(betName.equalsIgnoreCase("allEvenNumbers"))
+		{
+			picked_data=allEvenNumbers;
+			size=6;
+			
+		}
+		else 
+		{
+			picked_data=redNumbers;
+			size=6;
+		}
+		
+		HashMap<String, String> value=new HashMap<String, String>();
+		String url="http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/oneToTwelveRouletteBuy.action";
+		String postData="{\n" + "  \"commonSaleData\": {\n" + "    \"isAdvancePlay\": false,\n"
+				+ "    \"drawData\": [\n" + "      \n" + "    ],\n" + "    \"noOfDraws\": 1,\n"
+				+ "    \"isDrawManual\": true,\n" + "\"gameName\": \"MiniRoulette\"\n" + "  },\n"
+				+ "  \"betTypeData\": [\n" + "    {\n" + "      \"noPicked\": "+size+",\n" + "      \"betAmtMul\": 1,\n"
+				+ "      \"isQp\": false,\n" + "      \"pickedNumbers\": \""+picked_data+"\",\n"
+				+ "      \"betName\": \"" + betName + "\",\n" + "      \"unitPrice\": 10,\n" + "  \"noOfLines\": 4\n" + "   }\n"
+				+ "  ],\n" + "  \"noOfPanel\": 1,\n" + "  \"totalPurchaseAmt\": \"10\"\n" + "}";
+		response=given()
+				.cookies(cookieMap)
+				.contentType("application/json")
+				.queryParam("json", postData)
+				.when()
+				.get(url);
+		int Status=response.getStatusCode();
+		body=response.getBody().asString();
+		System.out.println(body);
+		System.out.println("status code:"+Status);
+		System.out.println(response.asString());
+		ticketno=response.jsonPath().get("mainData.commonSaleData.ticketNumber").toString();
+		value.put("gameName", response.jsonPath().get("mainData.commonSaleData.gameName").toString());
+		value.put("ticketNumber",response.jsonPath().get("mainData.commonSaleData.ticketNumber").toString());
+		value.put("purchaseAmt", response.jsonPath().get("mainData.commonSaleData.purchaseAmt").toString());
+		value.put("purchaseTime", response.jsonPath().get("mainData.commonSaleData.purchaseTime").toString());
+		//value.put("pickedNumbers", response.jsonPath().get("mainData.betTypeData.pickedNumbers").toString());
+		
+		return value;
+		
+	}
+    public ArrayList<String> matchedPickedNumber()
+    {  
+    	ArrayList<String> value=new ArrayList<String>();
+    	String pickedNumber=response.jsonPath().get("mainData.betTypeData.pickedNumbers").toString();
+    	String[] num=pickedNumber.split(",");
+    	for(int i=0;i<num.length;i++)
+    	{
+    		if(num[i].contains("["))
+    		{
+    		value.add(num[i].replace("[",""));
+    		}
+    		else if( num[i].contains("]"))
+    		{
+    		value.add(num[i].replace("]",""));
+    		}
+    		else
+    		{
+    			value.add(num[i]);
+    		}
+    	}
+    	
+    	
+    	return value;
+    }
 }

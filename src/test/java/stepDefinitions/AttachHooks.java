@@ -129,7 +129,7 @@ public class AttachHooks {
 			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 			DriverFactory.appiumStop();
-		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")||ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("WebPortal")) {
 			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 		}

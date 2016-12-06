@@ -3,6 +3,7 @@ package apis;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import DataBaseQuery.BonusLottoSqlQuery;
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LuckyNumberSqlQuery;
+import DataBaseQuery.MiniRouletteSqlQuery;
 
 
 public class ApiCommonValidationPage {
@@ -19,6 +21,7 @@ public class ApiCommonValidationPage {
 	PCPOSApi pcposapi = new PCPOSApi();
 	DBConnection dbconnection = new DBConnection();
 	Connection con;
+	String pickednum;
 
 	public boolean isVerifySaleResponceWithDB(String arg1) throws SQLException {
 		HashMap<String, String> apidata = new HashMap<String, String>();
@@ -209,8 +212,10 @@ public class ApiCommonValidationPage {
 			dbdata.put("ticketNumber", rs.getString(2));
 			dbdata.put("purchaseAmt", rs.getString(3));
 			dbdata.put("purchaseTime", rs.getString(4));
+			
 			dbdata.put("pickedNumbers", "[" + rs.getString(5) + "]");
 		}
+		
 		System.out.println("API Data : " + apidata);
 		System.out.println("DB Data : " + dbdata);
 
@@ -369,5 +374,150 @@ public boolean isVarifyReprintDataBonusLotto(String arg1) throws SQLException {
 		}
 		return flag;
 	}
+public boolean isVerifySaleResponseWithDBforMiniRoulette(String arg1) throws SQLException {
+	HashMap<String, String> apidata = new HashMap<String, String>();
+	HashMap<String, String> dbdata = new HashMap<String, String>();
 	
+	
+	System.out.println("**********************************");
+	boolean flag = false;
+	apidata = pcposapi.performMiniRouleteSale(arg1);
+	con = dbconnection.getDBConnectionDge();
+	ResultSet rs = dbconnection.ExecuteQuery(con,MiniRouletteSqlQuery.apiMinirouletteTicket, PCPOSApi.ticketno);
+	while (rs.next()) {
+
+		dbdata.put("gamename", rs.getString(1));
+		dbdata.put("ticketNumber", rs.getString(2));
+		dbdata.put("purchaseAmt", rs.getString(3));
+		dbdata.put("purchaseTime", rs.getString(4));
+		pickednum=rs.getString(5);
+		
+		
+		
+	}
+	System.out.println("API Data : " + apidata);
+	System.out.println("DB Data : " + dbdata);
+
+	Iterator iterator = apidata.keySet().iterator();
+
+	while (iterator.hasNext()) {
+		String key = (String) iterator.next();
+
+		// System.out.println(key);
+		if (key.equalsIgnoreCase("gameName")) {
+			if (apidata.get(key).equals(dbdata.get(key))) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+		if (key.equalsIgnoreCase("ticketNumber")) {
+
+			if (apidata.get(key).equals(dbdata.get(key)) ) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+		if (key.equalsIgnoreCase("purchaseAmt")) {
+
+			if (Float.parseFloat(apidata.get(key)) == Float.parseFloat((String) dbdata.get(key))) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+
+		if (key.equalsIgnoreCase("purchaseTime")) {
+			if (apidata.get(key).equals(dbdata.get(key))) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+		
+
+	}
+	return flag;
+
+	/*
+	 * if(flag){ return true; } return false;
+	 */
+}
+public boolean verifyPickedNumMiniroulette()
+{  
+	ArrayList<String> listitm=new ArrayList<String>();
+	ArrayList<String> posSelectedNum=pcposapi.matchedPickedNumber();
+	boolean flag = false;
+	
+	String[] str=pickednum.split(",");
+	for(int i=0;i<str.length;i++)
+	{
+		if(str[i].contains("One"))
+		{
+			listitm.add("01");
+		}
+		if(str[i].contains("Two"))
+		{
+			listitm.add("02");
+		}
+		if(str[i].contains("Three"))
+		{
+			listitm.add("03");
+		}
+		if(str[i].contains("Four"))
+		{
+			listitm.add("04");
+		}
+		if(str[i].contains("Five"))
+		{
+			listitm.add("05");
+		}
+		if(str[i].contains("Six"))
+		{
+			listitm.add("06");
+		}
+		if(str[i].contains("Seven"))
+		{
+			listitm.add("07");
+		}
+		if(str[i].contains("Eight"))
+		{
+			listitm.add("08");
+		}
+		if(str[i].contains("Nine"))
+		{
+			listitm.add("09");
+		}
+		if(str[i].contains("Ten"))
+		{
+			listitm.add("10");
+		}
+		if(str[i].contains("Eleven"))
+		{
+			listitm.add("11");
+		}
+		if(str[i].contains("Twelve"))
+		{
+			listitm.add("12");
+		}
+	}
+	for(int j=0;j<str.length;j++)
+	{
+		if(posSelectedNum.get(j).trim().equals(listitm.get(j).trim()))
+		{
+			flag=true;
+			
+		}
+		else
+		{
+			flag=false;
+		}
+	}
+	return flag;
+    
+	
+}
+  
+
 }
