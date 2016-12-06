@@ -48,7 +48,6 @@ public class MobileApiPage {
 		if (response.jsonPath().get("responseMsg") != null) {
 			if (response.jsonPath().get("responseMsg").toString().equalsIgnoreCase("success")) {
 				System.out.println(response.jsonPath().get("responseMsg").toString());
-				//System.out.println(response.jsonPath().get("games[0].gameCode").toString());
 			}
 		}
 	}

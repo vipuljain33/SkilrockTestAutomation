@@ -19,7 +19,7 @@ public class MobilePmsDGApiStepDef {
 		mobileApiPage.fetchDrawGameData();
 	}
 
-	@Then("^(\\w+) ticket is purchased with (\\w+) and (\\w+) for (\\w+) and (\\d+) in app$")
+	@Then("^(\\w+) ticket is purchased with (\\w+) and (.*) for (\\w+) and (\\d+) in app$")
 	public void ticket_is_purchased(String gameCode, String isQP, String pickedNumbers,
 			String playType, int noPicked) throws Throwable {
 		mobileApiPage.performSale(gameCode, 1, 1, 1, isQP, pickedNumbers, noPicked, playType);
