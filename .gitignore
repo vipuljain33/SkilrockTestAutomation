@@ -4,6 +4,7 @@ logs.log
 .project
 .settings/
 logs.log
+debug.log
 bin/
 debug.log
 .metadata/

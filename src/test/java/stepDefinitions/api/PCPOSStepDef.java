@@ -90,9 +90,118 @@ public class PCPOSStepDef {
 			}
 		}
 	}
+
 	@Given("^sale done for soccerThirteen through api (.*)$")
 	public void sale_done_for_soccerThirteen(String s){
 		pcposapi.authenticate("testret", "12345678");
 		pcposapi.performSoccerThirteenSale(s);
 	}
+
+	
+	@When("^(.*) is selected and Sale Performed By API for SuperKeno$")
+	public void perm_is_selected_and_Sale_Performed_By_API_SuperKeno(String arg1) throws Throwable {
+
+		flag = apicommonfunctionlibrary.isVerifySaleResponceWithDBforSuperKeno(arg1);
+		if (flag) {
+			System.out.println("API And DB DATA Matched");
+			LOGGER.info("API And DB DATA Matched");
+		} else {
+			Assert.fail();
+		}		
+	}
+	
+	@Then("^(.*) validate responce data from API for SuperKeno$")
+	public void perm_validate_responce_data_from_API_SuperKeno(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		if (flag) {
+			System.out.println("API And DB DATA Matched for : " + arg1);
+			LOGGER.info("API And DB DATA Matched");
+		} else {
+			Assert.fail();
+		}
+	}
+	
+	@Then("^validate Ticket Cancelatilon for (.*)  By API after sale for BonusLotto$")
+	public void validate_Ticket_Cancelatilon_for_Perm_By_API_BonusLotto(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		
+		if(apicommonfunctionlibrary.isVerifySaleResponceWithDBforBonusLotto(arg1)){
+			System.out.println("**************Last Ticket Cancelled for ******** " );
+			if(apicommonfunctionlibrary.isVarifyCancleDataBonusLotto(arg1)){
+				System.out.println("Last Ticket Cancelled for  : " + arg1);
+				LOGGER.info("Last Ticket Cancelled for  : " + arg1);	
+			}else{
+				LOGGER.info("Last Ticket Cancelled Unsucessful !!!");
+				Assert.fail();
+			}
+		}
+	}
+	
+	@Then("^validate Ticket Reprint for (.*)  By API after sale for BonusLotto$")
+	public void validate_Ticket_Reprint_for_Perm_By_API_after_sale_BonusLotto(String arg1) throws Throwable {
+		if(apicommonfunctionlibrary.isVerifySaleResponceWithDBforBonusLotto(arg1)){
+			System.out.println("******************REPRINT*******************");
+			if(apicommonfunctionlibrary.isVarifyReprintDataBonusLotto(arg1)){
+				System.out.println("Ticket Reprint Verified for " + arg1);
+				LOGGER.info("Ticket Reprint Verified for " + arg1);	
+			}else{
+				LOGGER.info("Ticket Reprint Unsucessful !!!");
+				Assert.fail();
+			}
+		}
+	}
+	
+	@When("^(.*) is selected and Sale Performed By API for BonusLotto$")
+	public void perm_is_selected_and_Sale_Performed_By_API_BonusLotto(String arg1) throws Throwable {
+
+		flag = apicommonfunctionlibrary.isVerifySaleResponceWithDBforBonusLotto(arg1);
+		if (flag) {
+			System.out.println("API And DB DATA Matched");
+			LOGGER.info("API And DB DATA Matched");
+		} else {
+			Assert.fail();
+		}		
+	}
+	
+	@Then("^(.*) validate responce data from API for BonusLotto$")
+	public void perm_validate_responce_data_from_API_BonusLotto(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		if (flag) {
+			System.out.println("API And DB DATA Matched for : " + arg1);
+			LOGGER.info("API And DB DATA Matched");
+		} else {
+			Assert.fail();
+		}
+	}
+	
+	@Then("^validate Ticket Cancelatilon for (.*)  By API after sale for SuperKeno$")
+	public void validate_Ticket_Cancelatilon_for_Perm_By_API_SuperKeno(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		
+		if(apicommonfunctionlibrary.isVerifySaleResponceWithDBforSuperKeno(arg1)){
+			System.out.println("**************Last Ticket Cancelled for ******** " );
+			if(apicommonfunctionlibrary.isVarifyCancleDataSuperKeno(arg1)){
+				System.out.println("Last Ticket Cancelled for  : " + arg1);
+				LOGGER.info("Last Ticket Cancelled for  : " + arg1);	
+			}else{
+				LOGGER.info("Last Ticket Cancelled Unsucessful !!!");
+				Assert.fail();
+			}
+		}
+	}
+	
+	@Then("^validate Ticket Reprint for (.*)  By API after sale for SuperKeno$")
+	public void validate_Ticket_Reprint_for_Perm_By_API_after_sale_SuperKeno(String arg1) throws Throwable {
+		if(apicommonfunctionlibrary.isVerifySaleResponceWithDBforSuperKeno(arg1)){
+			System.out.println("******************REPRINT*******************");
+			if(apicommonfunctionlibrary.isVarifyReprintDataSuperKeno(arg1)){
+				System.out.println("Ticket Reprint Verified for " + arg1);
+				LOGGER.info("Ticket Reprint Verified for " + arg1);	
+			}else{
+				LOGGER.info("Ticket Reprint Unsucessful !!!");
+				Assert.fail();
+			}
+		}
+	}
+	
 }

@@ -9,7 +9,9 @@ import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.FortuneGameLocator;
 import objectRepository.LuckeyNumberPageLocator;
+
 import objectRepository.SportsLotteryPageLocators;
+import objectRepository.SuperKenoPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
 import objectRepository.TwelveByTwentyFourPageLocator;
@@ -75,38 +77,33 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 
 	}
 
-	public FortuneGamePage selectFortuneGame()
-	{
+	public FortuneGamePage selectFortuneGame() {
 		functionLibrary.switchFrame("leftbottom");
-		if(findElement(FortuneGameLocator.fortuneGamelocator, 5) != null)
-		{
+		if (findElement(FortuneGameLocator.fortuneGamelocator, 5) != null) {
 			findElement(FortuneGameLocator.fortuneGamelocator, 5).click();
 			System.out.println("Fortune Game is selected");
 			return new FortuneGamePage(driver);
-		}else
-		{
+		} else {
 			System.out.println("Lucky Number is not selected");
 			return null;
 		}
-		
+
 	}
-	public boolean isFortuneGameSelected()
-	{
+
+	public boolean isFortuneGameSelected() {
 		functionLibrary.switchFrame("leftbottom");
-		
-		if(findElement(FortuneGameLocator.fortuneGamelocator, 5).getAttribute("gamename").equalsIgnoreCase("OneToTwelve"))
-		{
+
+		if (findElement(FortuneGameLocator.fortuneGamelocator, 5).getAttribute("gamename")
+				.equalsIgnoreCase("OneToTwelve")) {
 			LOGGER.info("Fortune Game is selected");
-			
+
 			return true;
-		}
-		else
-		{
+		} else {
 			LOGGER.info("Fortune Game is selected");
 			return false;
 		}
 	}
-	
+
 	public MiniRoulettePage selectMiniRoulette() {
 		functionLibrary.switchFrame("leftbottom");
 		if (findElement(DrawGamePageLocator.miniRouletteButton, 5) != null) {
@@ -143,7 +140,7 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 
 	}
 
-	public TwelveByTwentyFourPage selectTwelveByTwentyFour(){
+	public TwelveByTwentyFourPage selectTwelveByTwentyFour() {
 		functionLibrary.switchFrame("leftbottom");
 		if (findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5) != null) {
 			findElement(TwelveByTwentyFourPageLocator.TwelveByTwentyFourlocator, 5).click();
@@ -154,7 +151,8 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 			return null;
 		}
 
-	}	
+	}
+
 	public SoccerThirteenPage selectSoccerThirteen() {
 		functionLibrary.switchFrame("leftbottom");
 		if (findElement(SportsLotteryPageLocators.soccerThirteenButton, 5) != null) {
@@ -166,4 +164,18 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 			return null;
 		}
 	}
+
+	public SuperKenoPage selectSuperKeno() {
+		functionLibrary.switchFrame("leftbottom");
+		if (findElement(SuperKenoPageLocators.superKenoButton, 5) != null) {
+			findElement(SuperKenoPageLocators.superKenoButton, 5).click();
+			System.out.println("Super Keno is selected");
+			return new SuperKenoPage(driver);
+		} else {
+			System.out.println("Super Keno is not selected");
+			return null;
+		}
+
+	}
+
 }
