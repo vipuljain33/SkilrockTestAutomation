@@ -12,6 +12,8 @@ public class LuckyNumberSqlQuery
 
  public static String  apiticketcanceldetails="SELECT ticket_number,cancel_time,mrp_amt FROM ge_draw_ticket_cancel_1 INNER JOIN LMS.st_dg_ret_sale_refund_1 ON ticket_number=ticket_nbr WHERE ticket_number=?";
  public static String  apiticketreprintdetails="select  ticket_number,rpc_total,total_amount from ge_tickets_1 where party_type='retailer'and purchase_channel='LMS_Web' and ticket_number= ?";
+ public static String  drawfreezetimeforluckynumber="select draw_freeze_time from ge_draw_master_1 where draw_id =?";
 
+ 
 }
 

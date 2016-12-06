@@ -13,7 +13,6 @@ import DataBaseQuery.BonusLottoSqlQuery;
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LuckyNumberSqlQuery;
 
-
 public class ApiCommonValidationPage {
 	private static Logger LOGGER = LoggerFactory.getLogger(ApiCommonValidationPage.class);
 	PCPOSApi pcposapi = new PCPOSApi();
@@ -54,7 +53,7 @@ public class ApiCommonValidationPage {
 			}
 			if (key.equalsIgnoreCase("ticketNumber")) {
 
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key)) ) {
+				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
 					flag = true;
 				} else {
 					flag = false;
@@ -99,7 +98,7 @@ public class ApiCommonValidationPage {
 		con = dbconnection.getDBConnectionDge();
 		ResultSet rs = dbconnection.ExecuteQuery(con, LuckyNumberSqlQuery.apiticketcanceldetails, PCPOSApi.ticketno);
 		while (rs.next()) {
-			dbcanceldata.put("ticketnumber", rs.getString(1)+"0");
+			dbcanceldata.put("ticketnumber", rs.getString(1) + "0");
 			dbcanceldata.put("canceltime", rs.getString(2));
 			dbcanceldata.put("refundamount", rs.getString(3));
 		}
@@ -112,8 +111,10 @@ public class ApiCommonValidationPage {
 
 			// System.out.println(key);
 			if (key.equalsIgnoreCase("cancelTime")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				/*
+				 * String s[]=dbcanceldata.get(key).split(".");
+				 * System.out.println("DB Date : " + s[0]);
+				 */
 				if (dbcanceldata.get(key).contains(apiCancelData.get(key))) {
 					flag = true;
 				} else {
@@ -142,8 +143,7 @@ public class ApiCommonValidationPage {
 	}
 
 	public boolean isVarifyReprintData(String arg1) throws SQLException {
-		
-		
+
 		HashMap<String, String> apiReprintData = new HashMap<String, String>();
 		HashMap<String, String> dbReprintdata = new HashMap<String, String>();
 		apiReprintData = pcposapi.reprintApiForLuckyNumber(PCPOSApi.ticketno);
@@ -163,8 +163,10 @@ public class ApiCommonValidationPage {
 
 			// System.out.println(key);
 			if (key.equalsIgnoreCase("reprintcount")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				/*
+				 * String s[]=dbcanceldata.get(key).split(".");
+				 * System.out.println("DB Date : " + s[0]);
+				 */
 				if (dbReprintdata.get(key).contains(apiReprintData.get(key))) {
 					flag = true;
 				} else {
@@ -194,7 +196,7 @@ public class ApiCommonValidationPage {
 		}
 		return flag;
 	}
-	
+
 	public boolean isVerifySaleResponceWithDBforBonusLotto(String arg1) throws SQLException {
 		HashMap<String, String> apidata = new HashMap<String, String>();
 		HashMap<String, String> dbdata = new HashMap<String, String>();
@@ -202,7 +204,7 @@ public class ApiCommonValidationPage {
 		boolean flag = false;
 		apidata = pcposapi.performBonusLottoSale(arg1);
 		con = dbconnection.getDBConnectionDge();
-		ResultSet rs = dbconnection.ExecuteQuery(con,BonusLottoSqlQuery.apiticketdetails, PCPOSApi.ticketno);
+		ResultSet rs = dbconnection.ExecuteQuery(con, BonusLottoSqlQuery.apiticketdetails, PCPOSApi.ticketno);
 		while (rs.next()) {
 
 			dbdata.put("gamename", rs.getString(1));
@@ -229,7 +231,7 @@ public class ApiCommonValidationPage {
 			}
 			if (key.equalsIgnoreCase("ticketNumber")) {
 
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key)) ) {
+				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
 					flag = true;
 				} else {
 					flag = false;
@@ -274,7 +276,7 @@ public class ApiCommonValidationPage {
 		con = dbconnection.getDBConnectionDge();
 		ResultSet rs = dbconnection.ExecuteQuery(con, BonusLottoSqlQuery.apiticketcanceldetails, PCPOSApi.ticketno);
 		while (rs.next()) {
-			dbcanceldata.put("ticketnumber", rs.getString(1)+"0");
+			dbcanceldata.put("ticketnumber", rs.getString(1) + "0");
 			dbcanceldata.put("canceltime", rs.getString(2));
 			dbcanceldata.put("refundamount", rs.getString(3));
 		}
@@ -287,8 +289,10 @@ public class ApiCommonValidationPage {
 
 			// System.out.println(key);
 			if (key.equalsIgnoreCase("cancelTime")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				/*
+				 * String s[]=dbcanceldata.get(key).split(".");
+				 * System.out.println("DB Date : " + s[0]);
+				 */
 				if (dbcanceldata.get(key).contains(apiCancelData.get(key))) {
 					flag = true;
 				} else {
@@ -316,9 +320,8 @@ public class ApiCommonValidationPage {
 		return flag;
 	}
 
-public boolean isVarifyReprintDataBonusLotto(String arg1) throws SQLException {
-		
-		
+	public boolean isVarifyReprintDataBonusLotto(String arg1) throws SQLException {
+
 		HashMap<String, String> apiReprintData = new HashMap<String, String>();
 		HashMap<String, String> dbReprintdata = new HashMap<String, String>();
 		apiReprintData = pcposapi.reprintApiForLuckyNumber(PCPOSApi.ticketno);
@@ -338,8 +341,10 @@ public boolean isVarifyReprintDataBonusLotto(String arg1) throws SQLException {
 
 			// System.out.println(key);
 			if (key.equalsIgnoreCase("reprintcount")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				/*
+				 * String s[]=dbcanceldata.get(key).split(".");
+				 * System.out.println("DB Date : " + s[0]);
+				 */
 				if (dbReprintdata.get(key).contains(apiReprintData.get(key))) {
 					flag = true;
 				} else {
@@ -370,4 +375,38 @@ public boolean isVarifyReprintDataBonusLotto(String arg1) throws SQLException {
 		return flag;
 	}
 	
+	public boolean isVerifyDrawFreezeDataForLuckyNumber() throws SQLException {		
+			HashMap<String, String> apiFreezeData = new HashMap<String, String>();
+			HashMap<String, String> dbFreezedata = new HashMap<String, String>();
+			apiFreezeData = pcposapi.performDrawFreezeForPcPosGame("http://192.168.124.73:8082/DGE_Scheduler/services/drawMgmt/freezeDraw",PCPOSApi.drawid,PCPOSApi.gameid);
+			
+			con = dbconnection.getDBConnectionDge();
+			ResultSet rs = dbconnection.ExecuteQuery(con,LuckyNumberSqlQuery.drawfreezetimeforluckynumber, apiFreezeData.get("drawid"));
+			while (rs.next()) {
+				dbFreezedata .put("updatedfreezetime", rs.getString(1));		
+			}
+			System.out.println("API Data : " + apiFreezeData);
+			System.out.println("DB Data : " + dbFreezedata);	
+			if(dbFreezedata.get("updatedfreezetime").contains(apiFreezeData.get("updatedfreezetime"))){
+				return true;	
+			}else{
+				return false;
+			}
+			
+		
+		
+	}
+
+	public boolean isVerifyResultSubmissionDataForLuckyNumber() throws SQLException {
+		HashMap<String, String> apiResultSubmissionData = new HashMap<String, String>();		
+		apiResultSubmissionData = pcposapi.performResultSubmissionForPcPosGame("http://192.168.124.73:8082/DGE_Scheduler/services/drawResultMgmt/performManualWinningEntry",PCPOSApi.drawid,PCPOSApi.gameid);		
+		System.out.println("API Data : " + apiResultSubmissionData);
+			
+		if(apiResultSubmissionData.get("responsemsg").equalsIgnoreCase("Perform Manual Winning Entry done successfully:FIRST TIME INSERT")){
+			return true;	
+		}else{
+			return false;
+		}
+	}
+
 }

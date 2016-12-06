@@ -45,7 +45,7 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
-   @ApisaleBonusLotto
+  @ApisaleBonusLotto
   Scenario Outline: validate Ticket Cancelatilon for BonusLotto GAMES
     Then validate Ticket Cancelatilon for <bettypes>  By API after sale for BonusLotto
 
@@ -63,3 +63,14 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
+  @PcposDrewFreeze
+   Scenario: Perform Draw Freeze for LuckyNumber PCPOS GAMES
+    Given perform sale for single bet type and capture sale data
+    When authenticate BackOffice User
+    Then validate Freeze API Response with DB for LuckyNumber
+
+  @PcposResultSubmission
+   Scenario: Perform Result submission for LuckyNumber PCPOS GAMES
+    Given fetch DrawGame data For PCPOS Game
+    When validate Freeze API Response with DB for LuckyNumber
+    Then validate Result Submission API Response with DB for LuckyNumber
