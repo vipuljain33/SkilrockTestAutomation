@@ -6,6 +6,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import io.appium.java_client.android.AndroidDriver;
 import objectRepository.CommonMobileLocators;
 import pages.BasePage;
 
@@ -14,7 +15,7 @@ public class MobileSoccer13Page extends BasePage {
 		super(driver);
 		System.out.println(driver);
 
-		WebElement elem = driver.findElement(CommonMobileLocators.subHeaderTextAndroid);
+		WebElement elem = driver.findElement(CommonMobileLocators.headerTextAndroid);
 		System.out.println(elem.getText());
 		if (elem.getText().equalsIgnoreCase("SOCCER 13")) {
 			System.out.println("Soccer 13 page is opened");
@@ -24,12 +25,14 @@ public class MobileSoccer13Page extends BasePage {
 	}
 
 	public void validateBetName(String betName) {
+	
 		buttonClick(CommonMobileLocators.gameSelectDropdownAndroid);
-		findElement(By.xpath(CommonMobileLocators.selectDropdownElementAndroid + "betName']"), 5).click();
-		if (!(findElement(CommonMobileLocators.gameSelectDropdownAndroid, 5).getText().contains("betName"))) {
+		((AndroidDriver)driver).findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").textContains(\""+betName+"\")").click();
+		//findElement(By.xpath(CommonMobileLocators.selectDropdownElementAndroid + betName +"']"), 5).click();
+	/*	if (!(findElement(CommonMobileLocators.gameSelectDropdownAndroid, 5).getText().contains(betName))) {
 			Assert.fail();
 		}
-	}
+	*/}
 
 	public void clickSLEEvents(int endNumber, double x1, double x2, int duration, int sleep)
 			throws InterruptedException {
