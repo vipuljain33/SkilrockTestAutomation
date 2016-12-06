@@ -38,8 +38,10 @@ public class AttachHooks {
 		ConfigManager.loadConfig();
 		this.scenario = scenario;
 		System.out.println(scenario.getName());
-		System.out.println("Our browser will be invoked here");
-
+		
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")) {
+			System.out.println("API Execution Start");
+		}			        
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
 			if (ConfigManager.getProperty("PlatformName").equalsIgnoreCase("Android")) {
 				try {
@@ -84,7 +86,9 @@ public class AttachHooks {
 				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 			}
 		}
-		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+		if ((ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web"))||((ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("WebPortal")))) {
+
+			System.out.println("Our browser will be invoked here");
 			if (ConfigManager.getProperty("browserName").equalsIgnoreCase("chrome")) {
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\chromedriver.exe");
 				ChromeOptions options = new ChromeOptions();
@@ -109,7 +113,7 @@ public class AttachHooks {
 			// System.getProperty("user.dir")+"\\chromedriver.exe");
 			// driver = new ChromeDriver();
 
-			driver.get("http://192.168.124.73:8180/LMSLinuxNew");
+			driver.get(ConfigManager.getProperty("EnvironmentURL"));
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 			System.out.println(driver.getTitle());
@@ -120,12 +124,15 @@ public class AttachHooks {
 	@After
 	public void tearDown() throws InstantiationException, IllegalAccessException {
 
-		functionLibrary.embedScreenshot(scenario);
-
+		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Api")){
+			System.out.println("API Execution Stop :) ");
+		}
 		if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Mobile")) {
+			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 			DriverFactory.appiumStop();
 		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 		}
 	}

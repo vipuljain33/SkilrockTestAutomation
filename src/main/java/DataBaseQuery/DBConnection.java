@@ -113,6 +113,19 @@ public class DBConnection {
 		// while (rs.next()) {}
 		return rs;
 	}
+	
+	public int executeUpdate(Connection connection, String Query, String param1, String param2) throws SQLException
+	{
+		String temp= getFinalQuery(Query);		
+		PreparedStatement preparedStatement = connection.prepareStatement(temp);
+		preparedStatement.setString(1, param1);
+		preparedStatement.setString(2,param2);
+		// execute insert SQL stetement
+		return preparedStatement .executeUpdate();		
+	}
+	
+	
+	
 
 	public ResultSet ExecuteQuery(Connection connection, String Query, int param1, String param2) throws SQLException {
 
@@ -128,6 +141,21 @@ public class DBConnection {
 		return rs;
 	}
 
+
+	public ResultSet ExecuteQuery(Connection connection, String Query, int param1) throws SQLException {
+
+		// select * from employee where ename = ? and location = ?`
+
+		// Statement stmt = (Statement) con.createStatement();
+		PreparedStatement ps = connection.prepareStatement(Query);
+		ps.setInt(1, param1);		
+		ResultSet rs = ps.executeQuery();
+
+		// while (rs.next()) {}
+		return rs;
+	}
+
+	
 	public String getFinalQuery(String value) {
 
 		String tempQuery = value;

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -222,8 +223,9 @@ public class LuckyNumberPage extends BasePage {
 
 		qpselected = (ArrayList<String>) isQpSelected(LuckeyNumberPageLocator.numpicked);
 		qpposselected = qpposselected(LuckeyNumberPageLocator.selectednum);
-		if (qpselected.equals(qpposselected)) {
-			System.out.println("pass");
+
+		if (qpselected.containsAll(qpposselected) && qpposselected.containsAll(qpselected)) {
+			System.out.println("Number Selected Matched");
 			return true;
 		} else {
 			return false;
@@ -238,7 +240,7 @@ public class LuckyNumberPage extends BasePage {
 
 		for (String number : str.split(",")) {
 			System.out.println(number);
-			qpselected.add(number);
+			qpselected.add(number.trim());
 
 		}
 		return qpselected;
@@ -252,7 +254,7 @@ public class LuckyNumberPage extends BasePage {
 		List<String> newlist = new ArrayList<String>();
 		qpposselected = driver.findElements(by);
 		for (WebElement we : qpposselected) {
-			newlist.add(we.getText());
+			newlist.add(we.getText().trim());
 		}
 
 		System.out.println("newlist" + newlist);
@@ -283,8 +285,10 @@ public class LuckyNumberPage extends BasePage {
 		}
 	}
 
-	public boolean isCardnumberPopupEnable() {
-		if (findElement(LuckeyNumberPageLocator.enterCradnumberPopup, 5).isDisplayed()) {
+	public boolean isCardnumberPopupEnable()
+        {
+        	if(findElement(LuckeyNumberPageLocator.enterCradnumberPopup, 5).isDisplayed())
+        	{	
 			return true;
 		} else {
 			return false;
