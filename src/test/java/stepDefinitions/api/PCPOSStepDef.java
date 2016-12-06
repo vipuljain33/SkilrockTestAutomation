@@ -2,10 +2,13 @@ package stepDefinitions.api;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +20,13 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.LuckyNumberPage;
 
+
 public class PCPOSStepDef {
 	private static Logger LOGGER = LoggerFactory.getLogger(PCPOSStepDef.class);
 	PCPOSApi pcposapi = new PCPOSApi();
 	ApiCommonValidationPage apicommonfunctionlibrary = new ApiCommonValidationPage();
 	public static boolean flag = false;
-
+	
 	@Given("^authenticate User$")
 	public void authenticate_User() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
@@ -71,9 +75,7 @@ public class PCPOSStepDef {
 				Assert.fail();
 			}
 		}
-		
 	}
-	
 	
 	@Then("^validate Ticket Reprint for (.*)  By API after sale$")
 	public void validate_Ticket_Reprint_for_Perm_By_API_after_sale(String arg1) throws Throwable {
@@ -87,8 +89,10 @@ public class PCPOSStepDef {
 				Assert.fail();
 			}
 		}
-		
-		
 	}
-
+	@Given("^sale done for soccerThirteen through api (.*)$")
+	public void sale_done_for_soccerThirteen(String s){
+		pcposapi.authenticate("testret", "12345678");
+		pcposapi.performSoccerThirteenSale(s);
+	}
 }

@@ -1,12 +1,14 @@
 package apis;
 
 import static com.jayway.restassured.RestAssured.given;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
+
 import com.jayway.restassured.response.Response;
+
+import objectRepository.SoccerThirteenPageLocator;
 
 public class PCPOSApi {
 	public Response response;
@@ -14,6 +16,7 @@ public class PCPOSApi {
 	public static Map<String, String> cookieMap;
 	public static String sessionId;
 	public static String ticketno;
+	public static Map<String, String> soccerThirteenData;
 
 	public boolean authenticate(String username, String password) {
 		try {
@@ -32,7 +35,7 @@ public class PCPOSApi {
 				System.out.println(cookieMap.get(key));
 			}
 
-			String sessionId = response.jsonPath().get("data.sessionId").toString();
+			sessionId = response.jsonPath().get("data.sessionId").toString();
 			System.out.println("Session id = " + sessionId);
 			if (sessionId != null) {
 				return true;
@@ -79,8 +82,7 @@ public class PCPOSApi {
 		try {
 			
 			String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/cancelTicket.action";
-			//String jsonData = "{\"ticketNumber\":\""+ticketNo+"\",\"autoCancel\":false,\"userName\":\"testret\",\"sessionId\":"+sessionId+"\"}";
-			  String jsonData = "{\"ticketNumber\":\""+ticketNo+"\",\"autoCancel\":false,\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\"}";
+			String jsonData = "{\"ticketNumber\":\""+ticketNo+"\",\"autoCancel\":false,\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\"}";
 			response = given()
 	                .cookies(cookieMap)
 	                .contentType("application/json")
@@ -98,7 +100,7 @@ public class PCPOSApi {
 			
 		} catch (Exception e) {
 			System.out.println("Exception : "+e);
-			//String jfdk="{\"barcodeCount\":0,\"gameId\":5,\"isQuickPick\":[1],\"noOfLines\":28,\"noPicked\":8,\"pickedNumbers\":\"04,05,21,28,29,32,35,40\",\"picknumbers\":[\"04,05,21,28,29,32,35,40\"],\"playType\":\"Perm6\",\"betAmtMultiple\":50,\"unitPrice\":280.0,\"promoSaleStatus\":\"SUCCESS\",\"userMappingId\":10030,\"serviceId\":3,\"lastGameId\":0,\"QPPreGenerated\":true,\"drawDateTime\":[],\"drawIdTableMap\":{\"1\":{\"87752\":\"78147\",\"87753\":\"78147\",\"87754\":\"78147\"},\"5\":{\"280\":\"274\",\"281\":\"275\",\"282\":\"276\"},\"12\":{\"145951\":\"5465\",\"145952\":\"5465\",\"145953\":\"5465\"},\"15\":{\"9902\":\"336\",\"9903\":\"336\",\"9904\":\"336\"},\"16\":{\"118\":\"2\",\"119\":\"2\",\"120\":\"2\"},\"17\":{\"749\":\"8\",\"750\":\"8\",\"751\":\"8\"},\"18\":{\"812\":\"9\",\"813\":\"9\",\"814\":\"9\"},\"19\":{\"9673\":\"97\",\"9674\":\"97\",\"9675\":\"97\"},\"20\":{\"9608\":\"96\",\"9609\":\"96\",\"9610\":\"96\"}},\"game_no\":5,\"gameDispName\":\"Bonus Lotto\",\"isAdvancedPlay\":0,\"isPromotkt\":false,\"isRaffelAssociated\":false,\"noOfDraws\":1,\"partyId\":841,\"partyType\":\"RETAILER\",\"purchaseChannel\":\"LMS_Web\",\"raffleNo\":0,\"refMerchantId\":\"WGRL\",\"refTransId\":\"13497824\",\"saleStatus\":\"FAILED\",\"totalPurchaseAmt\":280.0,\"userId\":11917}";
+			
 			
 		}
 		return null;
@@ -128,12 +130,49 @@ public class PCPOSApi {
 			temp.put("purchaseamt", response.jsonPath().get("mainData.commonReprintData.purchaseAmt").toString());			
 			return temp; 	        
 	        
-	       // System.out.println("Reprint api checked");
+	       
 		}catch (Exception e ) {
 			e.printStackTrace();
 			
 		}
 		return null;
 	}
+	public void performSoccerThirteenSale(String s) {
+		
+		String url1="http://115.111.246.156:8082/SportsLottery/com/skilrock/sle/web/merchantUser/playMgmt/action/sportsLotteryPurchaseTicket.action";
+		String inputDataAllH="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"H\"},{\"eventId\":\"4774\",\"eventSelected\":\"H\"},{\"eventId\":\"4775\",\"eventSelected\":\"H\"},{\"eventId\":\"4783\",\"eventSelected\":\"H\"},{\"eventId\":\"4776\",\"eventSelected\":\"H\"},{\"eventId\":\"4784\",\"eventSelected\":\"H\"},{\"eventId\":\"4777\",\"eventSelected\":\"H\"},{\"eventId\":\"4785\",\"eventSelected\":\"H\"},{\"eventId\":\"4778\",\"eventSelected\":\"H\"},{\"eventId\":\"4779\",\"eventSelected\":\"H\"},{\"eventId\":\"4780\",\"eventSelected\":\"H\"},{\"eventId\":\"4781\",\"eventSelected\":\"H\"},{\"eventId\":\"4782\",\"eventSelected\":\"H\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
+		String inputDataAllA="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"A\"},{\"eventId\":\"4774\",\"eventSelected\":\"A\"},{\"eventId\":\"4775\",\"eventSelected\":\"A\"},{\"eventId\":\"4783\",\"eventSelected\":\"A\"},{\"eventId\":\"4776\",\"eventSelected\":\"A\"},{\"eventId\":\"4784\",\"eventSelected\":\"A\"},{\"eventId\":\"4777\",\"eventSelected\":\"A\"},{\"eventId\":\"4785\",\"eventSelected\":\"A\"},{\"eventId\":\"4778\",\"eventSelected\":\"A\"},{\"eventId\":\"4779\",\"eventSelected\":\"A\"},{\"eventId\":\"4780\",\"eventSelected\":\"A\"},{\"eventId\":\"4781\",\"eventSelected\":\"A\"},{\"eventId\":\"4782\",\"eventSelected\":\"A\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
+		String inputDataRandom="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"H\"},{\"eventId\":\"4774\",\"eventSelected\":\"H\"},{\"eventId\":\"4775\",\"eventSelected\":\"H\"},{\"eventId\":\"4783\",\"eventSelected\":\"H\"},{\"eventId\":\"4776\",\"eventSelected\":\"H\"},{\"eventId\":\"4784\",\"eventSelected\":\"H\"},{\"eventId\":\"4777\",\"eventSelected\":\"H\"},{\"eventId\":\"4785\",\"eventSelected\":\"H\"},{\"eventId\":\"4778\",\"eventSelected\":\"H\"},{\"eventId\":\"4779\",\"eventSelected\":\"H\"},{\"eventId\":\"4780\",\"eventSelected\":\"H\"},{\"eventId\":\"4781\",\"eventSelected\":\"H,D\"},{\"eventId\":\"4782\",\"eventSelected\":\"H,A\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"4\"}";
+        String inputDataAllD="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"D\"},{\"eventId\":\"4774\",\"eventSelected\":\"D\"},{\"eventId\":\"4775\",\"eventSelected\":\"D\"},{\"eventId\":\"4783\",\"eventSelected\":\"D\"},{\"eventId\":\"4776\",\"eventSelected\":\"D\"},{\"eventId\":\"4784\",\"eventSelected\":\"D\"},{\"eventId\":\"4777\",\"eventSelected\":\"D\"},{\"eventId\":\"4785\",\"eventSelected\":\"D\"},{\"eventId\":\"4778\",\"eventSelected\":\"D\"},{\"eventId\":\"4779\",\"eventSelected\":\"D\"},{\"eventId\":\"4780\",\"eventSelected\":\"D\"},{\"eventId\":\"4781\",\"eventSelected\":\"D\"},{\"eventId\":\"4782\",\"eventSelected\":\"D\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
+
+        String inputData;
+        if(s.equals("Random")) {
+        	inputData=inputDataRandom;
+        }
+        else if(s.equals("All-H")) {
+        	inputData=inputDataAllH;
+        }
+        else if(s.equals("All-D")) {
+        	inputData=inputDataAllD;
+        }
+        else {
+        	inputData=inputDataAllA;
+        }
+		response =given()
+				.contentType("application/json")
+				.queryParam("requestData", inputData)
+				.post(url1);
+		
+		soccerThirteenData  = new HashMap<String, String>();
+		
+		String temp=response.jsonPath().get("tktData.ticketNo").toString();
+		soccerThirteenData.put("Ticket Number", temp.substring(0, temp.length()-1));
+		soccerThirteenData.put("Ticket Price", response.jsonPath().get("tktData.ticketAmt").toString());
+		System.out.println("Ticket Number from response :"+soccerThirteenData.get("Ticket Number"));
+		
+		
+		
+	}
+	
 
 }

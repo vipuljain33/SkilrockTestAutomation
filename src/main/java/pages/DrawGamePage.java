@@ -9,6 +9,7 @@ import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.FortuneGameLocator;
 import objectRepository.LuckeyNumberPageLocator;
+import objectRepository.SportsLotteryPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
 import objectRepository.TwelveByTwentyFourPageLocator;
@@ -154,4 +155,15 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		}
 
 	}	
+	public SoccerThirteenPage selectSoccerThirteen() {
+		functionLibrary.switchFrame("leftbottom");
+		if (findElement(SportsLotteryPageLocators.soccerThirteenButton, 5) != null) {
+			findElement(SportsLotteryPageLocators.soccerThirteenButton, 5).click();
+			System.out.println("Soccer Thirteen is selected");
+			return new SoccerThirteenPage(driver);
+		} else {
+			System.out.println("Soccer Thirteen is not selected");
+			return null;
+		}
+	}
 }

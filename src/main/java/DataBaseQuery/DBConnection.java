@@ -21,8 +21,6 @@ public class DBConnection {
 				String user = ConfigManager.getProperty("DBConnUser");
 				String password = ConfigManager.getProperty("DBConnPwd");
 				String driver = ConfigManager.getProperty("DBConnDriver");
-				// System.out.println("url:"+url+" user:"
-				// +user+" password:"+password+" driver:"+driver);
 				Class.forName(driver);
 				con = DriverManager.getConnection(url, user, password);
 			}
@@ -39,8 +37,21 @@ public class DBConnection {
 				String user = ConfigManager.getProperty("DBConnDgeUser");
 				String password = ConfigManager.getProperty("DBConnDgePwd");
 				String driver = ConfigManager.getProperty("DBConnDgeDriver");
-				// System.out.println("url:"+url+" user:"
-				// +user+" password:"+password+" driver:"+driver);
+				Class.forName(driver);
+				conDge = DriverManager.getConnection(url, user, password);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conDge;
+	}
+	public static Connection getDBConnectionSle() {
+		try {
+			if (conDge == null) {
+				String url = ConfigManager.getProperty("DBConSleURL");
+				String user = ConfigManager.getProperty("DBConnSleUser");
+				String password = ConfigManager.getProperty("DBConnSlePwd");
+				String driver = ConfigManager.getProperty("DBConnSleDriver");
 				Class.forName(driver);
 				conDge = DriverManager.getConnection(url, user, password);
 			}
@@ -72,45 +83,34 @@ public class DBConnection {
 
 	public ResultSet ExecuteQuery(Connection connection, String Query, String param1) throws SQLException {
 
-		// select * from employee where ename = ? and location = ?`
-
-		// Statement stmt = (Statement) con.createStatement();
 		PreparedStatement ps = connection.prepareStatement(Query);
 		ps.setString(1, param1);
 		ResultSet rs = ps.executeQuery();
 
-		// while (rs.next()) {}
 		return rs;
 	}
 
 	
 	public ResultSet ExecuteQuery(Connection connection, String Query, String param1, String param2)
 			throws SQLException {
-
-		// select * from employee where ename = ? and location = ?`
-
-		// Statement stmt = (Statement) con.createStatement();
+		
 		PreparedStatement ps = connection.prepareStatement(Query);
 		ps.setString(1, param1);
 		ps.setString(2, param2);
 		ResultSet rs = ps.executeQuery();
-
-		// while (rs.next()) {}
 		return rs;
 	}
 
 	public ResultSet ExecuteQuery(Connection connection, String Query, String param1, String param2, String param3)
 			throws SQLException {
 
-		// select * from employee where ename = ? and location = ?`
-		// Statement stmt = (Statement) con.createStatement();
 		PreparedStatement ps = connection.prepareStatement(Query);
 		ps.setString(1, param1);
 		ps.setString(2, param2);
 		ps.setString(3, param3);
 		ResultSet rs = ps.executeQuery();
 
-		// while (rs.next()) {}
+		
 		return rs;
 	}
 	

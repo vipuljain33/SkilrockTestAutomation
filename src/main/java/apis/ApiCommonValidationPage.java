@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import DataBaseQuery.DBConnection;
 import DataBaseQuery.LuckyNumberSqlQuery;
+import DataBaseQuery.SoccerThirteenSqlQuery;
 
 
 public class ApiCommonValidationPage {
@@ -18,78 +19,7 @@ public class ApiCommonValidationPage {
 	PCPOSApi pcposapi = new PCPOSApi();
 	DBConnection dbconnection = new DBConnection();
 	Connection con;
-
-	public boolean isVerifySaleResponceWithDB(String arg1) throws SQLException {
-		HashMap<String, String> apidata = new HashMap<String, String>();
-		HashMap<String, String> dbdata = new HashMap<String, String>();
-		System.out.println("**********************************");
-		boolean flag = false;
-		apidata = pcposapi.performLuckyNumberSale(arg1);
-		con = dbconnection.getDBConnectionDge();
-		ResultSet rs = dbconnection.ExecuteQuery(con, LuckyNumberSqlQuery.apiticketdetails, PCPOSApi.ticketno);
-		while (rs.next()) {
-
-			dbdata.put("gamename", rs.getString(1));
-			dbdata.put("ticketNumber", rs.getString(2));
-			dbdata.put("purchaseAmt", rs.getString(3));
-			dbdata.put("purchaseTime", rs.getString(4));
-			dbdata.put("pickedNumbers", "[" + rs.getString(5) + "]");
-		}
-		System.out.println("API Data : " + apidata);
-		System.out.println("DB Data : " + dbdata);
-
-		Iterator iterator = apidata.keySet().iterator();
-
-		while (iterator.hasNext()) {
-			String key = (String) iterator.next();
-
-			// System.out.println(key);
-			if (key.equalsIgnoreCase("gameName")) {
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			}
-			if (key.equalsIgnoreCase("ticketNumber")) {
-
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key)) ) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			}
-			if (key.equalsIgnoreCase("purchaseAmt")) {
-
-				if (Float.parseFloat(apidata.get(key)) == Float.parseFloat(dbdata.get(key))) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			}
-
-			if (key.equalsIgnoreCase("purchaseTime")) {
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			}
-			if (key.equalsIgnoreCase("pickedNumbers")) {
-				if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			}
-
-		}
-		return flag;
-
-		/*
-		 * if(flag){ return true; } return false;
-		 */
-	}
+   
 
 	public boolean isVarifyCancleData(String atg1) throws SQLException {
 		HashMap<String, String> apiCancelData = new HashMap<String, String>();
@@ -109,10 +39,9 @@ public class ApiCommonValidationPage {
 		while (iterator.hasNext()) {
 			String key = (String) iterator.next();
 
-			// System.out.println(key);
+			
 			if (key.equalsIgnoreCase("cancelTime")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				
 				if (dbcanceldata.get(key).contains(apiCancelData.get(key))) {
 					flag = true;
 				} else {
@@ -160,10 +89,9 @@ public class ApiCommonValidationPage {
 		while (iterator.hasNext()) {
 			String key = (String) iterator.next();
 
-			// System.out.println(key);
+			
 			if (key.equalsIgnoreCase("reprintcount")) {
-				/*String s[]=dbcanceldata.get(key).split(".");
-				System.out.println("DB Date : " + s[0]);*/
+				
 				if (dbReprintdata.get(key).contains(apiReprintData.get(key))) {
 					flag = true;
 				} else {
@@ -193,5 +121,93 @@ public class ApiCommonValidationPage {
 		}
 		return flag;
 	}
+	public boolean verifySoccerThirteenSale() throws SQLException {
+		con = dbconnection.getDBConnectionSle();
+		ResultSet rs = dbconnection.ExecuteQuery(con, SoccerThirteenSqlQuery.soccerThirteenTicketDetails2, PCPOSApi.ticketno);
+		HashMap<String, String> dbdata = new HashMap<String, String>();
+		while (rs.next()) {
 
+			
+			dbdata.put("ticketNumber", rs.getString(1));
+			dbdata.put("purchaseAmt", rs.getString(2));
+			
+		}
+		
+		if(PCPOSApi.soccerThirteenData.get("Ticket Number").equals(dbdata.get("ticketNumber")) && PCPOSApi.soccerThirteenData.get("Ticket Price").equals(dbdata.get("purchaseAmt"))) {
+			 return true;
+		}
+		else {
+			return false;
+		}
+	}
+	 
+		public boolean isVerifySaleResponceWithDB(String arg1) throws SQLException {
+			HashMap<String, String> apidata = new HashMap<String, String>();
+			HashMap<String, String> dbdata = new HashMap<String, String>();
+			System.out.println("**********************************");
+			boolean flag = false;
+			apidata = pcposapi.performLuckyNumberSale(arg1);
+			con = dbconnection.getDBConnectionDge();
+			ResultSet rs = dbconnection.ExecuteQuery(con, LuckyNumberSqlQuery.apiticketdetails, PCPOSApi.ticketno);
+			while (rs.next()) {
+
+				dbdata.put("gamename", rs.getString(1));
+				dbdata.put("ticketNumber", rs.getString(2));
+				dbdata.put("purchaseAmt", rs.getString(3));
+				dbdata.put("purchaseTime", rs.getString(4));
+				dbdata.put("pickedNumbers", "[" + rs.getString(5) + "]");
+			}
+			System.out.println("API Data : " + apidata);
+			System.out.println("DB Data : " + dbdata);
+
+			Iterator iterator = apidata.keySet().iterator();
+
+			while (iterator.hasNext()) {
+				String key = (String) iterator.next();
+
+				if (key.equalsIgnoreCase("gameName")) {
+					if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+				if (key.equalsIgnoreCase("ticketNumber")) {
+
+					if (apidata.get(key).equalsIgnoreCase(dbdata.get(key)) ) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+				if (key.equalsIgnoreCase("purchaseAmt")) {
+
+					if (Float.parseFloat(apidata.get(key)) == Float.parseFloat(dbdata.get(key))) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+
+				if (key.equalsIgnoreCase("purchaseTime")) {
+					if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+				if (key.equalsIgnoreCase("pickedNumbers")) {
+					if (apidata.get(key).equalsIgnoreCase(dbdata.get(key))) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+
+			}
+			return flag;
+
+			
+		}
+   
 }
