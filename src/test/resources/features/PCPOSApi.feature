@@ -45,7 +45,7 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
-   @ApisaleBonusLotto
+  @ApiCancelBonusLotto
   Scenario Outline: validate Ticket Cancelatilon for BonusLotto GAMES
     Then validate Ticket Cancelatilon for <bettypes>  By API after sale for BonusLotto
 
@@ -54,7 +54,7 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
-  @ApisaleBonusLotto
+  @ApiReprintBonusLotto
   Scenario Outline: validate Ticket Reprint for BonusLotto GAMES
     Then validate Ticket Reprint for <bettypes>  By API after sale for BonusLotto
 
@@ -63,3 +63,51 @@ Feature: Api Testing For PCPOS Game
       | Perm6    |
       | Direct6  |
 
+  @ApisaleSuperKeno
+  Scenario Outline: validate API sale for SuperKeno Games
+    When <bettypes> is selected and Sale Performed By API for SuperKeno
+    Then <bettypes> validate responce data from API for SuperKeno
+
+    Examples: 
+      | bettypes |
+      | Direct2  |
+      | Direct3  |
+      | Direct4  |
+      | Direct5  |
+      | Direct6  |
+      | Direct7  |
+      | Direct8  |
+      | Direct9  |
+      | Direct10 |
+
+  @ApiCancelSuperKeno
+  Scenario Outline: validate Ticket Cancelatilon for SuperKeno GAMES
+    Then validate Ticket Cancelatilon for <bettypes>  By API after sale for SuperKeno
+
+    Examples: 
+      | bettypes |
+      | Direct2  |
+      | Direct3  |
+      | Direct4  |
+      | Direct5  |
+      | Direct6  |
+      | Direct7  |
+      | Direct8  |
+      | Direct9  |
+      | Direct10 |
+
+  @ApiReprintSuperKeno
+  Scenario Outline: validate Ticket Reprint for SuperKeno GAMES
+    Then validate Ticket Reprint for <bettypes>  By API after sale for SuperKeno
+
+    Examples: 
+      | bettypes |
+      | Direct2  |
+      | Direct3  |
+      | Direct4  |
+      | Direct5  |
+      | Direct6  |
+      | Direct7  |
+      | Direct8  |
+      | Direct9  |
+      | Direct10 |

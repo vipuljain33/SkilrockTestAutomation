@@ -9,6 +9,7 @@ import objectRepository.BonusLottoPageLocators;
 import objectRepository.DrawGamePageLocator;
 import objectRepository.FortuneGameLocator;
 import objectRepository.LuckeyNumberPageLocator;
+import objectRepository.SuperKenoPageLocators;
 import objectRepository.LuckeyNumberPageLocator;
 import objectRepository.TenByTwentyLocator;
 import objectRepository.TwelveByTwentyFourPageLocator;
@@ -154,4 +155,20 @@ public class DrawGamePage extends RetailerTopHeaderPage {
 		}
 
 	}	
+	
+	public SuperKenoPage selectSuperKeno() {
+		functionLibrary.switchFrame("leftbottom");
+		if (findElement(SuperKenoPageLocators.superKenoButton, 5) != null) {
+			findElement(SuperKenoPageLocators.superKenoButton, 5).click();
+			System.out.println("Super Keno is selected");
+			return new SuperKenoPage(driver);
+		} else {
+			System.out.println("Super Keno is not selected");
+			return null;
+		}
+
+	}
+
+	
+	
 }
