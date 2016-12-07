@@ -2,6 +2,7 @@ package apis;
 
 import static com.jayway.restassured.RestAssured.given;
 
+import java.util.HashMap;
 import java.util.Map;
 import com.jayway.restassured.response.Response;
 
@@ -142,14 +143,33 @@ public class SaleApi {
 			
 		}
 	}
+	
+	public void authenticateTerminalApi()
+	{
+		Map<String, String> queryParams = new HashMap<String, String>();
+		queryParams.put("username", "testr2");
+		queryParams.put("password", "12345678");
+		queryParams.put("deviceType", "iWL220");
+		queryParams.put("terminalId", "60264777");
+		queryParams.put("version", "10.45");
+		
+		String url = "http://41.86.152.243:80/LMSLagos/com/skilrock/lms/embedded/loginMgmt/Login.action";
+		//String params = "username=testr2&password=12345678&deviceType=iWL220&terminalId=60264777&version=10.45";
+		response = given()
+                .contentType("text/plain")
+                .queryParams(queryParams)
+                .get(url);
+		System.out.println(response.getBody().asString());
+	}
 	public static void main(String[] args) {
 		
 		SaleApi api = new SaleApi();
-		String session = api.authenticate();
+		///String session = api.authenticate();
 		//api.fetchDrawGameData();
-		api.performSale();
+		//api.performSale();
 		//api.reprintApi(session);
 		//api.authenticate();
+		api.authenticateTerminalApi();
 		
 		
 	}
