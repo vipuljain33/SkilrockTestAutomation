@@ -119,26 +119,6 @@ public class ApiCommonValidationPage {
 		return flag;
 	}
 
-	public boolean verifySoccerThirteenSale() throws SQLException {
-		con = dbconnection.getDBConnectionSle();
-		ResultSet rs = dbconnection.ExecuteQuery(con, SoccerThirteenSqlQuery.soccerThirteenTicketDetails2,
-				PCPOSApi.ticketno);
-		HashMap<String, String> dbdata = new HashMap<String, String>();
-		while (rs.next()) {
-
-			dbdata.put("ticketNumber", rs.getString(1));
-			dbdata.put("purchaseAmt", rs.getString(2));
-
-		}
-
-		if (PCPOSApi.soccerThirteenData.get("Ticket Number").equals(dbdata.get("ticketNumber"))
-				&& PCPOSApi.soccerThirteenData.get("Ticket Price").equals(dbdata.get("purchaseAmt"))) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean isVerifySaleResponceWithDB(String arg1) throws SQLException {
 		HashMap<String, String> apidata = new HashMap<String, String>();
 		HashMap<String, String> dbdata = new HashMap<String, String>();

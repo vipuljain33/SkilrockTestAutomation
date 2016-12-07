@@ -91,11 +91,7 @@ public class PCPOSStepDef {
 		}
 	}
 
-	@Given("^sale done for soccerThirteen through api (.*)$")
-	public void sale_done_for_soccerThirteen(String s){
-		pcposapi.authenticate("testret", "12345678");
-		pcposapi.performSoccerThirteenSale(s);
-	}
+	
 
 	
 	@When("^(.*) is selected and Sale Performed By API for SuperKeno$")

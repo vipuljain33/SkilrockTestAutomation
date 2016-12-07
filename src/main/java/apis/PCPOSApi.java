@@ -138,46 +138,6 @@ public class PCPOSApi {
 		return null;
 	}
 
-	public void performSoccerThirteenSale(String s) {
-		
-		String url1="http://115.111.246.156:8082/SportsLottery/com/skilrock/sle/web/merchantUser/playMgmt/action/sportsLotteryPurchaseTicket.action";
-		String inputDataAllH="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"H\"},{\"eventId\":\"4774\",\"eventSelected\":\"H\"},{\"eventId\":\"4775\",\"eventSelected\":\"H\"},{\"eventId\":\"4783\",\"eventSelected\":\"H\"},{\"eventId\":\"4776\",\"eventSelected\":\"H\"},{\"eventId\":\"4784\",\"eventSelected\":\"H\"},{\"eventId\":\"4777\",\"eventSelected\":\"H\"},{\"eventId\":\"4785\",\"eventSelected\":\"H\"},{\"eventId\":\"4778\",\"eventSelected\":\"H\"},{\"eventId\":\"4779\",\"eventSelected\":\"H\"},{\"eventId\":\"4780\",\"eventSelected\":\"H\"},{\"eventId\":\"4781\",\"eventSelected\":\"H\"},{\"eventId\":\"4782\",\"eventSelected\":\"H\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
-		String inputDataAllA="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"A\"},{\"eventId\":\"4774\",\"eventSelected\":\"A\"},{\"eventId\":\"4775\",\"eventSelected\":\"A\"},{\"eventId\":\"4783\",\"eventSelected\":\"A\"},{\"eventId\":\"4776\",\"eventSelected\":\"A\"},{\"eventId\":\"4784\",\"eventSelected\":\"A\"},{\"eventId\":\"4777\",\"eventSelected\":\"A\"},{\"eventId\":\"4785\",\"eventSelected\":\"A\"},{\"eventId\":\"4778\",\"eventSelected\":\"A\"},{\"eventId\":\"4779\",\"eventSelected\":\"A\"},{\"eventId\":\"4780\",\"eventSelected\":\"A\"},{\"eventId\":\"4781\",\"eventSelected\":\"A\"},{\"eventId\":\"4782\",\"eventSelected\":\"A\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
-		String inputDataRandom="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"H\"},{\"eventId\":\"4774\",\"eventSelected\":\"H\"},{\"eventId\":\"4775\",\"eventSelected\":\"H\"},{\"eventId\":\"4783\",\"eventSelected\":\"H\"},{\"eventId\":\"4776\",\"eventSelected\":\"H\"},{\"eventId\":\"4784\",\"eventSelected\":\"H\"},{\"eventId\":\"4777\",\"eventSelected\":\"H\"},{\"eventId\":\"4785\",\"eventSelected\":\"H\"},{\"eventId\":\"4778\",\"eventSelected\":\"H\"},{\"eventId\":\"4779\",\"eventSelected\":\"H\"},{\"eventId\":\"4780\",\"eventSelected\":\"H\"},{\"eventId\":\"4781\",\"eventSelected\":\"H,D\"},{\"eventId\":\"4782\",\"eventSelected\":\"H,A\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"4\"}";
-        String inputDataAllD="{\"merchantCode\":\"RMS\",\"userName\":\"testret\",\"sessionId\":\""+sessionId+"\",\"noOfBoard\":\"1\",\"gameId\":\"1\",\"drawInfo\":[{\"drawId\":\"987\",\"betAmtMul\":\"1\",\"eventData\":[{\"eventId\":\"4786\",\"eventSelected\":\"D\"},{\"eventId\":\"4774\",\"eventSelected\":\"D\"},{\"eventId\":\"4775\",\"eventSelected\":\"D\"},{\"eventId\":\"4783\",\"eventSelected\":\"D\"},{\"eventId\":\"4776\",\"eventSelected\":\"D\"},{\"eventId\":\"4784\",\"eventSelected\":\"D\"},{\"eventId\":\"4777\",\"eventSelected\":\"D\"},{\"eventId\":\"4785\",\"eventSelected\":\"D\"},{\"eventId\":\"4778\",\"eventSelected\":\"D\"},{\"eventId\":\"4779\",\"eventSelected\":\"D\"},{\"eventId\":\"4780\",\"eventSelected\":\"D\"},{\"eventId\":\"4781\",\"eventSelected\":\"D\"},{\"eventId\":\"4782\",\"eventSelected\":\"D\"}]}],\"gameTypeId\":\"1\",\"totalPurchaseAmt\":\"1\"}";
-
-        String inputData;
-        if(s.equals("Random")) {
-        	inputData=inputDataRandom;
-        }
-        else if(s.equals("All-H")) {
-        	inputData=inputDataAllH;
-        }
-        else if(s.equals("All-D")) {
-        	inputData=inputDataAllD;
-        }
-        else {
-        	inputData=inputDataAllA;
-        }
-		response =given()
-				.contentType("application/json")
-				.queryParam("requestData", inputData)
-				.post(url1);
-		
-		soccerThirteenData  = new HashMap<String, String>();
-		
-		String temp=response.jsonPath().get("tktData.ticketNo").toString();
-		soccerThirteenData.put("Ticket Number", temp.substring(0, temp.length()-1));
-		soccerThirteenData.put("Ticket Price", response.jsonPath().get("tktData.ticketAmt").toString());
-		System.out.println("Ticket Number from response :"+soccerThirteenData.get("Ticket Number"));
-		
-		
-		
-	}
-	
-
-	
-	
 	public HashMap<String, String> performBonusLottoSale(String betname) {
 		HashMap<String, String> temp = new HashMap<String, String>();
 		String url = "http://192.168.124.73:8180/LMSLinuxNew/com/skilrock/lms/web/drawGames/playMgmt/zimLottoBonusBuy.action";
