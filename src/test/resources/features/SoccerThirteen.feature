@@ -14,7 +14,6 @@ Feature: validating various scenarios under Soccer Thirteen
       | "All-D"  |
       | "All-H"  |
 
-  
   Scenario Outline: 
     Given login with valid credentials soccerThirteen
     And Draw game option is selected soccerThirteen

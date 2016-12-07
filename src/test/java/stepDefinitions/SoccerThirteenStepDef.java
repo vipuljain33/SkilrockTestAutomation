@@ -76,7 +76,12 @@ public class SoccerThirteenStepDef {
 	}
 	@Then("^validate buy button$")
 	public void validate_BuyButton() {
-		Assert.assertTrue(soccer13.isBuyEnabled());
+		if(soccer13.flag) {
+			Assert.assertTrue(soccer13.isBuyEnabled());
+		}
+		else {
+			Assert.assertFalse(soccer13.isBuyEnabled());
+		}
 	}
 }
 

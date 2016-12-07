@@ -1,23 +1,22 @@
 package pages;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
+import java.util.List;
+
+
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+
 
 import apis.PCPOSApi;
 import objectRepository.SoccerThirteenPageLocator;
-import utils.CommonFunctionLibrary;
+
 import utils.ReusableStaticMethods;
 
 public class SoccerThirteenPage extends BasePage {
-	
+	public boolean flag;
 	public SoccerThirteenPage(WebDriver driver) {
 		super(driver);
 		
@@ -41,6 +40,10 @@ public class SoccerThirteenPage extends BasePage {
 		 for(int i=0;i<arg;i++) {
 			 lElements.get(randList.get(i)).click();
 		 }
+		 if(arg==13) {
+			 flag=true;
+		 }
+		 else {flag=false;}
 		 
 	}
 	public boolean validateTicket() throws InterruptedException {
