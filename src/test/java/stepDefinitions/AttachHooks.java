@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,11 +13,14 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 import utils.CommonFunctionLibrary;
 import utils.ConfigManager;
 import utils.DriverFactory;
@@ -60,6 +64,7 @@ public class AttachHooks {
 				capabilities.setCapability("platformVersion", ConfigManager.getProperty("PlatformVersion"));
 				capabilities.setCapability("platformName", ConfigManager.getProperty("PlatformName"));
 				capabilities.setCapability("app", ConfigManager.getProperty("ApkPath"));
+				capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "60000");
 
 				try {
 					driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
@@ -129,7 +134,7 @@ public class AttachHooks {
 			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 			DriverFactory.appiumStop();
-		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")) {
+		} else if (ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("Web")||ConfigManager.getProperty("ExecutionPlatform").equalsIgnoreCase("WebPortal")) {
 			functionLibrary.embedScreenshot(scenario);
 			driver.quit();
 		}

@@ -1,8 +1,6 @@
 package pages.mobilePages;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -10,9 +8,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import cucumber.api.DataTable;
-import objectRepository.LoginPageLocators;
-import objectRepository.LuckeyNumberPageLocator;
+import objectRepository.CommonMobileLocators;
 import pages.BasePage;
 
 public class MobileLuckyNumberPage extends BasePage {
@@ -22,24 +18,23 @@ public class MobileLuckyNumberPage extends BasePage {
 		super(driver);
 		System.out.println(driver);
 
-		WebElement elem = driver.findElement(LuckeyNumberPageLocator.subHeaderTextAndroid);
+		WebElement elem = driver.findElement(CommonMobileLocators.subHeaderTextAndroid);
 		System.out.println(elem.getText());
 		if (elem.getText().equalsIgnoreCase("LUCKY NUMBERS")) {
-			System.out.println("Lucky page is opened");
+			System.out.println("Lucky Number page is opened");
 		} else {
-			throw new ElementNotVisibleException("Lucky Number lobby is not visible");
+			throw new ElementNotVisibleException("Lucky Number page is not visible");
 		}
 	}
 
 	public void validateBetName(String locator, String betName) {
-		buttonClick(LuckeyNumberPageLocator.changeBetTypeAndroid);
-		if (!(findElement(LuckeyNumberPageLocator.popupHeaderName, 5).getText().contains("SELECT BET"))) {
+		buttonClick(CommonMobileLocators.changeBetTypeAndroid);
+		if (!(findElement(CommonMobileLocators.popupHeaderName, 5).getText().contains("SELECT BET"))) {
 			Assert.fail();
 		}
 		// select bet name
-		// buttonClick(locator);
 		driver.findElement(By.xpath(locator + betName + "']")).click();
-		if (!(findElement(LuckeyNumberPageLocator.betNameAndroid, 5).getText().contains(betName))) {
+		if (!(findElement(CommonMobileLocators.betNameAndroid, 5).getText().contains(betName))) {
 			Assert.fail();
 		}
 	}
@@ -66,13 +61,32 @@ public class MobileLuckyNumberPage extends BasePage {
 	}
 
 	public void confirmBuy() {
-		buttonClick(LuckeyNumberPageLocator.buyNowAndroid);
-		if (!(findElement(LuckeyNumberPageLocator.dialogHeaderTextAndroid, 5).getText().contains("CONFIRM"))) {
+		buttonClick(CommonMobileLocators.buyNowAndroid);
+		if (!(findElement(CommonMobileLocators.dialogHeaderTextAndroid, 5).getText().contains("CONFIRM"))) {
 			Assert.fail();
 		}
-		buttonClick(LuckeyNumberPageLocator.clickDoneAndroid);
-		if (!(findElement(LuckeyNumberPageLocator.subHeaderTextAndroid, 5).getText().contains("PURCHASED TICKET"))) {
+		buttonClick(CommonMobileLocators.clickConfirmationDoneAndroid);
+		if (!(findElement(CommonMobileLocators.subHeaderTextAndroid, 5).getText().contains("PURCHASED TICKET"))) {
 			Assert.fail();
 		}
+	}
+
+	public void drawSelect() {
+		buttonClick(CommonMobileLocators.advanceDrawAndroid);
+		if (!(findElement(CommonMobileLocators.popupHeaderName, 5).getText().contains("SELECT DRAWS"))) {
+			Assert.fail();
+		}
+		List<WebElement> list = getChildElements(CommonMobileLocators.drawListAndroid,
+				CommonMobileLocators.checkBoxAndroid);
+		if (list != null) {
+			for (WebElement elem : list) {
+				if (!Boolean.valueOf(elem.getAttribute("checked"))) {
+					elem.click();
+				}
+			}
+		} else {
+			Assert.fail();
+		}
+		buttonClick(CommonMobileLocators.clickDoneAndroid);
 	}
 }

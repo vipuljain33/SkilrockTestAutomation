@@ -40,4 +40,15 @@ public class LoginPageLocators {
 	public static By registerUserAndroid = By.id("com.skilrock.lms.ui:id/lets_play");
 	public static By clickOKAndroid = By.id("android:id/button1");
 	public static By clickSMSDone = By.id("com.skilrock.lms.ui:id/dialogDone");
+	
+	//*********************************************************************
+	
+	public static By loginbuttonWebportal=By.xpath("(//a[contains(text(),'Login')])[2]");
+	public static By userNametxt=By.xpath("//*[@id='yjpop_username']");
+	public static By passwordTxt=By.xpath("//*[@id='yjpop_passwd']");
+	public static By portalLoginBtn=By.xpath("//*[@id='loginbtnpop']");
+	public static By portalerrormsg=By.xpath("//*[@id='system-message']/div/div/p");
+	public static By homeLinkLocator=By.xpath("//div[@class='t3-megamenu animate zoom']/ul/li[1]/a");
+	
+	
 }
